@@ -117,6 +117,22 @@ a { color: inherit; text-decoration: none; }
 }
 .badge--low { background: #fdecea; color: var(--danger); }
 .badge--out { background: #eee; color: #888; }
+.card__sizes { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+.size-chip {
+  font-size: 10.5px;
+  font-weight: 700;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 2px 6px;
+  color: var(--ink);
+  background: #fff;
+}
+.size-chip--out {
+  color: #bbb;
+  text-decoration: line-through;
+  border-color: #f0f0f0;
+  background: #fafafa;
+}
 
 /* ---------- Category chips ---------- */
 .chip-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 26px; }
