@@ -2,6 +2,10 @@ import Link from "next/link";
 import { getSession } from "@/lib/auth";
 import { logoutAction } from "../actions";
 
+// Every admin page reads from the database (products, orders, sessions) -
+// never prerender the admin section at build time.
+export const dynamic = "force-dynamic";
+
 export default async function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
 
