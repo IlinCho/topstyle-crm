@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "mazhki-teniski",
+    "name": "Мъжки тениски",
+    "productCount": 24
+  },
+  {
+    "slug": "mzhki-yaketa",
+    "name": "Мъжки якета",
+    "productCount": 24
+  },
+  {
+    "slug": "myzhki-ekipi",
+    "name": "Мъжки екипи",
+    "productCount": 20
+  },
+  {
+    "slug": "myzhki-dynki-i-pantaloni",
+    "name": "Мъжки дънки и панталони",
+    "productCount": 19
+  },
+  {
+    "slug": "myzhki-bluzi",
+    "name": "Мъжки блузи",
+    "productCount": 24
+  },
+  {
+    "slug": "myzhki-rizi",
+    "name": "Мъжки ризи",
+    "productCount": 17
+  },
+  {
+    "slug": "banski",
+    "name": "Бански",
+    "productCount": 24
+  },
+  {
+    "slug": "komplekti",
+    "name": "Комплекти",
+    "productCount": 14
+  }
+]

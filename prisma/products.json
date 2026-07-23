@@ -1,0 +1,7450 @@
+[
+  {
+    "ref": "2535",
+    "sku": "TS-2535",
+    "name": "Мъжка тениска – класическа кройка, в черен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-klasicheska-kroyka-v-cheren-tsvyat-2535",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 25.05,
+    "priceBgn": 48.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2862-13408-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 3
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 10
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 26
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 4
+      }
+    ],
+    "totalStock": 44,
+    "active": true
+  },
+  {
+    "ref": "2534",
+    "sku": "TS-2534",
+    "name": "Мъжка тениска – приталена кройка, в черен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-pritalena-kroyka-v-cheren-tsvyat-2534",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 25.05,
+    "priceBgn": 48.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2861-13404-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 25
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 20
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 17
+      }
+    ],
+    "totalStock": 63,
+    "active": true
+  },
+  {
+    "ref": "2533",
+    "sku": "TS-2533",
+    "name": "Мъжка тениска – спортна кройка, в черен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-sportna-kroyka-v-cheren-tsvyat-2533",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 25.05,
+    "priceBgn": 48.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2860-13400-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 28
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 27
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 25
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 2
+      }
+    ],
+    "totalStock": 93,
+    "active": true
+  },
+  {
+    "ref": "2532",
+    "sku": "TS-2532",
+    "name": "Мъжка тениска – класическа кройка, в черен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-klasicheska-kroyka-v-cheren-tsvyat-2532",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 25.05,
+    "priceBgn": 48.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2859-13396-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 28
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 6
+      }
+    ],
+    "totalStock": 38,
+    "active": true
+  },
+  {
+    "ref": "2531",
+    "sku": "TS-2531",
+    "name": "Мъжка тениска – приталена кройка, в черен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-pritalena-kroyka-v-cheren-tsvyat-2531",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 25.05,
+    "priceBgn": 48.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2858-13394-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 15
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 23
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 30
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 9
+      }
+    ],
+    "totalStock": 77,
+    "active": true
+  },
+  {
+    "ref": "2530",
+    "sku": "TS-2530",
+    "name": "Мъжка тениска – класическа кройка, в бял цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-klasicheska-kroyka-v-byal-tsvyat-2530",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "бял",
+    "material": "памук с еластант",
+    "priceEur": 25.05,
+    "priceBgn": 48.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2857-13390-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 4
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 27
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 5
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 30
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 2
+      }
+    ],
+    "totalStock": 68,
+    "active": true
+  },
+  {
+    "ref": "2501",
+    "sku": "TS-2501",
+    "name": "Мъжка тениска – спортна кройка, в черен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-sportna-kroyka-v-cheren-tsvyat-2501",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 25.05,
+    "priceBgn": 48.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2822-13214-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 29
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 14
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 24
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 24
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 22
+      }
+    ],
+    "totalStock": 113,
+    "active": true
+  },
+  {
+    "ref": "2500",
+    "sku": "TS-2500",
+    "name": "Мъжка тениска – класическа кройка, в черен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-klasicheska-kroyka-v-cheren-tsvyat-2500",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 25.05,
+    "priceBgn": 48.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2821-13211-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 20
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 8
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 23
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 10
+      }
+    ],
+    "totalStock": 72,
+    "active": true
+  },
+  {
+    "ref": "2484",
+    "sku": "TS-2484",
+    "name": "Мъжка тениска – приталена кройка, в черен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-pritalena-kroyka-v-cheren-tsvyat-2484",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 28.12,
+    "priceBgn": 55.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2806-13122-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 29
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 4
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 4
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 15
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 9
+      }
+    ],
+    "totalStock": 61,
+    "active": true
+  },
+  {
+    "ref": "2483",
+    "sku": "TS-2483",
+    "name": "Мъжка тениска – спортна кройка, в черен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-sportna-kroyka-v-cheren-tsvyat-2483",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 28.12,
+    "priceBgn": 55.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2805-13115-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 21
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 13
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 23
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 11
+      }
+    ],
+    "totalStock": 70,
+    "active": true
+  },
+  {
+    "ref": "2457",
+    "sku": "TS-2457",
+    "name": "Мъжка тениска – класическа кройка, в черен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-klasicheska-kroyka-v-cheren-tsvyat-2457",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 25.05,
+    "priceBgn": 48.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2778-12982-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 16
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 15
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 7
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 5
+      }
+    ],
+    "totalStock": 45,
+    "active": true
+  },
+  {
+    "ref": "2452",
+    "sku": "TS-2452",
+    "name": "Мъжка тениска – приталена кройка, в черен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-pritalena-kroyka-v-cheren-tsvyat-2452",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 25.05,
+    "priceBgn": 48.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2773-12957-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 30
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 16
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 15
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 17
+      }
+    ],
+    "totalStock": 79,
+    "active": true
+  },
+  {
+    "ref": "2451",
+    "sku": "TS-2451",
+    "name": "Мъжка тениска – класическа кройка, в тъмнозелен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-klasicheska-kroyka-v-tamnozelen-tsvyat-2451",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "тъмнозелен",
+    "material": "памук с еластант",
+    "priceEur": 25.05,
+    "priceBgn": 48.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2772-12952-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "тъмнозелен",
+        "stock": 20
+      },
+      {
+        "size": "M",
+        "color": "тъмнозелен",
+        "stock": 3
+      },
+      {
+        "size": "L",
+        "color": "тъмнозелен",
+        "stock": 6
+      },
+      {
+        "size": "XL",
+        "color": "тъмнозелен",
+        "stock": 20
+      },
+      {
+        "size": "XXL",
+        "color": "тъмнозелен",
+        "stock": 27
+      }
+    ],
+    "totalStock": 76,
+    "active": true
+  },
+  {
+    "ref": "2448",
+    "sku": "TS-2448",
+    "name": "Мъжка тениска – спортна кройка, в черен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-sportna-kroyka-v-cheren-tsvyat-2448",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 28.12,
+    "priceBgn": 55.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2769-12940-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 6
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 8
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 26
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 27
+      }
+    ],
+    "totalStock": 78,
+    "active": true
+  },
+  {
+    "ref": "2447",
+    "sku": "TS-2447",
+    "name": "Мъжка тениска – приталена кройка, в бял цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-pritalena-kroyka-v-byal-tsvyat-2447",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "бял",
+    "material": "памук с еластант",
+    "priceEur": 28.12,
+    "priceBgn": 55.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2768-12936-teniska-b.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 1
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 12
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 19
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 7
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 8
+      }
+    ],
+    "totalStock": 47,
+    "active": true
+  },
+  {
+    "ref": "2445",
+    "sku": "TS-2445",
+    "name": "Мъжка тениска – спортна кройка, в бял цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-sportna-kroyka-v-byal-tsvyat-2445",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "бял",
+    "material": "памук с еластант",
+    "priceEur": 28.12,
+    "priceBgn": 55.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2766-12924-teniska-byala.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 27
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 3
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 18
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 0
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 29
+      }
+    ],
+    "totalStock": 77,
+    "active": true
+  },
+  {
+    "ref": "2439",
+    "sku": "TS-2439",
+    "name": "Мъжка тениска – класическа кройка, в бял цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-klasicheska-kroyka-v-byal-tsvyat-2439",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "бял",
+    "material": "памук с еластант",
+    "priceEur": 24.03,
+    "priceBgn": 47.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2760-12908-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 10
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 0
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 5
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 2
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 27
+      }
+    ],
+    "totalStock": 44,
+    "active": true
+  },
+  {
+    "ref": "2438",
+    "sku": "TS-2438",
+    "name": "Мъжка тениска – класическа кройка, в черен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-klasicheska-kroyka-v-cheren-tsvyat-2438",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 24.03,
+    "priceBgn": 47.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2759-12901-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 7
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 8
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 30
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 9
+      }
+    ],
+    "totalStock": 56,
+    "active": true
+  },
+  {
+    "ref": "2437",
+    "sku": "TS-2437",
+    "name": "Мъжка тениска – приталена кройка, в бял цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-pritalena-kroyka-v-byal-tsvyat-2437",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "бял",
+    "material": "памук с еластант",
+    "priceEur": 24.03,
+    "priceBgn": 47.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2758-12899-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 27
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 9
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 15
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 23
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 19
+      }
+    ],
+    "totalStock": 93,
+    "active": true
+  },
+  {
+    "ref": "2436",
+    "sku": "TS-2436",
+    "name": "Мъжка тениска – приталена кройка, в черен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-pritalena-kroyka-v-cheren-tsvyat-2436",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 24.03,
+    "priceBgn": 47.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2757-12894-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 10
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 13
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 21
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 5
+      }
+    ],
+    "totalStock": 49,
+    "active": true
+  },
+  {
+    "ref": "2435",
+    "sku": "TS-2435",
+    "name": "Мъжка тениска – спортна кройка, в бял цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-sportna-kroyka-v-byal-tsvyat-2435",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "бял",
+    "material": "памук с еластант",
+    "priceEur": 24.03,
+    "priceBgn": 47.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2756-12889-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 4
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 4
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 5
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 11
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 9
+      }
+    ],
+    "totalStock": 33,
+    "active": true
+  },
+  {
+    "ref": "2434",
+    "sku": "TS-2434",
+    "name": "Мъжка тениска – спортна кройка, в черен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-sportna-kroyka-v-cheren-tsvyat-2434",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 24.03,
+    "priceBgn": 47.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2754-12880-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 26
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 21
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 10
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 28
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 6
+      }
+    ],
+    "totalStock": 91,
+    "active": true
+  },
+  {
+    "ref": "2433",
+    "sku": "TS-2433",
+    "name": "Мъжка тениска – класическа кройка, в черен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-klasicheska-kroyka-v-cheren-tsvyat-2433",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 24.03,
+    "priceBgn": 47.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2753-12879-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 16
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 26
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 23
+      }
+    ],
+    "totalStock": 67,
+    "active": true
+  },
+  {
+    "ref": "2431",
+    "sku": "TS-2431",
+    "name": "Мъжка тениска – приталена кройка, в черен цвят",
+    "sourceName": "тениска",
+    "slug": "mazhka-teniska-pritalena-kroyka-v-cheren-tsvyat-2431",
+    "categorySlug": "mazhki-teniski",
+    "categoryName": "Мъжки тениски",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 24.03,
+    "priceBgn": 47.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2751-12865-teniska.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 28
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 10
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 1
+      }
+    ],
+    "totalStock": 43,
+    "active": true
+  },
+  {
+    "ref": "2383",
+    "sku": "TS-2383",
+    "name": "Мъжка ветровка – с качулка, водоустойчива материя, в черен цвят",
+    "sourceName": "ветровка",
+    "slug": "mazhka-vetrovka-s-kachulka-vodoustoychiva-materiya-v-cheren-tsvyat-2383",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "черен",
+    "material": "олекотена подплата",
+    "priceEur": 53.68,
+    "priceBgn": 104.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2703-12609-vetrovka.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 10
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 5
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 30
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 6
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 0
+      }
+    ],
+    "totalStock": 51,
+    "active": true
+  },
+  {
+    "ref": "2382",
+    "sku": "TS-2382",
+    "name": "Мъжка ветровка – с качулка, водоустойчива материя, в черен цвят",
+    "sourceName": "ветровка",
+    "slug": "mazhka-vetrovka-s-kachulka-vodoustoychiva-materiya-v-cheren-tsvyat-2382",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "черен",
+    "material": "олекотена подплата",
+    "priceEur": 53.68,
+    "priceBgn": 104.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2702-12604-vetrovka.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 29
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 30
+      }
+    ],
+    "totalStock": 62,
+    "active": true
+  },
+  {
+    "ref": "2377",
+    "sku": "TS-2377",
+    "name": "Мъжка ветровка – с качулка, водоустойчива материя, в черен цвят",
+    "sourceName": "ветровка",
+    "slug": "mazhka-vetrovka-s-kachulka-vodoustoychiva-materiya-v-cheren-tsvyat-2377",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "черен",
+    "material": "олекотена подплата",
+    "priceEur": 50.62,
+    "priceBgn": 99.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2697-12579-vetrovka.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 4
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 28
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 16
+      }
+    ],
+    "totalStock": 60,
+    "active": true
+  },
+  {
+    "ref": "2376",
+    "sku": "TS-2376",
+    "name": "Мъжка ветровка – с качулка, водоустойчива материя, в черен цвят",
+    "sourceName": "ветровка",
+    "slug": "mazhka-vetrovka-s-kachulka-vodoustoychiva-materiya-v-cheren-tsvyat-2376",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "черен",
+    "material": "олекотена подплата",
+    "priceEur": 50.62,
+    "priceBgn": 99.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2696-12574-vetrovka.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 26
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 20
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 18
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 1
+      }
+    ],
+    "totalStock": 67,
+    "active": true
+  },
+  {
+    "ref": "2375",
+    "sku": "TS-2375",
+    "name": "Мъжка ветровка – с качулка, водоустойчива материя, в бял цвят",
+    "sourceName": "ветровка",
+    "slug": "mazhka-vetrovka-s-kachulka-vodoustoychiva-materiya-v-byal-tsvyat-2375",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "бял",
+    "material": "олекотена подплата",
+    "priceEur": 50.62,
+    "priceBgn": 99.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2694-12570-vetrovka.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 20
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 0
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 4
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 19
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 19
+      }
+    ],
+    "totalStock": 62,
+    "active": true
+  },
+  {
+    "ref": "2374",
+    "sku": "TS-2374",
+    "name": "Мъжка ветровка – с качулка, водоустойчива материя, в черен цвят",
+    "sourceName": "ветровка",
+    "slug": "mazhka-vetrovka-s-kachulka-vodoustoychiva-materiya-v-cheren-tsvyat-2374",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "черен",
+    "material": "олекотена подплата",
+    "priceEur": 50.62,
+    "priceBgn": 99.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2693-12564-vetrovka.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 5
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 24
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 15
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 1
+      }
+    ],
+    "totalStock": 46,
+    "active": true
+  },
+  {
+    "ref": "2373",
+    "sku": "TS-2373",
+    "name": "Мъжка ветровка – с качулка, водоустойчива материя, в черен цвят",
+    "sourceName": "ветровка",
+    "slug": "mazhka-vetrovka-s-kachulka-vodoustoychiva-materiya-v-cheren-tsvyat-2373",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "черен",
+    "material": "олекотена подплата",
+    "priceEur": 55.73,
+    "priceBgn": 109.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2692-12559-vetrovka.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 4
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 16
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 21
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 2
+      }
+    ],
+    "totalStock": 54,
+    "active": true
+  },
+  {
+    "ref": "2363",
+    "sku": "TS-2363",
+    "name": "Мъжка ветровка – с качулка, водоустойчива материя, в черен цвят",
+    "sourceName": "ветровка",
+    "slug": "mazhka-vetrovka-s-kachulka-vodoustoychiva-materiya-v-cheren-tsvyat-2363",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "черен",
+    "material": "олекотена подплата",
+    "priceEur": 55.73,
+    "priceBgn": 109.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2682-12511-vetrovka.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 15
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 27
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 3
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 21
+      }
+    ],
+    "totalStock": 68,
+    "active": true
+  },
+  {
+    "ref": "2358",
+    "sku": "TS-2358",
+    "name": "Мъжка ветровка – с качулка, водоустойчива материя, в черен цвят",
+    "sourceName": "ветровка",
+    "slug": "mazhka-vetrovka-s-kachulka-vodoustoychiva-materiya-v-cheren-tsvyat-2358",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "черен",
+    "material": "олекотена подплата",
+    "priceEur": 53.68,
+    "priceBgn": 104.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2677-12488-vetrovka.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 5
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 19
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 14
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 10
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 8
+      }
+    ],
+    "totalStock": 56,
+    "active": true
+  },
+  {
+    "ref": "2260",
+    "sku": "TS-2260",
+    "name": "Зимно яке с качулка",
+    "sourceName": "зимно яке с качулка",
+    "slug": "zimno-yake-s-kachulka-2260",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "тъмносин",
+    "material": "олекотена подплата",
+    "priceEur": 84.36,
+    "priceBgn": 164.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2575-11993-zimno-yake.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "тъмносин",
+        "stock": 20
+      },
+      {
+        "size": "M",
+        "color": "тъмносин",
+        "stock": 22
+      },
+      {
+        "size": "L",
+        "color": "тъмносин",
+        "stock": 28
+      },
+      {
+        "size": "XL",
+        "color": "тъмносин",
+        "stock": 3
+      },
+      {
+        "size": "XXL",
+        "color": "тъмносин",
+        "stock": 20
+      }
+    ],
+    "totalStock": 93,
+    "active": true
+  },
+  {
+    "ref": "2256",
+    "sku": "TS-2256",
+    "name": "Зимно яке с качулка",
+    "sourceName": "зимно яке с качулка",
+    "slug": "zimno-yake-s-kachulka-2256",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "черен",
+    "material": "олекотена подплата",
+    "priceEur": 84.36,
+    "priceBgn": 164.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2571-11970-zimno-yake-s-kachulka.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 24
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 6
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 7
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 22
+      }
+    ],
+    "totalStock": 60,
+    "active": true
+  },
+  {
+    "ref": "1948",
+    "sku": "TS-1948",
+    "name": "Мъжка ветровка – с качулка, водоустойчива материя, в черен цвят",
+    "sourceName": "ветровка",
+    "slug": "mazhka-vetrovka-s-kachulka-vodoustoychiva-materiya-v-cheren-tsvyat-1948",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "черен",
+    "material": "олекотена подплата",
+    "priceEur": 55.73,
+    "priceBgn": 109.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2254-10390-vetrovka.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 30
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 0
+      }
+    ],
+    "totalStock": 45,
+    "active": true
+  },
+  {
+    "ref": "1886",
+    "sku": "TS-1886",
+    "name": "Мъжка ветровка – с качулка, водоустойчива материя, в черен цвят",
+    "sourceName": "ветровка",
+    "slug": "mazhka-vetrovka-s-kachulka-vodoustoychiva-materiya-v-cheren-tsvyat-1886",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "черен",
+    "material": "олекотена подплата",
+    "priceEur": 55.73,
+    "priceBgn": 109.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2191-10072-vetrovka.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 29
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 3
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 7
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 2
+      }
+    ],
+    "totalStock": 52,
+    "active": true
+  },
+  {
+    "ref": "1885",
+    "sku": "TS-1885",
+    "name": "Мъжка ветровка – с качулка, водоустойчива материя, в черен цвят",
+    "sourceName": "ветровка",
+    "slug": "mazhka-vetrovka-s-kachulka-vodoustoychiva-materiya-v-cheren-tsvyat-1885",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "черен",
+    "material": "олекотена подплата",
+    "priceEur": 55.73,
+    "priceBgn": 109.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2190-10068-vetrovka.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 16
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 6
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 7
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 29
+      }
+    ],
+    "totalStock": 58,
+    "active": true
+  },
+  {
+    "ref": "1883",
+    "sku": "TS-1883",
+    "name": "Мъжка ветровка – с качулка, водоустойчива материя, в черен цвят",
+    "sourceName": "ветровка",
+    "slug": "mazhka-vetrovka-s-kachulka-vodoustoychiva-materiya-v-cheren-tsvyat-1883",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "черен",
+    "material": "олекотена подплата",
+    "priceEur": 55.73,
+    "priceBgn": 109.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2188-10057-vetrovka.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 20
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 28
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 4
+      }
+    ],
+    "totalStock": 53,
+    "active": true
+  },
+  {
+    "ref": "1755",
+    "sku": "TS-1755",
+    "name": "Елек с качулка",
+    "sourceName": "елек с качулка",
+    "slug": "elek-s-kachulka-1755",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "тъмносин",
+    "material": "олекотена подплата",
+    "priceEur": 35.28,
+    "priceBgn": 69.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2058-9376-elek.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "тъмносин",
+        "stock": 9
+      },
+      {
+        "size": "M",
+        "color": "тъмносин",
+        "stock": 24
+      },
+      {
+        "size": "L",
+        "color": "тъмносин",
+        "stock": 2
+      },
+      {
+        "size": "XL",
+        "color": "тъмносин",
+        "stock": 26
+      },
+      {
+        "size": "XXL",
+        "color": "тъмносин",
+        "stock": 1
+      }
+    ],
+    "totalStock": 62,
+    "active": true
+  },
+  {
+    "ref": "1741",
+    "sku": "TS-1741",
+    "name": "Зимно късо яке в мраморен принт",
+    "sourceName": "зимно късо яке в мраморен принт",
+    "slug": "zimno-kaso-yake-v-mramoren-print-1741",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "мраморен принт",
+    "material": "олекотена подплата",
+    "priceEur": 53.69,
+    "priceBgn": 105.01,
+    "sourceUrl": "https://topstyle.bg/nachalo/2043-9370-yake-v-mramoren-print.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "мраморен принт",
+        "stock": 28
+      },
+      {
+        "size": "M",
+        "color": "мраморен принт",
+        "stock": 16
+      },
+      {
+        "size": "L",
+        "color": "мраморен принт",
+        "stock": 0
+      },
+      {
+        "size": "XL",
+        "color": "мраморен принт",
+        "stock": 13
+      },
+      {
+        "size": "XXL",
+        "color": "мраморен принт",
+        "stock": 16
+      }
+    ],
+    "totalStock": 73,
+    "active": true
+  },
+  {
+    "ref": "1731",
+    "sku": "TS-1731",
+    "name": "Зимно яке капитонирана силиконова вата",
+    "sourceName": "зимно яке капитонирана силиконова вата",
+    "slug": "zimno-yake-kapitonirana-silikonova-vata-1731",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "черно и синьо-бял принт",
+    "material": "олекотена подплата",
+    "priceEur": 50.62,
+    "priceBgn": 99.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2032-9261-yake.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черно и синьо-бял принт",
+        "stock": 30
+      },
+      {
+        "size": "M",
+        "color": "черно и синьо-бял принт",
+        "stock": 10
+      },
+      {
+        "size": "L",
+        "color": "черно и синьо-бял принт",
+        "stock": 28
+      },
+      {
+        "size": "XL",
+        "color": "черно и синьо-бял принт",
+        "stock": 15
+      },
+      {
+        "size": "XXL",
+        "color": "черно и синьо-бял принт",
+        "stock": 30
+      }
+    ],
+    "totalStock": 113,
+    "active": true
+  },
+  {
+    "ref": "1723",
+    "sku": "TS-1723",
+    "name": "Мъжки елек – без ръкави, с топла подплата, в черен цвят",
+    "sourceName": "елек",
+    "slug": "mazhki-elek-bez-rakavi-s-topla-podplata-v-cheren-tsvyat-1723",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "черен",
+    "material": "олекотена подплата",
+    "priceEur": 32.21,
+    "priceBgn": 63.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2023-9234-elek-lak.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 9
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 17
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 29
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 10
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 24
+      }
+    ],
+    "totalStock": 89,
+    "active": true
+  },
+  {
+    "ref": "1722",
+    "sku": "TS-1722",
+    "name": "Елек в цвят камък",
+    "sourceName": "елек в цвят камък",
+    "slug": "elek-v-tsvyat-kamak-1722",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "бял",
+    "material": "олекотена подплата",
+    "priceEur": 32.21,
+    "priceBgn": 63.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2022-9309-elek-v-cvyat-kamk.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 2
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 5
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 11
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 19
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 29
+      }
+    ],
+    "totalStock": 66,
+    "active": true
+  },
+  {
+    "ref": "1696",
+    "sku": "TS-1696",
+    "name": "Зимно яке триконечна вата с памук",
+    "sourceName": "зимно яке триконечна вата с памук",
+    "slug": "zimno-yake-trikonechna-vata-s-pamuk-1696",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "черен",
+    "material": "олекотена подплата",
+    "priceEur": 48.57,
+    "priceBgn": 94.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/1994-9094-yake.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 3
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 14
+      }
+    ],
+    "totalStock": 21,
+    "active": true
+  },
+  {
+    "ref": "1678",
+    "sku": "TS-1678",
+    "name": "Мъжки елек – без ръкави, с топла подплата, в черен цвят",
+    "sourceName": "елек",
+    "slug": "mazhki-elek-bez-rakavi-s-topla-podplata-v-cheren-tsvyat-1678",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "черен",
+    "material": "олекотена подплата",
+    "priceEur": 43.46,
+    "priceBgn": 85.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/1974-8964-elek.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 13
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 19
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 25
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 19
+      }
+    ],
+    "totalStock": 77,
+    "active": true
+  },
+  {
+    "ref": "1674",
+    "sku": "TS-1674",
+    "name": "Мъжки елек – без ръкави, с топла подплата, в тъмнозелен цвят",
+    "sourceName": "елек",
+    "slug": "mazhki-elek-bez-rakavi-s-topla-podplata-v-tamnozelen-tsvyat-1674",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "тъмнозелен",
+    "material": "олекотена подплата",
+    "priceEur": 50.62,
+    "priceBgn": 99.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/1970-8950-elek.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "тъмнозелен",
+        "stock": 20
+      },
+      {
+        "size": "M",
+        "color": "тъмнозелен",
+        "stock": 26
+      },
+      {
+        "size": "L",
+        "color": "тъмнозелен",
+        "stock": 9
+      },
+      {
+        "size": "XL",
+        "color": "тъмнозелен",
+        "stock": 5
+      },
+      {
+        "size": "XXL",
+        "color": "тъмнозелен",
+        "stock": 13
+      }
+    ],
+    "totalStock": 73,
+    "active": true
+  },
+  {
+    "ref": "1666",
+    "sku": "TS-1666",
+    "name": "Зимно плътно яке капитонирана силиконова вата в мраморен принт",
+    "sourceName": "зимно плътно яке капитонирана силиконова вата в мраморен принт",
+    "slug": "zimno-platno-yake-kapitonirana-silikonova-vata-v-mramoren-print-1666",
+    "categorySlug": "mzhki-yaketa",
+    "categoryName": "Мъжки якета",
+    "color": "мраморен принт",
+    "material": "олекотена подплата",
+    "priceEur": 60.84,
+    "priceBgn": 118.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/1962-8986-yake.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "мраморен принт",
+        "stock": 24
+      },
+      {
+        "size": "M",
+        "color": "мраморен принт",
+        "stock": 26
+      },
+      {
+        "size": "L",
+        "color": "мраморен принт",
+        "stock": 19
+      },
+      {
+        "size": "XL",
+        "color": "мраморен принт",
+        "stock": 16
+      },
+      {
+        "size": "XXL",
+        "color": "мраморен принт",
+        "stock": 25
+      }
+    ],
+    "totalStock": 110,
+    "active": true
+  },
+  {
+    "ref": "1763",
+    "sku": "TS-1763",
+    "name": "Зимен ватиран екип с карго джобове",
+    "sourceName": "зимен ватиран екип с карго джобове",
+    "slug": "zimen-vatiran-ekip-s-kargo-dzhobove-1763",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "сив",
+    "material": "памук с двуконечна вата",
+    "priceEur": 45.5,
+    "priceBgn": 88.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2066-9430-ekip-siv.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "сив",
+        "stock": 7
+      },
+      {
+        "size": "M",
+        "color": "сив",
+        "stock": 2
+      },
+      {
+        "size": "L",
+        "color": "сив",
+        "stock": 8
+      },
+      {
+        "size": "XL",
+        "color": "сив",
+        "stock": 12
+      },
+      {
+        "size": "XXL",
+        "color": "сив",
+        "stock": 29
+      }
+    ],
+    "totalStock": 58,
+    "active": true
+  },
+  {
+    "ref": "1707",
+    "sku": "TS-1707",
+    "name": "Мъжко худи – с качулка и джоб тип кенгуру, в бял цвят",
+    "sourceName": "худи",
+    "slug": "mazhko-hudi-s-kachulka-i-dzhob-tip-kenguru-v-byal-tsvyat-1707",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "бял",
+    "material": "памук с двуконечна вата",
+    "priceEur": 20.45,
+    "priceBgn": 40.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2006-9153-khudi.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 0
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 16
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 22
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 17
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 24
+      }
+    ],
+    "totalStock": 79,
+    "active": true
+  },
+  {
+    "ref": "1701",
+    "sku": "TS-1701",
+    "name": "Мъжко худи – с качулка и джоб тип кенгуру, в черен цвят",
+    "sourceName": "худи",
+    "slug": "mazhko-hudi-s-kachulka-i-dzhob-tip-kenguru-v-cheren-tsvyat-1701",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 25.05,
+    "priceBgn": 48.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/1999-9496-khudi.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 28
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 24
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 1
+      }
+    ],
+    "totalStock": 57,
+    "active": true
+  },
+  {
+    "ref": "1700",
+    "sku": "TS-1700",
+    "name": "Мъжко худи – с качулка и джоб тип кенгуру, в тъмносин цвят",
+    "sourceName": "худи",
+    "slug": "mazhko-hudi-s-kachulka-i-dzhob-tip-kenguru-v-tamnosin-tsvyat-1700",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "тъмносин",
+    "material": "памук с двуконечна вата",
+    "priceEur": 25.05,
+    "priceBgn": 48.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/1998-9492-khudi.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "тъмносин",
+        "stock": 10
+      },
+      {
+        "size": "M",
+        "color": "тъмносин",
+        "stock": 7
+      },
+      {
+        "size": "L",
+        "color": "тъмносин",
+        "stock": 0
+      },
+      {
+        "size": "XL",
+        "color": "тъмносин",
+        "stock": 18
+      },
+      {
+        "size": "XXL",
+        "color": "тъмносин",
+        "stock": 27
+      }
+    ],
+    "totalStock": 62,
+    "active": true
+  },
+  {
+    "ref": "1698",
+    "sku": "TS-1698",
+    "name": "Мъжко худи – с качулка и джоб тип кенгуру, в светлобежов цвят",
+    "sourceName": "худи",
+    "slug": "mazhko-hudi-s-kachulka-i-dzhob-tip-kenguru-v-svetlobezhov-tsvyat-1698",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "светлобежов",
+    "material": "памук с двуконечна вата",
+    "priceEur": 25.05,
+    "priceBgn": 48.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/1996-9486-khudi.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "светлобежов",
+        "stock": 0
+      },
+      {
+        "size": "M",
+        "color": "светлобежов",
+        "stock": 23
+      },
+      {
+        "size": "L",
+        "color": "светлобежов",
+        "stock": 25
+      },
+      {
+        "size": "XL",
+        "color": "светлобежов",
+        "stock": 18
+      },
+      {
+        "size": "XXL",
+        "color": "светлобежов",
+        "stock": 7
+      }
+    ],
+    "totalStock": 73,
+    "active": true
+  },
+  {
+    "ref": "1697",
+    "sku": "TS-1697",
+    "name": "Мъжко худи – с качулка, в черен цвят",
+    "sourceName": "худи",
+    "slug": "mazhko-hudi-s-kachulka-v-cheren-tsvyat-1697",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 25.05,
+    "priceBgn": 48.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/1995-9098-khudi.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 3
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 30
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 6
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 10
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 2
+      }
+    ],
+    "totalStock": 51,
+    "active": true
+  },
+  {
+    "ref": "1695",
+    "sku": "TS-1695",
+    "name": "Долнище с карго джобове",
+    "sourceName": "долнище с карго джобове",
+    "slug": "dolnishte-s-kargo-dzhobove-1695",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 28.12,
+    "priceBgn": 55.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/1993-9085-dolnisshe-s-kargo-dzhobove.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 30
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 24
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 20
+      }
+    ],
+    "totalStock": 75,
+    "active": true
+  },
+  {
+    "ref": "1694",
+    "sku": "TS-1694",
+    "name": "Долнище с черно бял принт",
+    "sourceName": "долнище с черно бял принт",
+    "slug": "dolnishte-s-cherno-byal-print-1694",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 28.12,
+    "priceBgn": 55.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/1992-9081-dolnisshe.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 27
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 22
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 19
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 20
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 8
+      }
+    ],
+    "totalStock": 96,
+    "active": true
+  },
+  {
+    "ref": "1693",
+    "sku": "TS-1693",
+    "name": "Двуцветно долнище",
+    "sourceName": "двуцветно долнище",
+    "slug": "dvutsvetno-dolnishte-1693",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 25.56,
+    "priceBgn": 49.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/1991-9076-dvucvetno-dolnisshe.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 18
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 27
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 23
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 27
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 23
+      }
+    ],
+    "totalStock": 118,
+    "active": true
+  },
+  {
+    "ref": "1687",
+    "sku": "TS-1687",
+    "name": "Мъжко худи – с качулка и джоб тип кенгуру, в черен цвят",
+    "sourceName": "худи",
+    "slug": "mazhko-hudi-s-kachulka-i-dzhob-tip-kenguru-v-cheren-tsvyat-1687",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 28.12,
+    "priceBgn": 55.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/1985-9049-khudi.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 17
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 20
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 1
+      }
+    ],
+    "totalStock": 49,
+    "active": true
+  },
+  {
+    "ref": "1686",
+    "sku": "TS-1686",
+    "name": "Мъжко худи – с качулка, в черен цвят",
+    "sourceName": "худи",
+    "slug": "mazhko-hudi-s-kachulka-v-cheren-tsvyat-1686",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 28.12,
+    "priceBgn": 55.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/1984-9046-khudi.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 25
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 20
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 4
+      }
+    ],
+    "totalStock": 50,
+    "active": true
+  },
+  {
+    "ref": "1685",
+    "sku": "TS-1685",
+    "name": "Мъжко худи – с качулка и джоб тип кенгуру, в черен цвят",
+    "sourceName": "худи",
+    "slug": "mazhko-hudi-s-kachulka-i-dzhob-tip-kenguru-v-cheren-tsvyat-1685",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 28.12,
+    "priceBgn": 55.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/1983-9045-khudi.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 27
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 25
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 21
+      }
+    ],
+    "totalStock": 75,
+    "active": true
+  },
+  {
+    "ref": "1684",
+    "sku": "TS-1684",
+    "name": "Мъжко худи – с качулка, в бял цвят",
+    "sourceName": "худи",
+    "slug": "mazhko-hudi-s-kachulka-v-byal-tsvyat-1684",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "бял",
+    "material": "памук с двуконечна вата",
+    "priceEur": 28.12,
+    "priceBgn": 55.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/1982-9040-khudi.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 3
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 12
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 30
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 29
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 26
+      }
+    ],
+    "totalStock": 100,
+    "active": true
+  },
+  {
+    "ref": "1683",
+    "sku": "TS-1683",
+    "name": "Мъжки джогър панталон – джогър кройка с маншети, в черен цвят",
+    "sourceName": "джогър панталон",
+    "slug": "mazhki-dzhogar-pantalon-dzhogar-kroyka-s-mansheti-v-cheren-tsvyat-1683",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 35.28,
+    "priceBgn": 69.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/1980-9031-dzhogr-pantalon.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 28
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 10
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 3
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 24
+      }
+    ],
+    "totalStock": 76,
+    "active": true
+  },
+  {
+    "ref": "1682",
+    "sku": "TS-1682",
+    "name": "Мъжки джогър панталон – джогър кройка с маншети, в каки цвят",
+    "sourceName": "джогър панталон",
+    "slug": "mazhki-dzhogar-pantalon-dzhogar-kroyka-s-mansheti-v-kaki-tsvyat-1682",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "каки",
+    "material": "памук с двуконечна вата",
+    "priceEur": 35.28,
+    "priceBgn": 69.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/1978-9022-dzhogr-pantalon.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "каки",
+        "stock": 15
+      },
+      {
+        "size": "M",
+        "color": "каки",
+        "stock": 29
+      },
+      {
+        "size": "L",
+        "color": "каки",
+        "stock": 7
+      },
+      {
+        "size": "XL",
+        "color": "каки",
+        "stock": 20
+      },
+      {
+        "size": "XXL",
+        "color": "каки",
+        "stock": 0
+      }
+    ],
+    "totalStock": 71,
+    "active": true
+  },
+  {
+    "ref": "1681",
+    "sku": "TS-1681",
+    "name": "Шушляково долнище",
+    "sourceName": "шушляково долнище",
+    "slug": "shushlyakovo-dolnishte-1681",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 28.12,
+    "priceBgn": 55.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/1977-9018-shushlyakovo-dolnisshe.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 21
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 5
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 7
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 8
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 0
+      }
+    ],
+    "totalStock": 41,
+    "active": true
+  },
+  {
+    "ref": "1671",
+    "sku": "TS-1671",
+    "name": "Зимен ватиран екип с худи",
+    "sourceName": "зимен ватиран екип с худи",
+    "slug": "zimen-vatiran-ekip-s-hudi-1671",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 50.62,
+    "priceBgn": 99.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/1967-8927-ekip.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 9
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 13
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 15
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 29
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 29
+      }
+    ],
+    "totalStock": 95,
+    "active": true
+  },
+  {
+    "ref": "1669",
+    "sku": "TS-1669",
+    "name": "Мъжко худи – с качулка, в черен цвят",
+    "sourceName": "худи",
+    "slug": "mazhko-hudi-s-kachulka-v-cheren-tsvyat-1669",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 28.12,
+    "priceBgn": 55.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/1965-8900-khudi.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 4
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 14
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 5
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 23
+      }
+    ],
+    "totalStock": 47,
+    "active": true
+  },
+  {
+    "ref": "1668",
+    "sku": "TS-1668",
+    "name": "Мъжко худи – с качулка и джоб тип кенгуру, в червен цвят",
+    "sourceName": "худи",
+    "slug": "mazhko-hudi-s-kachulka-i-dzhob-tip-kenguru-v-cherven-tsvyat-1668",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "червен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 28.12,
+    "priceBgn": 55.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/1964-8897-khudi.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "червен",
+        "stock": 0
+      },
+      {
+        "size": "M",
+        "color": "червен",
+        "stock": 0
+      },
+      {
+        "size": "L",
+        "color": "червен",
+        "stock": 29
+      },
+      {
+        "size": "XL",
+        "color": "червен",
+        "stock": 0
+      },
+      {
+        "size": "XXL",
+        "color": "червен",
+        "stock": 1
+      }
+    ],
+    "totalStock": 30,
+    "active": true
+  },
+  {
+    "ref": "1334",
+    "sku": "TS-1334",
+    "name": "Мъжко долнище – спортна кройка с ластик на глезена, в черен цвят",
+    "sourceName": "долнище",
+    "slug": "mazhko-dolnishte-sportna-kroyka-s-lastik-na-glezena-v-cheren-tsvyat-1334",
+    "categorySlug": "myzhki-ekipi",
+    "categoryName": "Мъжки екипи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 30.68,
+    "priceBgn": 60.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/1606-7277-dolnisshe.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 6
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 9
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 8
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 26
+      }
+    ],
+    "totalStock": 60,
+    "active": true
+  },
+  {
+    "ref": "2508",
+    "sku": "TS-2508",
+    "name": "Мъжки дънки – стандартна кройка, в син цвят",
+    "sourceName": "дънки",
+    "slug": "mazhki-danki-standartna-kroyka-v-sin-tsvyat-2508",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "син",
+    "material": "памук с еластант",
+    "priceEur": 48.99,
+    "priceBgn": 95.82,
+    "sourceUrl": "https://topstyle.bg/nachalo/2829-13248-dnki.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "син",
+        "stock": 27
+      },
+      {
+        "size": "46",
+        "color": "син",
+        "stock": 12
+      },
+      {
+        "size": "48",
+        "color": "син",
+        "stock": 1
+      },
+      {
+        "size": "50",
+        "color": "син",
+        "stock": 21
+      },
+      {
+        "size": "52",
+        "color": "син",
+        "stock": 15
+      },
+      {
+        "size": "54",
+        "color": "син",
+        "stock": 25
+      },
+      {
+        "size": "56",
+        "color": "син",
+        "stock": 1
+      }
+    ],
+    "totalStock": 102,
+    "active": true
+  },
+  {
+    "ref": "2507",
+    "sku": "TS-2507",
+    "name": "Мъжки дънки – slim кройка, в син цвят",
+    "sourceName": "дънки",
+    "slug": "mazhki-danki-slim-kroyka-v-sin-tsvyat-2507",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "син",
+    "material": "памук с еластант",
+    "priceEur": 48.99,
+    "priceBgn": 95.82,
+    "sourceUrl": "https://topstyle.bg/nachalo/2828-13218-dnki.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "син",
+        "stock": 2
+      },
+      {
+        "size": "46",
+        "color": "син",
+        "stock": 22
+      },
+      {
+        "size": "48",
+        "color": "син",
+        "stock": 28
+      },
+      {
+        "size": "50",
+        "color": "син",
+        "stock": 28
+      },
+      {
+        "size": "52",
+        "color": "син",
+        "stock": 0
+      },
+      {
+        "size": "54",
+        "color": "син",
+        "stock": 24
+      },
+      {
+        "size": "56",
+        "color": "син",
+        "stock": 19
+      }
+    ],
+    "totalStock": 123,
+    "active": true
+  },
+  {
+    "ref": "2506",
+    "sku": "TS-2506",
+    "name": "Мъжки дънки – стандартна кройка, в син цвят",
+    "sourceName": "дънки",
+    "slug": "mazhki-danki-standartna-kroyka-v-sin-tsvyat-2506",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "син",
+    "material": "памук с еластант",
+    "priceEur": 48.99,
+    "priceBgn": 95.82,
+    "sourceUrl": "https://topstyle.bg/nachalo/2827-13226-dnki.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "син",
+        "stock": 3
+      },
+      {
+        "size": "46",
+        "color": "син",
+        "stock": 29
+      },
+      {
+        "size": "48",
+        "color": "син",
+        "stock": 16
+      },
+      {
+        "size": "50",
+        "color": "син",
+        "stock": 23
+      },
+      {
+        "size": "52",
+        "color": "син",
+        "stock": 17
+      },
+      {
+        "size": "54",
+        "color": "син",
+        "stock": 16
+      },
+      {
+        "size": "56",
+        "color": "син",
+        "stock": 2
+      }
+    ],
+    "totalStock": 106,
+    "active": true
+  },
+  {
+    "ref": "2505",
+    "sku": "TS-2505",
+    "name": "Мъжки дънки – slim кройка, в син цвят",
+    "sourceName": "дънки",
+    "slug": "mazhki-danki-slim-kroyka-v-sin-tsvyat-2505",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "син",
+    "material": "памук с еластант",
+    "priceEur": 34.99,
+    "priceBgn": 68.43,
+    "sourceUrl": "https://topstyle.bg/nachalo/2826-13244-dnki.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "син",
+        "stock": 20
+      },
+      {
+        "size": "46",
+        "color": "син",
+        "stock": 17
+      },
+      {
+        "size": "48",
+        "color": "син",
+        "stock": 26
+      },
+      {
+        "size": "50",
+        "color": "син",
+        "stock": 13
+      },
+      {
+        "size": "52",
+        "color": "син",
+        "stock": 29
+      },
+      {
+        "size": "54",
+        "color": "син",
+        "stock": 11
+      },
+      {
+        "size": "56",
+        "color": "син",
+        "stock": 10
+      }
+    ],
+    "totalStock": 126,
+    "active": true
+  },
+  {
+    "ref": "2503",
+    "sku": "TS-2503",
+    "name": "Мъжки дънки – стандартна кройка, в син цвят",
+    "sourceName": "дънки",
+    "slug": "mazhki-danki-standartna-kroyka-v-sin-tsvyat-2503",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "син",
+    "material": "памук с еластант",
+    "priceEur": 34.99,
+    "priceBgn": 68.43,
+    "sourceUrl": "https://topstyle.bg/nachalo/2824-13245-dnki.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "син",
+        "stock": 21
+      },
+      {
+        "size": "46",
+        "color": "син",
+        "stock": 15
+      },
+      {
+        "size": "48",
+        "color": "син",
+        "stock": 18
+      },
+      {
+        "size": "50",
+        "color": "син",
+        "stock": 8
+      },
+      {
+        "size": "52",
+        "color": "син",
+        "stock": 14
+      },
+      {
+        "size": "54",
+        "color": "син",
+        "stock": 13
+      },
+      {
+        "size": "56",
+        "color": "син",
+        "stock": 22
+      }
+    ],
+    "totalStock": 111,
+    "active": true
+  },
+  {
+    "ref": "2502",
+    "sku": "TS-2502",
+    "name": "Мъжки къси дънки – къс модел, в син цвят",
+    "sourceName": "къси дънки",
+    "slug": "mazhki-kasi-danki-kas-model-v-sin-tsvyat-2502",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "син",
+    "material": "памук с еластант",
+    "priceEur": 34.99,
+    "priceBgn": 68.43,
+    "sourceUrl": "https://topstyle.bg/nachalo/2823-13242-ksi-dnki.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "син",
+        "stock": 11
+      },
+      {
+        "size": "46",
+        "color": "син",
+        "stock": 19
+      },
+      {
+        "size": "48",
+        "color": "син",
+        "stock": 5
+      },
+      {
+        "size": "50",
+        "color": "син",
+        "stock": 16
+      },
+      {
+        "size": "52",
+        "color": "син",
+        "stock": 27
+      },
+      {
+        "size": "54",
+        "color": "син",
+        "stock": 18
+      },
+      {
+        "size": "56",
+        "color": "син",
+        "stock": 18
+      }
+    ],
+    "totalStock": 114,
+    "active": true
+  },
+  {
+    "ref": "2488",
+    "sku": "TS-2488",
+    "name": "Мъжки къси панталони – ежедневен модел, в тъмносин цвят",
+    "sourceName": "къси панталони",
+    "slug": "mazhki-kasi-pantaloni-ezhedneven-model-v-tamnosin-tsvyat-2488",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "тъмносин",
+    "material": "памук с еластант",
+    "priceEur": 31.99,
+    "priceBgn": 62.57,
+    "sourceUrl": "https://topstyle.bg/nachalo/2810-13205-ksi-pantaloni.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "тъмносин",
+        "stock": 3
+      },
+      {
+        "size": "46",
+        "color": "тъмносин",
+        "stock": 1
+      },
+      {
+        "size": "48",
+        "color": "тъмносин",
+        "stock": 10
+      },
+      {
+        "size": "50",
+        "color": "тъмносин",
+        "stock": 21
+      },
+      {
+        "size": "52",
+        "color": "тъмносин",
+        "stock": 20
+      },
+      {
+        "size": "54",
+        "color": "тъмносин",
+        "stock": 16
+      },
+      {
+        "size": "56",
+        "color": "тъмносин",
+        "stock": 20
+      }
+    ],
+    "totalStock": 91,
+    "active": true
+  },
+  {
+    "ref": "2487",
+    "sku": "TS-2487",
+    "name": "Мъжки къси панталони – ежедневен модел, в черен цвят",
+    "sourceName": "къси панталони",
+    "slug": "mazhki-kasi-pantaloni-ezhedneven-model-v-cheren-tsvyat-2487",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 31.99,
+    "priceBgn": 62.57,
+    "sourceUrl": "https://topstyle.bg/nachalo/2809-13135-ksi-pantaloni.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "черен",
+        "stock": 25
+      },
+      {
+        "size": "46",
+        "color": "черен",
+        "stock": 12
+      },
+      {
+        "size": "48",
+        "color": "черен",
+        "stock": 6
+      },
+      {
+        "size": "50",
+        "color": "черен",
+        "stock": 13
+      },
+      {
+        "size": "52",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "54",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "56",
+        "color": "черен",
+        "stock": 21
+      }
+    ],
+    "totalStock": 80,
+    "active": true
+  },
+  {
+    "ref": "2486",
+    "sku": "TS-2486",
+    "name": "Мъжки къси панталони – ежедневен модел, в черен цвят",
+    "sourceName": "къси панталони",
+    "slug": "mazhki-kasi-pantaloni-ezhedneven-model-v-cheren-tsvyat-2486",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 31.99,
+    "priceBgn": 62.57,
+    "sourceUrl": "https://topstyle.bg/nachalo/2808-13130-ksi-pantaloni.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "черен",
+        "stock": 19
+      },
+      {
+        "size": "46",
+        "color": "черен",
+        "stock": 6
+      },
+      {
+        "size": "48",
+        "color": "черен",
+        "stock": 12
+      },
+      {
+        "size": "50",
+        "color": "черен",
+        "stock": 8
+      },
+      {
+        "size": "52",
+        "color": "черен",
+        "stock": 25
+      },
+      {
+        "size": "54",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "56",
+        "color": "черен",
+        "stock": 0
+      }
+    ],
+    "totalStock": 81,
+    "active": true
+  },
+  {
+    "ref": "2485",
+    "sku": "TS-2485",
+    "name": "Мъжки къси панталони – ежедневен модел, в черен цвят",
+    "sourceName": "къси панталони",
+    "slug": "mazhki-kasi-pantaloni-ezhedneven-model-v-cheren-tsvyat-2485",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 31.99,
+    "priceBgn": 62.57,
+    "sourceUrl": "https://topstyle.bg/nachalo/2807-13125-ksi-pantaloni.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "46",
+        "color": "черен",
+        "stock": 7
+      },
+      {
+        "size": "48",
+        "color": "черен",
+        "stock": 27
+      },
+      {
+        "size": "50",
+        "color": "черен",
+        "stock": 30
+      },
+      {
+        "size": "52",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "54",
+        "color": "черен",
+        "stock": 18
+      },
+      {
+        "size": "56",
+        "color": "черен",
+        "stock": 8
+      }
+    ],
+    "totalStock": 90,
+    "active": true
+  },
+  {
+    "ref": "2061",
+    "sku": "TS-2061",
+    "name": "Мъжки дънки – стандартна кройка, в тъмносин цвят",
+    "sourceName": "дънки",
+    "slug": "mazhki-danki-standartna-kroyka-v-tamnosin-tsvyat-2061",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "тъмносин",
+    "material": "памук с еластант",
+    "priceEur": 45.5,
+    "priceBgn": 88.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2368-10959-dnki.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "тъмносин",
+        "stock": 11
+      },
+      {
+        "size": "46",
+        "color": "тъмносин",
+        "stock": 18
+      },
+      {
+        "size": "48",
+        "color": "тъмносин",
+        "stock": 1
+      },
+      {
+        "size": "50",
+        "color": "тъмносин",
+        "stock": 5
+      },
+      {
+        "size": "52",
+        "color": "тъмносин",
+        "stock": 24
+      },
+      {
+        "size": "54",
+        "color": "тъмносин",
+        "stock": 0
+      },
+      {
+        "size": "56",
+        "color": "тъмносин",
+        "stock": 2
+      }
+    ],
+    "totalStock": 61,
+    "active": true
+  },
+  {
+    "ref": "2060",
+    "sku": "TS-2060",
+    "name": "Мъжки дънки – стандартна кройка, в черен цвят",
+    "sourceName": "дънки",
+    "slug": "mazhki-danki-standartna-kroyka-v-cheren-tsvyat-2060",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 45.5,
+    "priceBgn": 88.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2367-10953-dnki.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "46",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "48",
+        "color": "черен",
+        "stock": 28
+      },
+      {
+        "size": "50",
+        "color": "черен",
+        "stock": 27
+      },
+      {
+        "size": "52",
+        "color": "черен",
+        "stock": 17
+      },
+      {
+        "size": "54",
+        "color": "черен",
+        "stock": 12
+      },
+      {
+        "size": "56",
+        "color": "черен",
+        "stock": 16
+      }
+    ],
+    "totalStock": 103,
+    "active": true
+  },
+  {
+    "ref": "2059",
+    "sku": "TS-2059",
+    "name": "Мъжки дънки – slim кройка, в тъмносин цвят",
+    "sourceName": "дънки",
+    "slug": "mazhki-danki-slim-kroyka-v-tamnosin-tsvyat-2059",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "тъмносин",
+    "material": "памук с еластант",
+    "priceEur": 45.5,
+    "priceBgn": 88.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2366-10945-dnki.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "тъмносин",
+        "stock": 22
+      },
+      {
+        "size": "46",
+        "color": "тъмносин",
+        "stock": 0
+      },
+      {
+        "size": "48",
+        "color": "тъмносин",
+        "stock": 6
+      },
+      {
+        "size": "50",
+        "color": "тъмносин",
+        "stock": 9
+      },
+      {
+        "size": "52",
+        "color": "тъмносин",
+        "stock": 11
+      },
+      {
+        "size": "54",
+        "color": "тъмносин",
+        "stock": 8
+      },
+      {
+        "size": "56",
+        "color": "тъмносин",
+        "stock": 20
+      }
+    ],
+    "totalStock": 76,
+    "active": true
+  },
+  {
+    "ref": "2058",
+    "sku": "TS-2058",
+    "name": "Мъжки дънки – slim кройка, в черен цвят",
+    "sourceName": "дънки",
+    "slug": "mazhki-danki-slim-kroyka-v-cheren-tsvyat-2058",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 45.5,
+    "priceBgn": 88.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2365-10939-dnki.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "46",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "48",
+        "color": "черен",
+        "stock": 22
+      },
+      {
+        "size": "50",
+        "color": "черен",
+        "stock": 4
+      },
+      {
+        "size": "52",
+        "color": "черен",
+        "stock": 25
+      },
+      {
+        "size": "54",
+        "color": "черен",
+        "stock": 30
+      },
+      {
+        "size": "56",
+        "color": "черен",
+        "stock": 24
+      }
+    ],
+    "totalStock": 105,
+    "active": true
+  },
+  {
+    "ref": "2029",
+    "sku": "TS-2029",
+    "name": "Мъжки къси панталони – ежедневен модел, в черен цвят",
+    "sourceName": "къси панталони",
+    "slug": "mazhki-kasi-pantaloni-ezhedneven-model-v-cheren-tsvyat-2029",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 27.1,
+    "priceBgn": 53.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2336-10831-ksi-pantaloni.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "46",
+        "color": "черен",
+        "stock": 23
+      },
+      {
+        "size": "48",
+        "color": "черен",
+        "stock": 28
+      },
+      {
+        "size": "50",
+        "color": "черен",
+        "stock": 16
+      },
+      {
+        "size": "52",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "54",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "56",
+        "color": "черен",
+        "stock": 5
+      }
+    ],
+    "totalStock": 95,
+    "active": true
+  },
+  {
+    "ref": "2027",
+    "sku": "TS-2027",
+    "name": "Мъжки къси панталони – ежедневен модел, в черен цвят",
+    "sourceName": "къси панталони",
+    "slug": "mazhki-kasi-pantaloni-ezhedneven-model-v-cheren-tsvyat-2027",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 27.1,
+    "priceBgn": 53.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2334-10817-banski.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "46",
+        "color": "черен",
+        "stock": 22
+      },
+      {
+        "size": "48",
+        "color": "черен",
+        "stock": 21
+      },
+      {
+        "size": "50",
+        "color": "черен",
+        "stock": 17
+      },
+      {
+        "size": "52",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "54",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "56",
+        "color": "черен",
+        "stock": 18
+      }
+    ],
+    "totalStock": 91,
+    "active": true
+  },
+  {
+    "ref": "1944",
+    "sku": "TS-1944",
+    "name": "Мъжки дънки – slim кройка, в син цвят",
+    "sourceName": "дънки",
+    "slug": "mazhki-danki-slim-kroyka-v-sin-tsvyat-1944",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "син",
+    "material": "памук с еластант",
+    "priceEur": 48.57,
+    "priceBgn": 94.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2250-10370-dnki.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "син",
+        "stock": 22
+      },
+      {
+        "size": "46",
+        "color": "син",
+        "stock": 0
+      },
+      {
+        "size": "48",
+        "color": "син",
+        "stock": 13
+      },
+      {
+        "size": "50",
+        "color": "син",
+        "stock": 3
+      },
+      {
+        "size": "52",
+        "color": "син",
+        "stock": 1
+      },
+      {
+        "size": "54",
+        "color": "син",
+        "stock": 24
+      },
+      {
+        "size": "56",
+        "color": "син",
+        "stock": 21
+      }
+    ],
+    "totalStock": 84,
+    "active": true
+  },
+  {
+    "ref": "1943",
+    "sku": "TS-1943",
+    "name": "Мъжки дънки – стандартна кройка, в син цвят",
+    "sourceName": "дънки",
+    "slug": "mazhki-danki-standartna-kroyka-v-sin-tsvyat-1943",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "син",
+    "material": "памук с еластант",
+    "priceEur": 48.57,
+    "priceBgn": 94.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2249-10362-dnki.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "син",
+        "stock": 0
+      },
+      {
+        "size": "46",
+        "color": "син",
+        "stock": 18
+      },
+      {
+        "size": "48",
+        "color": "син",
+        "stock": 17
+      },
+      {
+        "size": "50",
+        "color": "син",
+        "stock": 8
+      },
+      {
+        "size": "52",
+        "color": "син",
+        "stock": 16
+      },
+      {
+        "size": "54",
+        "color": "син",
+        "stock": 18
+      },
+      {
+        "size": "56",
+        "color": "син",
+        "stock": 18
+      }
+    ],
+    "totalStock": 95,
+    "active": true
+  },
+  {
+    "ref": "1942",
+    "sku": "TS-1942",
+    "name": "Мъжки дънки – slim кройка, в син цвят",
+    "sourceName": "дънки",
+    "slug": "mazhki-danki-slim-kroyka-v-sin-tsvyat-1942",
+    "categorySlug": "myzhki-dynki-i-pantaloni",
+    "categoryName": "Мъжки дънки и панталони",
+    "color": "син",
+    "material": "памук с еластант",
+    "priceEur": 48.57,
+    "priceBgn": 94.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2248-10359-dnki.html",
+    "variants": [
+      {
+        "size": "44",
+        "color": "син",
+        "stock": 13
+      },
+      {
+        "size": "46",
+        "color": "син",
+        "stock": 6
+      },
+      {
+        "size": "48",
+        "color": "син",
+        "stock": 13
+      },
+      {
+        "size": "50",
+        "color": "син",
+        "stock": 18
+      },
+      {
+        "size": "52",
+        "color": "син",
+        "stock": 15
+      },
+      {
+        "size": "54",
+        "color": "син",
+        "stock": 20
+      },
+      {
+        "size": "56",
+        "color": "син",
+        "stock": 0
+      }
+    ],
+    "totalStock": 85,
+    "active": true
+  },
+  {
+    "ref": "2282",
+    "sku": "TS-2282",
+    "name": "Мъжка блуза – ежедневен стил, в тъмносин цвят",
+    "sourceName": "блуза",
+    "slug": "mazhka-bluza-ezhedneven-stil-v-tamnosin-tsvyat-2282",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "тъмносин",
+    "material": "памук с двуконечна вата",
+    "priceEur": 28.12,
+    "priceBgn": 55.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2599-12102-bluza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "тъмносин",
+        "stock": 2
+      },
+      {
+        "size": "M",
+        "color": "тъмносин",
+        "stock": 27
+      },
+      {
+        "size": "L",
+        "color": "тъмносин",
+        "stock": 19
+      },
+      {
+        "size": "XL",
+        "color": "тъмносин",
+        "stock": 3
+      },
+      {
+        "size": "XXL",
+        "color": "тъмносин",
+        "stock": 20
+      }
+    ],
+    "totalStock": 71,
+    "active": true
+  },
+  {
+    "ref": "2281",
+    "sku": "TS-2281",
+    "name": "Мъжки пуловер – плетена структура, в черен цвят",
+    "sourceName": "пуловер",
+    "slug": "mazhki-pulover-pletena-struktura-v-cheren-tsvyat-2281",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 33.23,
+    "priceBgn": 64.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2598-12095-pulover.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 4
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 18
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 27
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 0
+      }
+    ],
+    "totalStock": 51,
+    "active": true
+  },
+  {
+    "ref": "2280",
+    "sku": "TS-2280",
+    "name": "Мъжки пуловер – плетена структура, в тъмносин цвят",
+    "sourceName": "пуловер",
+    "slug": "mazhki-pulover-pletena-struktura-v-tamnosin-tsvyat-2280",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "тъмносин",
+    "material": "памук с двуконечна вата",
+    "priceEur": 33.23,
+    "priceBgn": 64.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2597-12093-pulover.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "тъмносин",
+        "stock": 7
+      },
+      {
+        "size": "M",
+        "color": "тъмносин",
+        "stock": 17
+      },
+      {
+        "size": "L",
+        "color": "тъмносин",
+        "stock": 18
+      },
+      {
+        "size": "XL",
+        "color": "тъмносин",
+        "stock": 1
+      },
+      {
+        "size": "XXL",
+        "color": "тъмносин",
+        "stock": 12
+      }
+    ],
+    "totalStock": 55,
+    "active": true
+  },
+  {
+    "ref": "2278",
+    "sku": "TS-2278",
+    "name": "Мъжки пуловер – плетена структура, в корало червен цвят",
+    "sourceName": "пуловер",
+    "slug": "mazhki-pulover-pletena-struktura-v-koralo-cherven-tsvyat-2278",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "корало червен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 33.23,
+    "priceBgn": 64.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2595-12083-pulover.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "корало червен",
+        "stock": 20
+      },
+      {
+        "size": "M",
+        "color": "корало червен",
+        "stock": 10
+      },
+      {
+        "size": "L",
+        "color": "корало червен",
+        "stock": 6
+      },
+      {
+        "size": "XL",
+        "color": "корало червен",
+        "stock": 6
+      },
+      {
+        "size": "XXL",
+        "color": "корало червен",
+        "stock": 7
+      }
+    ],
+    "totalStock": 49,
+    "active": true
+  },
+  {
+    "ref": "2277",
+    "sku": "TS-2277",
+    "name": "Мъжки пуловер – фина плетка, в черен цвят",
+    "sourceName": "пуловер",
+    "slug": "mazhki-pulover-fina-pletka-v-cheren-tsvyat-2277",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 33.23,
+    "priceBgn": 64.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2593-12078-pulover.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 25
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 25
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 29
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 18
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 20
+      }
+    ],
+    "totalStock": 117,
+    "active": true
+  },
+  {
+    "ref": "2265",
+    "sku": "TS-2265",
+    "name": "Мъжка блуза – ежедневен стил, в черен цвят",
+    "sourceName": "блуза",
+    "slug": "mazhka-bluza-ezhedneven-stil-v-cheren-tsvyat-2265",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 30.68,
+    "priceBgn": 60.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2580-12018-bluza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 19
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 7
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 30
+      }
+    ],
+    "totalStock": 68,
+    "active": true
+  },
+  {
+    "ref": "2264",
+    "sku": "TS-2264",
+    "name": "Мъжка блуза – ежедневен стил, в бял цвят",
+    "sourceName": "блуза",
+    "slug": "mazhka-bluza-ezhedneven-stil-v-byal-tsvyat-2264",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "бял",
+    "material": "памук с двуконечна вата",
+    "priceEur": 30.68,
+    "priceBgn": 60.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2579-12013-bluza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 28
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 29
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 0
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 29
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 24
+      }
+    ],
+    "totalStock": 110,
+    "active": true
+  },
+  {
+    "ref": "2263",
+    "sku": "TS-2263",
+    "name": "Мъжко худи – с качулка и джоб тип кенгуру, в черен цвят",
+    "sourceName": "худи",
+    "slug": "mazhko-hudi-s-kachulka-i-dzhob-tip-kenguru-v-cheren-tsvyat-2263",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 35.28,
+    "priceBgn": 69.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2578-12005-khudi.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 7
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 18
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 20
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 15
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 13
+      }
+    ],
+    "totalStock": 73,
+    "active": true
+  },
+  {
+    "ref": "2255",
+    "sku": "TS-2255",
+    "name": "Мъжки пуловер – плетена структура, в тъмнозелен цвят",
+    "sourceName": "пуловер",
+    "slug": "mazhki-pulover-pletena-struktura-v-tamnozelen-tsvyat-2255",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "тъмнозелен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 31.7,
+    "priceBgn": 62.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2569-11968-pulover-t-zelen.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "тъмнозелен",
+        "stock": 25
+      },
+      {
+        "size": "M",
+        "color": "тъмнозелен",
+        "stock": 15
+      },
+      {
+        "size": "L",
+        "color": "тъмнозелен",
+        "stock": 27
+      },
+      {
+        "size": "XL",
+        "color": "тъмнозелен",
+        "stock": 13
+      },
+      {
+        "size": "XXL",
+        "color": "тъмнозелен",
+        "stock": 25
+      }
+    ],
+    "totalStock": 105,
+    "active": true
+  },
+  {
+    "ref": "2254",
+    "sku": "TS-2254",
+    "name": "Мъжки пуловер – плетена структура, в черен цвят",
+    "sourceName": "пуловер",
+    "slug": "mazhki-pulover-pletena-struktura-v-cheren-tsvyat-2254",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 31.7,
+    "priceBgn": 62.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2568-11962-pulover.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 15
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 24
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 23
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 18
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 7
+      }
+    ],
+    "totalStock": 87,
+    "active": true
+  },
+  {
+    "ref": "2252",
+    "sku": "TS-2252",
+    "name": "Мъжки пуловер – фина плетка, в черен цвят",
+    "sourceName": "пуловер",
+    "slug": "mazhki-pulover-fina-pletka-v-cheren-tsvyat-2252",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 31.7,
+    "priceBgn": 62.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2566-11953-pulover.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 21
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 6
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 17
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 0
+      }
+    ],
+    "totalStock": 46,
+    "active": true
+  },
+  {
+    "ref": "2251",
+    "sku": "TS-2251",
+    "name": "Мъжки пуловер – фина плетка, в тъмносин цвят",
+    "sourceName": "пуловер",
+    "slug": "mazhki-pulover-fina-pletka-v-tamnosin-tsvyat-2251",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "тъмносин",
+    "material": "памук с двуконечна вата",
+    "priceEur": 31.7,
+    "priceBgn": 62.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2565-11952-pulover-t-sin.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "тъмносин",
+        "stock": 1
+      },
+      {
+        "size": "M",
+        "color": "тъмносин",
+        "stock": 0
+      },
+      {
+        "size": "L",
+        "color": "тъмносин",
+        "stock": 11
+      },
+      {
+        "size": "XL",
+        "color": "тъмносин",
+        "stock": 25
+      },
+      {
+        "size": "XXL",
+        "color": "тъмносин",
+        "stock": 5
+      }
+    ],
+    "totalStock": 42,
+    "active": true
+  },
+  {
+    "ref": "2250",
+    "sku": "TS-2250",
+    "name": "Мъжки пуловер – плетена структура, в черен цвят",
+    "sourceName": "пуловер",
+    "slug": "mazhki-pulover-pletena-struktura-v-cheren-tsvyat-2250",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 31.7,
+    "priceBgn": 62.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2564-11945-pulover.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 30
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 20
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 13
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 27
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 20
+      }
+    ],
+    "totalStock": 110,
+    "active": true
+  },
+  {
+    "ref": "2244",
+    "sku": "TS-2244",
+    "name": "Мъжка блуза – спортно-елегантен стил, в черен цвят",
+    "sourceName": "блуза",
+    "slug": "mazhka-bluza-sportno-eleganten-stil-v-cheren-tsvyat-2244",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 32.21,
+    "priceBgn": 63.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2557-11904-bluza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 12
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 26
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 1
+      }
+    ],
+    "totalStock": 39,
+    "active": true
+  },
+  {
+    "ref": "2243",
+    "sku": "TS-2243",
+    "name": "Мъжка блуза – ежедневен стил, в черен цвят",
+    "sourceName": "блуза",
+    "slug": "mazhka-bluza-ezhedneven-stil-v-cheren-tsvyat-2243",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 32.21,
+    "priceBgn": 63.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2556-11896-bluza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 25
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 17
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 4
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 4
+      }
+    ],
+    "totalStock": 52,
+    "active": true
+  },
+  {
+    "ref": "2242",
+    "sku": "TS-2242",
+    "name": "Мъжка блуза – спортно-елегантен стил, в черен цвят",
+    "sourceName": "блуза",
+    "slug": "mazhka-bluza-sportno-eleganten-stil-v-cheren-tsvyat-2242",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 32.21,
+    "priceBgn": 63.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2555-11894-bluza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 14
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 10
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 21
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 8
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 1
+      }
+    ],
+    "totalStock": 54,
+    "active": true
+  },
+  {
+    "ref": "2241",
+    "sku": "TS-2241",
+    "name": "Мъжка блуза – ежедневен стил, в черен цвят",
+    "sourceName": "блуза",
+    "slug": "mazhka-bluza-ezhedneven-stil-v-cheren-tsvyat-2241",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 32.21,
+    "priceBgn": 63.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2554-11885-bluza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 15
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 10
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 21
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 17
+      }
+    ],
+    "totalStock": 65,
+    "active": true
+  },
+  {
+    "ref": "2237",
+    "sku": "TS-2237",
+    "name": "Мъжка блуза – спортно-елегантен стил, в черен цвят",
+    "sourceName": "блуза",
+    "slug": "mazhka-bluza-sportno-eleganten-stil-v-cheren-tsvyat-2237",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 32.21,
+    "priceBgn": 63.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2550-11913-bluza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 3
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 17
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 24
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 5
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 14
+      }
+    ],
+    "totalStock": 63,
+    "active": true
+  },
+  {
+    "ref": "2236",
+    "sku": "TS-2236",
+    "name": "Мъжка блуза – ежедневен стил, в черен цвят",
+    "sourceName": "блуза",
+    "slug": "mazhka-bluza-ezhedneven-stil-v-cheren-tsvyat-2236",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 30.68,
+    "priceBgn": 60.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2549-11870-bluza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 12
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 16
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 17
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 9
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 30
+      }
+    ],
+    "totalStock": 84,
+    "active": true
+  },
+  {
+    "ref": "2235",
+    "sku": "TS-2235",
+    "name": "Мъжка блуза – спортно-елегантен стил, в черен цвят",
+    "sourceName": "блуза",
+    "slug": "mazhka-bluza-sportno-eleganten-stil-v-cheren-tsvyat-2235",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 30.68,
+    "priceBgn": 60.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2548-11866-bluza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 10
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 14
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 25
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 29
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 11
+      }
+    ],
+    "totalStock": 89,
+    "active": true
+  },
+  {
+    "ref": "2234",
+    "sku": "TS-2234",
+    "name": "Мъжка блуза – ежедневен стил, в черен цвят",
+    "sourceName": "блуза",
+    "slug": "mazhka-bluza-ezhedneven-stil-v-cheren-tsvyat-2234",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 30.68,
+    "priceBgn": 60.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2547-11864-bluza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 27
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 4
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 26
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 12
+      }
+    ],
+    "totalStock": 69,
+    "active": true
+  },
+  {
+    "ref": "2232",
+    "sku": "TS-2232",
+    "name": "Мъжка блуза – спортно-елегантен стил, в черен цвят",
+    "sourceName": "блуза",
+    "slug": "mazhka-bluza-sportno-eleganten-stil-v-cheren-tsvyat-2232",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 32.21,
+    "priceBgn": 63.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2545-11905-bluza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 10
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 14
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 24
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 27
+      }
+    ],
+    "totalStock": 76,
+    "active": true
+  },
+  {
+    "ref": "2231",
+    "sku": "TS-2231",
+    "name": "Мъжка блуза – ежедневен стил, в черен цвят",
+    "sourceName": "блуза",
+    "slug": "mazhka-bluza-ezhedneven-stil-v-cheren-tsvyat-2231",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "черен",
+    "material": "памук с двуконечна вата",
+    "priceEur": 32.21,
+    "priceBgn": 63.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2544-11845-bluza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 29
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 23
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 4
+      }
+    ],
+    "totalStock": 57,
+    "active": true
+  },
+  {
+    "ref": "2193",
+    "sku": "TS-2193",
+    "name": "Мъжки пуловер – плетена структура, в тъмнобордо цвят",
+    "sourceName": "пуловер",
+    "slug": "mazhki-pulover-pletena-struktura-v-tamnobordo-tsvyat-2193",
+    "categorySlug": "myzhki-bluzi",
+    "categoryName": "Мъжки блузи",
+    "color": "тъмнобордо",
+    "material": "памук с двуконечна вата",
+    "priceEur": 31.7,
+    "priceBgn": 62.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2506-11667-bluza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "тъмнобордо",
+        "stock": 26
+      },
+      {
+        "size": "M",
+        "color": "тъмнобордо",
+        "stock": 2
+      },
+      {
+        "size": "L",
+        "color": "тъмнобордо",
+        "stock": 16
+      },
+      {
+        "size": "XL",
+        "color": "тъмнобордо",
+        "stock": 1
+      },
+      {
+        "size": "XXL",
+        "color": "тъмнобордо",
+        "stock": 14
+      }
+    ],
+    "totalStock": 59,
+    "active": true
+  },
+  {
+    "ref": "2420",
+    "sku": "TS-2420",
+    "name": "Мъжка риза – стандартна кройка, в черен цвят",
+    "sourceName": "риза",
+    "slug": "mazhka-riza-standartna-kroyka-v-cheren-tsvyat-2420",
+    "categorySlug": "myzhki-rizi",
+    "categoryName": "Мъжки ризи",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 39.99,
+    "priceBgn": 78.21,
+    "sourceUrl": "https://topstyle.bg/nachalo/2740-12797-riza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 18
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 12
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 13
+      }
+    ],
+    "totalStock": 65,
+    "active": true
+  },
+  {
+    "ref": "2419",
+    "sku": "TS-2419",
+    "name": "Мъжка риза – стандартна кройка, в бял цвят",
+    "sourceName": "риза",
+    "slug": "mazhka-riza-standartna-kroyka-v-byal-tsvyat-2419",
+    "categorySlug": "myzhki-rizi",
+    "categoryName": "Мъжки ризи",
+    "color": "бял",
+    "material": "памук с еластант",
+    "priceEur": 39.99,
+    "priceBgn": 78.21,
+    "sourceUrl": "https://topstyle.bg/nachalo/2739-12790-riza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 17
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 7
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 10
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 26
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 15
+      }
+    ],
+    "totalStock": 75,
+    "active": true
+  },
+  {
+    "ref": "2418",
+    "sku": "TS-2418",
+    "name": "Мъжка риза – делови стил, в черен цвят",
+    "sourceName": "риза",
+    "slug": "mazhka-riza-delovi-stil-v-cheren-tsvyat-2418",
+    "categorySlug": "myzhki-rizi",
+    "categoryName": "Мъжки ризи",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 39.99,
+    "priceBgn": 78.21,
+    "sourceUrl": "https://topstyle.bg/nachalo/2738-12785-riza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 28
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 5
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 3
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 6
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 24
+      }
+    ],
+    "totalStock": 66,
+    "active": true
+  },
+  {
+    "ref": "2417",
+    "sku": "TS-2417",
+    "name": "Мъжка риза – ежедневен стил, в черен цвят",
+    "sourceName": "риза",
+    "slug": "mazhka-riza-ezhedneven-stil-v-cheren-tsvyat-2417",
+    "categorySlug": "myzhki-rizi",
+    "categoryName": "Мъжки ризи",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 39.99,
+    "priceBgn": 78.21,
+    "sourceUrl": "https://topstyle.bg/nachalo/2737-12783-riza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 29
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 14
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 22
+      }
+    ],
+    "totalStock": 77,
+    "active": true
+  },
+  {
+    "ref": "2416",
+    "sku": "TS-2416",
+    "name": "Мъжка риза – стандартна кройка, в черен цвят",
+    "sourceName": "риза",
+    "slug": "mazhka-riza-standartna-kroyka-v-cheren-tsvyat-2416",
+    "categorySlug": "myzhki-rizi",
+    "categoryName": "Мъжки ризи",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 39.99,
+    "priceBgn": 78.21,
+    "sourceUrl": "https://topstyle.bg/nachalo/2736-12777-riza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 20
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 22
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 5
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 17
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 12
+      }
+    ],
+    "totalStock": 76,
+    "active": true
+  },
+  {
+    "ref": "2415",
+    "sku": "TS-2415",
+    "name": "Мъжка риза – делови стил, в черен цвят",
+    "sourceName": "риза",
+    "slug": "mazhka-riza-delovi-stil-v-cheren-tsvyat-2415",
+    "categorySlug": "myzhki-rizi",
+    "categoryName": "Мъжки ризи",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 39.99,
+    "priceBgn": 78.21,
+    "sourceUrl": "https://topstyle.bg/nachalo/2735-12770-riza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 6
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 18
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 7
+      }
+    ],
+    "totalStock": 33,
+    "active": true
+  },
+  {
+    "ref": "2352",
+    "sku": "TS-2352",
+    "name": "Мъжка риза – ежедневен стил, в черен цвят",
+    "sourceName": "риза",
+    "slug": "mazhka-riza-ezhedneven-stil-v-cheren-tsvyat-2352",
+    "categorySlug": "myzhki-rizi",
+    "categoryName": "Мъжки ризи",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 39.99,
+    "priceBgn": 78.21,
+    "sourceUrl": "https://topstyle.bg/nachalo/2671-12410-riza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 14
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 26
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 20
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 26
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 16
+      }
+    ],
+    "totalStock": 102,
+    "active": true
+  },
+  {
+    "ref": "2273",
+    "sku": "TS-2273",
+    "name": "Мъжка риза – стандартна кройка, в черен цвят",
+    "sourceName": "риза",
+    "slug": "mazhka-riza-standartna-kroyka-v-cheren-tsvyat-2273",
+    "categorySlug": "myzhki-rizi",
+    "categoryName": "Мъжки ризи",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 39.99,
+    "priceBgn": 78.21,
+    "sourceUrl": "https://topstyle.bg/nachalo/2589-12054-riza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 29
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 16
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 17
+      }
+    ],
+    "totalStock": 73,
+    "active": true
+  },
+  {
+    "ref": "2268",
+    "sku": "TS-2268",
+    "name": "Мъжка риза – стандартна кройка, в сив цвят",
+    "sourceName": "риза",
+    "slug": "mazhka-riza-standartna-kroyka-v-siv-tsvyat-2268",
+    "categorySlug": "myzhki-rizi",
+    "categoryName": "Мъжки ризи",
+    "color": "сив",
+    "material": "памук с еластант",
+    "priceEur": 39.99,
+    "priceBgn": 78.21,
+    "sourceUrl": "https://topstyle.bg/nachalo/2583-12070-riza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "сив",
+        "stock": 10
+      },
+      {
+        "size": "M",
+        "color": "сив",
+        "stock": 6
+      },
+      {
+        "size": "L",
+        "color": "сив",
+        "stock": 14
+      },
+      {
+        "size": "XL",
+        "color": "сив",
+        "stock": 23
+      },
+      {
+        "size": "XXL",
+        "color": "сив",
+        "stock": 15
+      }
+    ],
+    "totalStock": 68,
+    "active": true
+  },
+  {
+    "ref": "2266",
+    "sku": "TS-2266",
+    "name": "Мъжка риза – делови стил, в черен цвят",
+    "sourceName": "риза",
+    "slug": "mazhka-riza-delovi-stil-v-cheren-tsvyat-2266",
+    "categorySlug": "myzhki-rizi",
+    "categoryName": "Мъжки ризи",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 39.99,
+    "priceBgn": 78.21,
+    "sourceUrl": "https://topstyle.bg/nachalo/2581-12019-riza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 6
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 29
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 24
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 0
+      }
+    ],
+    "totalStock": 60,
+    "active": true
+  },
+  {
+    "ref": "2226",
+    "sku": "TS-2226",
+    "name": "Мъжка риза – делови стил, в бял цвят",
+    "sourceName": "риза",
+    "slug": "mazhka-riza-delovi-stil-v-byal-tsvyat-2226",
+    "categorySlug": "myzhki-rizi",
+    "categoryName": "Мъжки ризи",
+    "color": "бял",
+    "material": "памук с еластант",
+    "priceEur": 39.99,
+    "priceBgn": 78.21,
+    "sourceUrl": "https://topstyle.bg/nachalo/2539-11823-riza-byala-cer.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 7
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 9
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 0
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 9
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 29
+      }
+    ],
+    "totalStock": 54,
+    "active": true
+  },
+  {
+    "ref": "2223",
+    "sku": "TS-2223",
+    "name": "Мъжка риза – ежедневен стил, в бял цвят",
+    "sourceName": "риза",
+    "slug": "mazhka-riza-ezhedneven-stil-v-byal-tsvyat-2223",
+    "categorySlug": "myzhki-rizi",
+    "categoryName": "Мъжки ризи",
+    "color": "бял",
+    "material": "памук с еластант",
+    "priceEur": 39.99,
+    "priceBgn": 78.21,
+    "sourceUrl": "https://topstyle.bg/nachalo/2536-11808-riza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 13
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 28
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 3
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 7
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 20
+      }
+    ],
+    "totalStock": 71,
+    "active": true
+  },
+  {
+    "ref": "1956",
+    "sku": "TS-1956",
+    "name": "Мъжка риза – стандартна кройка, в бял цвят",
+    "sourceName": "риза",
+    "slug": "mazhka-riza-standartna-kroyka-v-byal-tsvyat-1956",
+    "categorySlug": "myzhki-rizi",
+    "categoryName": "Мъжки ризи",
+    "color": "бял",
+    "material": "памук с еластант",
+    "priceEur": 39.99,
+    "priceBgn": 78.21,
+    "sourceUrl": "https://topstyle.bg/nachalo/2262-10431-riza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 8
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 1
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 2
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 10
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 3
+      }
+    ],
+    "totalStock": 24,
+    "active": true
+  },
+  {
+    "ref": "1955",
+    "sku": "TS-1955",
+    "name": "Мъжка риза – ежедневен стил, в черен цвят",
+    "sourceName": "риза",
+    "slug": "mazhka-riza-ezhedneven-stil-v-cheren-tsvyat-1955",
+    "categorySlug": "myzhki-rizi",
+    "categoryName": "Мъжки ризи",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 39.99,
+    "priceBgn": 78.21,
+    "sourceUrl": "https://topstyle.bg/nachalo/2261-10428-riza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 26
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 14
+      }
+    ],
+    "totalStock": 43,
+    "active": true
+  },
+  {
+    "ref": "1953",
+    "sku": "TS-1953",
+    "name": "Мъжка риза – стандартна кройка, в черен цвят",
+    "sourceName": "риза",
+    "slug": "mazhka-riza-standartna-kroyka-v-cheren-tsvyat-1953",
+    "categorySlug": "myzhki-rizi",
+    "categoryName": "Мъжки ризи",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 39.99,
+    "priceBgn": 78.21,
+    "sourceUrl": "https://topstyle.bg/nachalo/2259-10419-riza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 6
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 10
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 4
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 30
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 12
+      }
+    ],
+    "totalStock": 62,
+    "active": true
+  },
+  {
+    "ref": "1457",
+    "sku": "TS-1457",
+    "name": "Мъжка риза – делови стил, в бял цвят",
+    "sourceName": "риза",
+    "slug": "mazhka-riza-delovi-stil-v-byal-tsvyat-1457",
+    "categorySlug": "myzhki-rizi",
+    "categoryName": "Мъжки ризи",
+    "color": "бял",
+    "material": "памук с еластант",
+    "priceEur": 35.79,
+    "priceBgn": 70.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/1735-7897-riza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 3
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 0
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 15
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 6
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 17
+      }
+    ],
+    "totalStock": 41,
+    "active": true
+  },
+  {
+    "ref": "0573",
+    "sku": "TS-0573",
+    "name": "Мъжка риза – стандартна кройка",
+    "sourceName": "риза",
+    "slug": "mazhka-riza-standartna-kroyka-0573",
+    "categorySlug": "myzhki-rizi",
+    "categoryName": "Мъжки ризи",
+    "color": "",
+    "material": "памук с еластант",
+    "priceEur": 30.68,
+    "priceBgn": 60.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/793-4803-riza.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "универсален",
+        "stock": 0
+      },
+      {
+        "size": "M",
+        "color": "универсален",
+        "stock": 1
+      },
+      {
+        "size": "L",
+        "color": "универсален",
+        "stock": 0
+      },
+      {
+        "size": "XL",
+        "color": "универсален",
+        "stock": 23
+      },
+      {
+        "size": "XXL",
+        "color": "универсален",
+        "stock": 25
+      }
+    ],
+    "totalStock": 49,
+    "active": true
+  },
+  {
+    "ref": "2521",
+    "sku": "TS-2521",
+    "name": "Мъжки бански – къс модел, в черен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-kas-model-v-cheren-tsvyat-2521",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "черен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2853-13380-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 22
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 17
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 16
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 23
+      },
+      {
+        "size": "XXXL",
+        "color": "черен",
+        "stock": 20
+      }
+    ],
+    "totalStock": 99,
+    "active": true
+  },
+  {
+    "ref": "2529",
+    "sku": "TS-2529",
+    "name": "Мъжки бански – къс модел, в тъмносин цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-kas-model-v-tamnosin-tsvyat-2529",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "тъмносин",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2852-13378-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "тъмносин",
+        "stock": 9
+      },
+      {
+        "size": "M",
+        "color": "тъмносин",
+        "stock": 10
+      },
+      {
+        "size": "L",
+        "color": "тъмносин",
+        "stock": 29
+      },
+      {
+        "size": "XL",
+        "color": "тъмносин",
+        "stock": 16
+      },
+      {
+        "size": "XXL",
+        "color": "тъмносин",
+        "stock": 13
+      },
+      {
+        "size": "XXXL",
+        "color": "тъмносин",
+        "stock": 24
+      }
+    ],
+    "totalStock": 101,
+    "active": true
+  },
+  {
+    "ref": "2528",
+    "sku": "TS-2528",
+    "name": "Мъжки бански – плажен модел, в черен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-plazhen-model-v-cheren-tsvyat-2528",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "черен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2851-13368-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 7
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 18
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 5
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 26
+      },
+      {
+        "size": "XXXL",
+        "color": "черен",
+        "stock": 28
+      }
+    ],
+    "totalStock": 84,
+    "active": true
+  },
+  {
+    "ref": "2527",
+    "sku": "TS-2527",
+    "name": "Мъжки бански – бързосъхнещ модел, в черен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-barzosahnesht-model-v-cheren-tsvyat-2527",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "черен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2850-13362-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 20
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 24
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 27
+      },
+      {
+        "size": "XXXL",
+        "color": "черен",
+        "stock": 26
+      }
+    ],
+    "totalStock": 100,
+    "active": true
+  },
+  {
+    "ref": "2526",
+    "sku": "TS-2526",
+    "name": "Мъжки бански – къс модел, в черен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-kas-model-v-cheren-tsvyat-2526",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "черен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2849-13356-banski-ea7.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 12
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 21
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 7
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 10
+      },
+      {
+        "size": "XXXL",
+        "color": "черен",
+        "stock": 14
+      }
+    ],
+    "totalStock": 64,
+    "active": true
+  },
+  {
+    "ref": "2525",
+    "sku": "TS-2525",
+    "name": "Мъжки бански – плажен модел, в черен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-plazhen-model-v-cheren-tsvyat-2525",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "черен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2848-13350-banski-tomi.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 14
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 28
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 20
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 29
+      },
+      {
+        "size": "XXXL",
+        "color": "черен",
+        "stock": 24
+      }
+    ],
+    "totalStock": 117,
+    "active": true
+  },
+  {
+    "ref": "2524",
+    "sku": "TS-2524",
+    "name": "Мъжки бански – бързосъхнещ модел, в черен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-barzosahnesht-model-v-cheren-tsvyat-2524",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "черен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2847-13346-banski-sk.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 3
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 24
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 11
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 27
+      },
+      {
+        "size": "XXXL",
+        "color": "черен",
+        "stock": 13
+      }
+    ],
+    "totalStock": 78,
+    "active": true
+  },
+  {
+    "ref": "2523",
+    "sku": "TS-2523",
+    "name": "Мъжки бански – къс модел, в черен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-kas-model-v-cheren-tsvyat-2523",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "черен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2846-13342-banski-sk.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 8
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 21
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 5
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "XXXL",
+        "color": "черен",
+        "stock": 17
+      }
+    ],
+    "totalStock": 53,
+    "active": true
+  },
+  {
+    "ref": "2522",
+    "sku": "TS-2522",
+    "name": "Мъжки бански – къс модел, в зелен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-kas-model-v-zelen-tsvyat-2522",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "зелен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2845-13332-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "зелен",
+        "stock": 14
+      },
+      {
+        "size": "M",
+        "color": "зелен",
+        "stock": 13
+      },
+      {
+        "size": "L",
+        "color": "зелен",
+        "stock": 21
+      },
+      {
+        "size": "XL",
+        "color": "зелен",
+        "stock": 4
+      },
+      {
+        "size": "XXL",
+        "color": "зелен",
+        "stock": 1
+      },
+      {
+        "size": "XXXL",
+        "color": "зелен",
+        "stock": 11
+      }
+    ],
+    "totalStock": 64,
+    "active": true
+  },
+  {
+    "ref": "2520",
+    "sku": "TS-2520",
+    "name": "Мъжки бански – плажен модел, в черен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-plazhen-model-v-cheren-tsvyat-2520",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "черен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2843-13320-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 16
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 17
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 9
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 6
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 6
+      },
+      {
+        "size": "XXXL",
+        "color": "черен",
+        "stock": 24
+      }
+    ],
+    "totalStock": 78,
+    "active": true
+  },
+  {
+    "ref": "2519",
+    "sku": "TS-2519",
+    "name": "Мъжки бански – къс модел, в син цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-kas-model-v-sin-tsvyat-2519",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "син",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2842-13314-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "син",
+        "stock": 19
+      },
+      {
+        "size": "M",
+        "color": "син",
+        "stock": 4
+      },
+      {
+        "size": "L",
+        "color": "син",
+        "stock": 22
+      },
+      {
+        "size": "XL",
+        "color": "син",
+        "stock": 0
+      },
+      {
+        "size": "XXL",
+        "color": "син",
+        "stock": 1
+      },
+      {
+        "size": "XXXL",
+        "color": "син",
+        "stock": 27
+      }
+    ],
+    "totalStock": 73,
+    "active": true
+  },
+  {
+    "ref": "2518",
+    "sku": "TS-2518",
+    "name": "Мъжки бански – бързосъхнещ модел, в черен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-barzosahnesht-model-v-cheren-tsvyat-2518",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "черен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2841-13309-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 13
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 8
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 29
+      },
+      {
+        "size": "XXXL",
+        "color": "черен",
+        "stock": 14
+      }
+    ],
+    "totalStock": 67,
+    "active": true
+  },
+  {
+    "ref": "2516",
+    "sku": "TS-2516",
+    "name": "Мъжки бански – къс модел, в черен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-kas-model-v-cheren-tsvyat-2516",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "черен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2838-13301-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 4
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 17
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 30
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 16
+      },
+      {
+        "size": "XXXL",
+        "color": "черен",
+        "stock": 25
+      }
+    ],
+    "totalStock": 92,
+    "active": true
+  },
+  {
+    "ref": "2514",
+    "sku": "TS-2514",
+    "name": "Мъжки бански – къс модел",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-kas-model-2514",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2836-13284-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "универсален",
+        "stock": 12
+      },
+      {
+        "size": "M",
+        "color": "универсален",
+        "stock": 1
+      },
+      {
+        "size": "L",
+        "color": "универсален",
+        "stock": 8
+      },
+      {
+        "size": "XL",
+        "color": "универсален",
+        "stock": 22
+      },
+      {
+        "size": "XXL",
+        "color": "универсален",
+        "stock": 25
+      },
+      {
+        "size": "XXXL",
+        "color": "универсален",
+        "stock": 5
+      }
+    ],
+    "totalStock": 73,
+    "active": true
+  },
+  {
+    "ref": "2513",
+    "sku": "TS-2513",
+    "name": "Мъжки бански – плажен модел, в син цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-plazhen-model-v-sin-tsvyat-2513",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "син",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2835-13278-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "син",
+        "stock": 6
+      },
+      {
+        "size": "M",
+        "color": "син",
+        "stock": 21
+      },
+      {
+        "size": "L",
+        "color": "син",
+        "stock": 5
+      },
+      {
+        "size": "XL",
+        "color": "син",
+        "stock": 12
+      },
+      {
+        "size": "XXL",
+        "color": "син",
+        "stock": 10
+      },
+      {
+        "size": "XXXL",
+        "color": "син",
+        "stock": 8
+      }
+    ],
+    "totalStock": 62,
+    "active": true
+  },
+  {
+    "ref": "2512",
+    "sku": "TS-2512",
+    "name": "Мъжки бански – къс модел, в червен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-kas-model-v-cherven-tsvyat-2512",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "червен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2833-13272-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "червен",
+        "stock": 0
+      },
+      {
+        "size": "M",
+        "color": "червен",
+        "stock": 19
+      },
+      {
+        "size": "L",
+        "color": "червен",
+        "stock": 27
+      },
+      {
+        "size": "XL",
+        "color": "червен",
+        "stock": 26
+      },
+      {
+        "size": "XXL",
+        "color": "червен",
+        "stock": 23
+      },
+      {
+        "size": "XXXL",
+        "color": "червен",
+        "stock": 10
+      }
+    ],
+    "totalStock": 105,
+    "active": true
+  },
+  {
+    "ref": "2511",
+    "sku": "TS-2511",
+    "name": "Мъжки бански – плажен модел, в черен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-plazhen-model-v-cheren-tsvyat-2511",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "черен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2832-13266-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 23
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 23
+      },
+      {
+        "size": "XXXL",
+        "color": "черен",
+        "stock": 27
+      }
+    ],
+    "totalStock": 76,
+    "active": true
+  },
+  {
+    "ref": "2510",
+    "sku": "TS-2510",
+    "name": "Мъжки бански – бързосъхнещ модел, в черен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-barzosahnesht-model-v-cheren-tsvyat-2510",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "черен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 26.99,
+    "priceBgn": 52.79,
+    "sourceUrl": "https://topstyle.bg/nachalo/2831-13261-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 21
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 21
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 22
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 23
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 17
+      },
+      {
+        "size": "XXXL",
+        "color": "черен",
+        "stock": 0
+      }
+    ],
+    "totalStock": 104,
+    "active": true
+  },
+  {
+    "ref": "2509",
+    "sku": "TS-2509",
+    "name": "Мъжки бански – къс модел, в черен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-kas-model-v-cheren-tsvyat-2509",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "черен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 26.99,
+    "priceBgn": 52.79,
+    "sourceUrl": "https://topstyle.bg/nachalo/2830-13256-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 12
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 21
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 12
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 4
+      },
+      {
+        "size": "XXXL",
+        "color": "черен",
+        "stock": 0
+      }
+    ],
+    "totalStock": 49,
+    "active": true
+  },
+  {
+    "ref": "2498",
+    "sku": "TS-2498",
+    "name": "Мъжки бански – къс модел, в кафяв цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-kas-model-v-kafyav-tsvyat-2498",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "кафяв",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2820-13199-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "кафяв",
+        "stock": 5
+      },
+      {
+        "size": "M",
+        "color": "кафяв",
+        "stock": 30
+      },
+      {
+        "size": "L",
+        "color": "кафяв",
+        "stock": 2
+      },
+      {
+        "size": "XL",
+        "color": "кафяв",
+        "stock": 20
+      },
+      {
+        "size": "XXL",
+        "color": "кафяв",
+        "stock": 26
+      },
+      {
+        "size": "XXXL",
+        "color": "кафяв",
+        "stock": 17
+      }
+    ],
+    "totalStock": 100,
+    "active": true
+  },
+  {
+    "ref": "2497",
+    "sku": "TS-2497",
+    "name": "Мъжки бански – плажен модел, в зелен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-plazhen-model-v-zelen-tsvyat-2497",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "зелен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2819-13193-banski-zelen.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "зелен",
+        "stock": 21
+      },
+      {
+        "size": "M",
+        "color": "зелен",
+        "stock": 13
+      },
+      {
+        "size": "L",
+        "color": "зелен",
+        "stock": 19
+      },
+      {
+        "size": "XL",
+        "color": "зелен",
+        "stock": 1
+      },
+      {
+        "size": "XXL",
+        "color": "зелен",
+        "stock": 28
+      },
+      {
+        "size": "XXXL",
+        "color": "зелен",
+        "stock": 13
+      }
+    ],
+    "totalStock": 95,
+    "active": true
+  },
+  {
+    "ref": "2496",
+    "sku": "TS-2496",
+    "name": "Мъжки бански – плажен модел, в черен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-plazhen-model-v-cheren-tsvyat-2496",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "черен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2818-13187-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 5
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 8
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 17
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 22
+      },
+      {
+        "size": "XXXL",
+        "color": "черен",
+        "stock": 2
+      }
+    ],
+    "totalStock": 54,
+    "active": true
+  },
+  {
+    "ref": "2495",
+    "sku": "TS-2495",
+    "name": "Мъжки бански – бързосъхнещ модел, в черен цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-barzosahnesht-model-v-cheren-tsvyat-2495",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "черен",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2817-13181-banski.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 15
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 13
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 4
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 23
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 13
+      },
+      {
+        "size": "XXXL",
+        "color": "черен",
+        "stock": 2
+      }
+    ],
+    "totalStock": 70,
+    "active": true
+  },
+  {
+    "ref": "2494",
+    "sku": "TS-2494",
+    "name": "Мъжки бански – къс модел, в бял цвят",
+    "sourceName": "бански",
+    "slug": "mazhki-banski-kas-model-v-byal-tsvyat-2494",
+    "categorySlug": "banski",
+    "categoryName": "Бански",
+    "color": "бял",
+    "material": "бързосъхнещ полиестер",
+    "priceEur": 24.99,
+    "priceBgn": 48.88,
+    "sourceUrl": "https://topstyle.bg/nachalo/2816-13175-banski-byal.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 26
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 22
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 13
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 1
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 12
+      },
+      {
+        "size": "XXXL",
+        "color": "бял",
+        "stock": 25
+      }
+    ],
+    "totalStock": 99,
+    "active": true
+  },
+  {
+    "ref": "2499",
+    "sku": "TS-2499",
+    "name": "Мъжки комплект – суичър и долнище, в черен цвят",
+    "sourceName": "комплект",
+    "slug": "mazhki-komplekt-suichar-i-dolnishte-v-cheren-tsvyat-2499",
+    "categorySlug": "komplekti",
+    "categoryName": "Комплекти",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 55.73,
+    "priceBgn": 109.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2803-13100-komplekt.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 7
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 5
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 15
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 13
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 24
+      }
+    ],
+    "totalStock": 64,
+    "active": true
+  },
+  {
+    "ref": "2481",
+    "sku": "TS-2481",
+    "name": "Мъжки комплект – суичър и долнище, в черен цвят",
+    "sourceName": "комплект",
+    "slug": "mazhki-komplekt-suichar-i-dolnishte-v-cheren-tsvyat-2481",
+    "categorySlug": "komplekti",
+    "categoryName": "Комплекти",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 55.73,
+    "priceBgn": 109.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2802-13110-komplekt.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 26
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 19
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 3
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 8
+      }
+    ],
+    "totalStock": 58,
+    "active": true
+  },
+  {
+    "ref": "2480",
+    "sku": "TS-2480",
+    "name": "Мъжки комплект – суичър и долнище, в черен цвят",
+    "sourceName": "комплект",
+    "slug": "mazhki-komplekt-suichar-i-dolnishte-v-cheren-tsvyat-2480",
+    "categorySlug": "komplekti",
+    "categoryName": "Комплекти",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 55.73,
+    "priceBgn": 109.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2801-13095-komplekt.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 13
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 18
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 6
+      }
+    ],
+    "totalStock": 40,
+    "active": true
+  },
+  {
+    "ref": "2479",
+    "sku": "TS-2479",
+    "name": "Мъжки комплект – суичър и долнище, в черен цвят",
+    "sourceName": "комплект",
+    "slug": "mazhki-komplekt-suichar-i-dolnishte-v-cheren-tsvyat-2479",
+    "categorySlug": "komplekti",
+    "categoryName": "Комплекти",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 55.73,
+    "priceBgn": 109.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2800-13094-komplekt.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 20
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 19
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 0
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 27
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 22
+      }
+    ],
+    "totalStock": 88,
+    "active": true
+  },
+  {
+    "ref": "2478",
+    "sku": "TS-2478",
+    "name": "Мъжки комплект – суичър и долнище, в черен цвят",
+    "sourceName": "комплект",
+    "slug": "mazhki-komplekt-suichar-i-dolnishte-v-cheren-tsvyat-2478",
+    "categorySlug": "komplekti",
+    "categoryName": "Комплекти",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 55.73,
+    "priceBgn": 109.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2799-13085-komplekt.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 8
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 1
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 4
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 24
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 17
+      }
+    ],
+    "totalStock": 54,
+    "active": true
+  },
+  {
+    "ref": "2454",
+    "sku": "TS-2454",
+    "name": "Мъжки комплект – суичър и долнище, в черен цвят",
+    "sourceName": "комплект",
+    "slug": "mazhki-komplekt-suichar-i-dolnishte-v-cheren-tsvyat-2454",
+    "categorySlug": "komplekti",
+    "categoryName": "Комплекти",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 55.73,
+    "priceBgn": 109.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2775-12970-komplekt.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 27
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 17
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 10
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 28
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 29
+      }
+    ],
+    "totalStock": 111,
+    "active": true
+  },
+  {
+    "ref": "2453",
+    "sku": "TS-2453",
+    "name": "Мъжки комплект – суичър и долнище, в черен цвят",
+    "sourceName": "комплект",
+    "slug": "mazhki-komplekt-suichar-i-dolnishte-v-cheren-tsvyat-2453",
+    "categorySlug": "komplekti",
+    "categoryName": "Комплекти",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 55.73,
+    "priceBgn": 109.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2774-12960-komplekt.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 12
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 19
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 8
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 28
+      }
+    ],
+    "totalStock": 69,
+    "active": true
+  },
+  {
+    "ref": "2443",
+    "sku": "TS-2443",
+    "name": "Мъжки комплект – суичър и долнище, в черен цвят",
+    "sourceName": "комплект",
+    "slug": "mazhki-komplekt-suichar-i-dolnishte-v-cheren-tsvyat-2443",
+    "categorySlug": "komplekti",
+    "categoryName": "Комплекти",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 55.73,
+    "priceBgn": 109.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2764-12860-komplekt.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 30
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 23
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 14
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 6
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 19
+      }
+    ],
+    "totalStock": 92,
+    "active": true
+  },
+  {
+    "ref": "2442",
+    "sku": "TS-2442",
+    "name": "Мъжки комплект – суичър и долнище, в бял цвят",
+    "sourceName": "комплект",
+    "slug": "mazhki-komplekt-suichar-i-dolnishte-v-byal-tsvyat-2442",
+    "categorySlug": "komplekti",
+    "categoryName": "Комплекти",
+    "color": "бял",
+    "material": "памук с еластант",
+    "priceEur": 55.73,
+    "priceBgn": 109.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2763-12858-komplekt.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 12
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 1
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 19
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 2
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 1
+      }
+    ],
+    "totalStock": 35,
+    "active": true
+  },
+  {
+    "ref": "2057",
+    "sku": "TS-2057",
+    "name": "Мъжки комплект – суичър и долнище, в червен цвят",
+    "sourceName": "комплект",
+    "slug": "mazhki-komplekt-suichar-i-dolnishte-v-cherven-tsvyat-2057",
+    "categorySlug": "komplekti",
+    "categoryName": "Комплекти",
+    "color": "червен",
+    "material": "памук с еластант",
+    "priceEur": 50.62,
+    "priceBgn": 99.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2364-10916-komplekt.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "червен",
+        "stock": 14
+      },
+      {
+        "size": "M",
+        "color": "червен",
+        "stock": 16
+      },
+      {
+        "size": "L",
+        "color": "червен",
+        "stock": 0
+      },
+      {
+        "size": "XL",
+        "color": "червен",
+        "stock": 10
+      },
+      {
+        "size": "XXL",
+        "color": "червен",
+        "stock": 5
+      }
+    ],
+    "totalStock": 45,
+    "active": true
+  },
+  {
+    "ref": "2050",
+    "sku": "TS-2050",
+    "name": "Мъжки комплект – суичър и долнище, в зелен цвят",
+    "sourceName": "комплект",
+    "slug": "mazhki-komplekt-suichar-i-dolnishte-v-zelen-tsvyat-2050",
+    "categorySlug": "komplekti",
+    "categoryName": "Комплекти",
+    "color": "зелен",
+    "material": "памук с еластант",
+    "priceEur": 50.62,
+    "priceBgn": 99.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2358-10887-komplekt.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "зелен",
+        "stock": 3
+      },
+      {
+        "size": "M",
+        "color": "зелен",
+        "stock": 6
+      },
+      {
+        "size": "L",
+        "color": "зелен",
+        "stock": 23
+      },
+      {
+        "size": "XL",
+        "color": "зелен",
+        "stock": 7
+      },
+      {
+        "size": "XXL",
+        "color": "зелен",
+        "stock": 2
+      }
+    ],
+    "totalStock": 41,
+    "active": true
+  },
+  {
+    "ref": "2048",
+    "sku": "TS-2048",
+    "name": "Мъжки комплект – суичър и долнище, в тъмносин цвят",
+    "sourceName": "комплект",
+    "slug": "mazhki-komplekt-suichar-i-dolnishte-v-tamnosin-tsvyat-2048",
+    "categorySlug": "komplekti",
+    "categoryName": "Комплекти",
+    "color": "тъмносин",
+    "material": "памук с еластант",
+    "priceEur": 50.62,
+    "priceBgn": 99.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2356-10922-komplekt.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "тъмносин",
+        "stock": 18
+      },
+      {
+        "size": "M",
+        "color": "тъмносин",
+        "stock": 7
+      },
+      {
+        "size": "L",
+        "color": "тъмносин",
+        "stock": 18
+      },
+      {
+        "size": "XL",
+        "color": "тъмносин",
+        "stock": 3
+      },
+      {
+        "size": "XXL",
+        "color": "тъмносин",
+        "stock": 3
+      }
+    ],
+    "totalStock": 49,
+    "active": true
+  },
+  {
+    "ref": "2047",
+    "sku": "TS-2047",
+    "name": "Мъжки комплект – суичър и долнище, в черен цвят",
+    "sourceName": "комплект",
+    "slug": "mazhki-komplekt-suichar-i-dolnishte-v-cheren-tsvyat-2047",
+    "categorySlug": "komplekti",
+    "categoryName": "Комплекти",
+    "color": "черен",
+    "material": "памук с еластант",
+    "priceEur": 50.62,
+    "priceBgn": 99.0,
+    "sourceUrl": "https://topstyle.bg/nachalo/2355-10917-komplekt.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "черен",
+        "stock": 29
+      },
+      {
+        "size": "M",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "L",
+        "color": "черен",
+        "stock": 2
+      },
+      {
+        "size": "XL",
+        "color": "черен",
+        "stock": 6
+      },
+      {
+        "size": "XXL",
+        "color": "черен",
+        "stock": 0
+      }
+    ],
+    "totalStock": 39,
+    "active": true
+  },
+  {
+    "ref": "2034",
+    "sku": "TS-2034",
+    "name": "Мъжки комплект – суичър и долнище, в бял цвят",
+    "sourceName": "комплект",
+    "slug": "mazhki-komplekt-suichar-i-dolnishte-v-byal-tsvyat-2034",
+    "categorySlug": "komplekti",
+    "categoryName": "Комплекти",
+    "color": "бял",
+    "material": "памук с еластант",
+    "priceEur": 45.5,
+    "priceBgn": 88.99,
+    "sourceUrl": "https://topstyle.bg/nachalo/2341-10811-komplekt.html",
+    "variants": [
+      {
+        "size": "S",
+        "color": "бял",
+        "stock": 28
+      },
+      {
+        "size": "M",
+        "color": "бял",
+        "stock": 5
+      },
+      {
+        "size": "L",
+        "color": "бял",
+        "stock": 2
+      },
+      {
+        "size": "XL",
+        "color": "бял",
+        "stock": 3
+      },
+      {
+        "size": "XXL",
+        "color": "бял",
+        "stock": 21
+      }
+    ],
+    "totalStock": 59,
+    "active": true
+  }
+]
