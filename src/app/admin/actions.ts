@@ -134,6 +134,7 @@ export async function updateProductAction(formData: FormData) {
   revalidatePath("/admin/products");
   revalidatePath(`/admin/products/${id}/edit`);
   revalidatePath("/");
+  redirect(`/admin/products/${id}/edit?saved=1`);
 }
 
 export async function deleteProductAction(formData: FormData) {

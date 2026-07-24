@@ -1,51 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/components/CartProvider";
 import { formatBgn, formatEur } from "@/lib/format";
 
 export default function CartPage() {
-  const { lines, remove, setQty, totalBgn, totalEur, clear } = useCart();
-  const [form, setForm] = useState({ name: "", email: "", phone: "", address: "", city: "" });
-  const [placed, setPlaced] = useState<string | null>(null);
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState("");
-
-  async function placeOrder() {
-    if (!form.name || !form.phone || !form.address || !form.city) {
-      setError("Моля попълнете име, телефон, адрес и град.");
-      return;
-    }
-    setSubmitting(true);
-    setError("");
-    try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ customer: form, lines }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Грешка при поръчката");
-      setPlaced(data.orderNumber);
-      clear();
-    } catch (e: any) {
-      setError(e.message);
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
-  if (placed) {
-    return (
-      <div className="container" style={{ padding: "60px 0" }}>
-        <h1>Благодарим за поръчката!</h1>
-        <p>Номер на поръчката: <strong>{placed}</strong></p>
-        <p className="muted">Ще се свържем с вас за потвърждение на доставката.</p>
-        <Link href="/" className="btn" style={{ marginTop: 20, display: "inline-block" }}>Обратно към магазина</Link>
-      </div>
-    );
-  }
+  const { lines, remove, setQty, totalBgn, totalEur } = useCart();
 
   if (lines.length === 0) {
     return (
@@ -93,32 +53,8 @@ export default function CartPage() {
         </table>
       </div>
 
-      <div className="card-box mt-24" style={{ maxWidth: 480, marginLeft: "auto" }}>
-        <p className="opt-label" style={{ marginTop: 0 }}>Данни за доставка</p>
-        <div className="field">
-          <label>Име и фамилия</label>
-          <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-        </div>
-        <div className="field">
-          <label>Имейл</label>
-          <input value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-        </div>
-        <div className="field">
-          <label>Телефон</label>
-          <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
-        </div>
-        <div className="field">
-          <label>Адрес</label>
-          <input value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
-        </div>
-        <div className="field">
-          <label>Град</label>
-          <input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
-        </div>
-        {error && <p className="error-text">{error}</p>}
-        <button className="btn" style={{ width: "100%" }} onClick={placeOrder} disabled={submitting}>
-          {submitting ? "Изпращане..." : "Завърши поръчката (наложен платеж)"}
-        </button>
+      <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
+        <Link href="/checkout" className="btn">Продължи към поръчката →</Link>
       </div>
     </div>
   );

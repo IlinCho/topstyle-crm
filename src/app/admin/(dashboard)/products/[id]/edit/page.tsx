@@ -8,7 +8,7 @@ export default async function EditProductPage({
   searchParams,
 }: {
   params: { id: string };
-  searchParams: { created?: string };
+  searchParams: { created?: string; saved?: string };
 }) {
   const [product, categories] = await Promise.all([
     db.product.findUnique({
@@ -35,8 +35,14 @@ export default async function EditProductPage({
           Продуктът е създаден успешно.
         </div>
       )}
+      {searchParams?.saved && (
+        <div className="card-box" style={{ background: "#e7f6ec", borderColor: "#bfe6cb" }}>
+          Промените са запазени.
+        </div>
+      )}
 
       <ProductForm
+        key={product.updatedAt.toISOString()}
         action={updateProductAction}
         categories={categories}
         initial={{
