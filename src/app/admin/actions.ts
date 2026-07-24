@@ -69,6 +69,7 @@ export async function createProductAction(formData: FormData) {
   const description = String(formData.get("description") || "").trim();
   const imageUrl = String(formData.get("imageUrl") || "").trim();
   const sku = String(formData.get("sku") || "").trim() || `SKU-${Date.now()}`;
+  const featured = formData.get("featured") === "on";
 
   if (!name || !categoryId) return;
 
@@ -86,6 +87,7 @@ export async function createProductAction(formData: FormData) {
       priceEur,
       priceBgn,
       categoryId,
+      featured,
       variants: { create: variants },
       images: imageUrl ? { create: [{ url: imageUrl, position: 0 }] } : undefined,
     },
@@ -107,6 +109,7 @@ export async function updateProductAction(formData: FormData) {
   const description = String(formData.get("description") || "").trim();
   const imageUrl = String(formData.get("imageUrl") || "").trim();
   const active = formData.get("active") === "on";
+  const featured = formData.get("featured") === "on";
 
   if (!id || !name || !categoryId) return;
 
@@ -114,7 +117,7 @@ export async function updateProductAction(formData: FormData) {
 
   await db.product.update({
     where: { id },
-    data: { name, categoryId, priceEur, priceBgn, material, color, description, active },
+    data: { name, categoryId, priceEur, priceBgn, material, color, description, active, featured },
   });
 
   await db.productVariant.deleteMany({ where: { productId: id } });

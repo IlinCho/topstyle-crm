@@ -92,6 +92,8 @@ model Order {
   guestPhone  String      @default("")
   address     String      @default("")
   city        String      @default("")
+  deliveryMethod String   @default("") // econt_office | speedy_address | ...
+  officeName  String      @default("") // e.g. selected Econt office, if applicable
   status      String      @default("pending") // pending, confirmed, shipped, delivered, cancelled
   totalBgn    Float
   totalEur    Float

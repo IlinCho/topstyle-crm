@@ -4,9 +4,10 @@ import { db } from "@/lib/db";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { customer, lines } = body as {
+    const { customer, lines, delivery } = body as {
       customer: { name: string; email: string; phone: string; address: string; city: string };
       lines: { productId: string; name: string; size: string; color: string; qty: number; priceBgn: number; priceEur: number }[];
+      delivery?: { method: string; officeName?: string };
     };
 
     if (!lines || lines.length === 0) {
@@ -14,6 +15,9 @@ export async function POST(req: NextRequest) {
     }
     if (!customer?.name || !customer?.phone || !customer?.address || !customer?.city) {
       return NextResponse.json({ error: "Липсват данни за доставка." }, { status: 400 });
+    }
+    if (!delivery?.method) {
+      return NextResponse.json({ error: "Моля изберете начин на доставка." }, { status: 400 });
     }
 
     const totalBgn = lines.reduce((s, l) => s + l.qty * l.priceBgn, 0);
@@ -44,6 +48,8 @@ export async function POST(req: NextRequest) {
         guestPhone: customer.phone,
         address: customer.address,
         city: customer.city,
+        deliveryMethod: delivery.method,
+        officeName: delivery.officeName || "",
         totalBgn,
         totalEur,
         items: {

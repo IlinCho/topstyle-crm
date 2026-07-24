@@ -5,6 +5,11 @@ import { updateOrderStatusAction } from "../../../actions";
 
 const STATUSES = ["pending", "confirmed", "shipped", "delivered", "cancelled"];
 
+const DELIVERY_LABELS: Record<string, string> = {
+  econt_office: "Еконт — до офис",
+  speedy_address: "Спиди — до адрес",
+};
+
 export default async function AdminOrderDetailPage({ params }: { params: { id: string } }) {
   const order = await db.order.findUnique({
     where: { id: params.id },
@@ -24,6 +29,12 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
             <p className="opt-label" style={{ marginTop: 0 }}>Клиент</p>
             <p>{order.guestName}<br />{order.guestPhone}<br />{order.guestEmail}</p>
             <p>{order.address}, {order.city}</p>
+            {order.deliveryMethod && (
+              <p className="muted">
+                Доставка: {DELIVERY_LABELS[order.deliveryMethod] || order.deliveryMethod}
+                {order.officeName ? ` (${order.officeName})` : ""}
+              </p>
+            )}
           </div>
           <div>
             <p className="opt-label" style={{ marginTop: 0 }}>Статус</p>

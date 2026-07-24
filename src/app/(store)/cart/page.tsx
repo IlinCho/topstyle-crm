@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCart } from "@/components/CartProvider";
 import { formatBgn, formatEur } from "@/lib/format";
+import TrustStrip from "@/components/TrustStrip";
 
 export default function CartPage() {
   const { lines, remove, setQty, totalBgn, totalEur } = useCart();
@@ -55,6 +56,10 @@ export default function CartPage() {
 
       <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
         <Link href="/checkout" className="btn">Продължи към поръчката →</Link>
+      </div>
+
+      <div style={{ marginTop: 20, display: "flex", justifyContent: "flex-end" }}>
+        <TrustStrip variant="cart" />
       </div>
     </div>
   );

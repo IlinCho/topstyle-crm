@@ -57,6 +57,7 @@ export default async function EditProductPage({
           description: product.description,
           imageUrl: product.images[0]?.url,
           active: product.active,
+          featured: product.featured,
           variants: product.variants.map((v) => ({ size: v.size, color: v.color, stock: v.stock })),
         }}
       />

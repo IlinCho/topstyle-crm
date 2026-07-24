@@ -24,6 +24,7 @@ export default function ProductForm({
     description?: string;
     imageUrl?: string;
     active?: boolean;
+    featured?: boolean;
     variants?: Variant[];
   };
 }) {
@@ -101,6 +102,12 @@ export default function ProductForm({
             <label htmlFor="active" style={{ marginBottom: 0 }}>Активен (видим в магазина)</label>
           </div>
         )}
+        <div className="field" style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+          <input type="checkbox" name="featured" defaultChecked={initial?.featured ?? false} id="featured" style={{ width: "auto" }} />
+          <label htmlFor="featured" style={{ marginBottom: 0 }}>
+            Топ продукт (показва бадж "Топ продукт" в магазина — маркирай ръчно реалните бестселъри)
+          </label>
+        </div>
       </div>
 
       <div className="card-box">

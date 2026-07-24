@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
 import ProductCard from "@/components/ProductCard";
+import { TRUST_CONFIG } from "@/lib/trust-config";
 
 export const dynamic = "force-dynamic";
 
@@ -13,11 +14,21 @@ export default async function HomePage() {
     take: 8,
   });
 
+  const authorityLine = [TRUST_CONFIG.yearsInBusinessText, TRUST_CONFIG.customersServedText]
+    .filter(Boolean)
+    .join(" · ");
+
   return (
     <>
       <div className="hero">
         <h1>Мъжка мода, която усещаш</h1>
-        <p>Тениски, якета, дънки, ризи и още — нови модели всяка седмица.</p>
+        <p>Качествени тениски, якета, дънки и ризи — с точния размер за теб, доставени до дни.</p>
+        {authorityLine && <p className="hero__authority">{authorityLine}</p>}
+        <ul className="hero__value-row">
+          <li>✓ Плащане при доставка</li>
+          <li>✓ Лесна замяна</li>
+          <li>✓ Връщане до {TRUST_CONFIG.returnWindowDays} дни</li>
+        </ul>
       </div>
 
       <div className="container">

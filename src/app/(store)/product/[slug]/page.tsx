@@ -3,6 +3,7 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { formatBgn, formatEur } from "@/lib/format";
 import AddToCart from "@/components/AddToCart";
+import { TRUST_CONFIG } from "@/lib/trust-config";
 
 export const dynamic = "force-dynamic";
 
@@ -39,6 +40,15 @@ export default async function ProductPage({ params }: { params: { slug: string }
             <div>Артикул: {product.sku}</div>
             <div>{totalStock > 0 ? `В наличност (${totalStock} бр.)` : "Изчерпан"}</div>
           </div>
+
+          {totalStock > 0 && totalStock <= 5 && (
+            <p className="urgency-line">Последни {totalStock} бр. в наличност</p>
+          )}
+          {TRUST_CONFIG.sameDayCutoffTime && (
+            <p className="urgency-line">
+              Поръчай до {TRUST_CONFIG.sameDayCutoffTime} ч. — изпращаме още днес
+            </p>
+          )}
 
           <p style={{ fontSize: 14.5, lineHeight: 1.6, marginBottom: 8 }}>{product.description}</p>
 
