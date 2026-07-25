@@ -13,11 +13,17 @@ export async function POST(req: NextRequest) {
     if (!lines || lines.length === 0) {
       return NextResponse.json({ error: "Количката е празна." }, { status: 400 });
     }
-    if (!customer?.name || !customer?.phone || !customer?.address || !customer?.city) {
+    if (!customer?.name || !customer?.phone || !customer?.city) {
       return NextResponse.json({ error: "Липсват данни за доставка." }, { status: 400 });
     }
     if (!delivery?.method) {
       return NextResponse.json({ error: "Моля изберете начин на доставка." }, { status: 400 });
+    }
+    if (delivery.method === "speedy_address" && !customer?.address) {
+      return NextResponse.json({ error: "Липсва адрес за доставка." }, { status: 400 });
+    }
+    if (delivery.method === "econt_office" && !delivery.officeName) {
+      return NextResponse.json({ error: "Липсва избран офис на Еконт." }, { status: 400 });
     }
 
     const totalBgn = lines.reduce((s, l) => s + l.qty * l.priceBgn, 0);

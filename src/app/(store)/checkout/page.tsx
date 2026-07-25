@@ -33,12 +33,16 @@ export default function CheckoutPage() {
   const currentStepIndex = placed ? 3 : 2; // this page always covers "Доставка" + "Плащане"
 
   async function placeOrder() {
-    if (!form.name || !form.phone || !form.address || !form.city) {
-      setError("Моля попълнете име, телефон, адрес и град.");
+    if (!form.name || !form.phone || !form.city) {
+      setError("Моля попълнете име, телефон и град.");
       return;
     }
     if (deliveryMethod === "econt_office" && !officeName.trim()) {
       setError("Моля посочете кой офис на Еконт е удобен за вас.");
+      return;
+    }
+    if (deliveryMethod === "speedy_address" && !form.address.trim()) {
+      setError("Моля попълнете адрес за доставка.");
       return;
     }
     setSubmitting(true);
