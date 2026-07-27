@@ -20,6 +20,16 @@ export default async function RegisterPage({
     <div className="container" style={{ padding: "30px 0 60px" }}>
       <h1 className="section-title" style={{ marginTop: 0 }}>Регистрация</h1>
 
+      {showGuestOption && (
+        <Link
+          href={next}
+          className="btn"
+          style={{ width: "100%", textAlign: "center", display: "block", marginBottom: 20 }}
+        >
+          Продължи като гост
+        </Link>
+      )}
+
       <div className={showGuestOption ? "pdp" : ""} style={showGuestOption ? { alignItems: "start" } : { maxWidth: 440 }}>
         <div className="card-box">
           {searchParams?.error === "exists" && (
@@ -58,13 +68,10 @@ export default async function RegisterPage({
 
         {showGuestOption && (
           <div className="card-box">
-            <p className="opt-label" style={{ marginTop: 0 }}>Нов клиент?</p>
+            <p className="opt-label" style={{ marginTop: 0 }}>Защо да се регистрираш?</p>
             <p style={{ fontSize: 13.5, color: "var(--muted)" }}>
-              Не е нужна регистрация — можеш да завършиш поръчката само с данни за доставка.
+              По-бърза поръчка следващия път и история на поръчките в профила ти. Не е задължително.
             </p>
-            <Link href={next} className="btn btn--ghost" style={{ width: "100%", textAlign: "center", display: "block" }}>
-              Продължи без регистрация
-            </Link>
           </div>
         )}
       </div>

@@ -24,9 +24,13 @@ export default async function LoginPage({
       </h1>
 
       {showGuestOption && (
-        <div className="card-box" style={{ background: "var(--bg-soft)" }}>
-          Влез в профила си за по-бърза поръчка следващия път, или продължи направо без регистрация.
-        </div>
+        <Link
+          href={next}
+          className="btn"
+          style={{ width: "100%", textAlign: "center", display: "block", marginBottom: 20 }}
+        >
+          Продължи като гост
+        </Link>
       )}
 
       <div className={showGuestOption ? "pdp" : ""} style={showGuestOption ? { alignItems: "start" } : { maxWidth: 440 }}>
@@ -61,13 +65,10 @@ export default async function LoginPage({
 
         {showGuestOption && (
           <div className="card-box">
-            <p className="opt-label" style={{ marginTop: 0 }}>Нов клиент?</p>
+            <p className="opt-label" style={{ marginTop: 0 }}>Защо да се регистрираш?</p>
             <p style={{ fontSize: 13.5, color: "var(--muted)" }}>
-              Не е нужна регистрация — можеш да завършиш поръчката само с данни за доставка.
+              По-бърза поръчка следващия път и история на поръчките в профила ти. Не е задължително.
             </p>
-            <Link href={next} className="btn btn--ghost" style={{ width: "100%", textAlign: "center", display: "block" }}>
-              Продължи без регистрация
-            </Link>
           </div>
         )}
       </div>
