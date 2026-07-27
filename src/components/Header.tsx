@@ -13,7 +13,7 @@ export default async function Header() {
       <div className="container site-header__top">
         <Link href="/" className="logo">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/topstyle-logo.png" alt="TopStyle.bg" className="logo__img" />
+          <img src="/topstyle-logo-wordmark.png" alt="TopStyle.bg" className="logo__img" />
         </Link>
         <div className="header-actions">
           <Link href={session ? "/account" : "/account/login"}>
