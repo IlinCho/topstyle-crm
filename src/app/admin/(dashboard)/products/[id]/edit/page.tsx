@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import ProductForm from "@/components/ProductForm";
+import { parseBadges } from "@/lib/badges";
 import {
   updateProductAction,
   deleteProductAction,
@@ -62,7 +63,7 @@ export default async function EditProductPage({
           description: product.description,
           imageUrl: product.images[0]?.url,
           active: product.active,
-          featured: product.featured,
+          badges: parseBadges(product.badges),
           variants: product.variants.map((v) => ({ size: v.size, color: v.color, stock: v.stock })),
         }}
       />

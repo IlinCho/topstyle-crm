@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { createSession, clearSession, verifyAdminCredentials } from "@/lib/auth";
 import { slugifyBasic } from "@/lib/format";
+import { serializeBadges } from "@/lib/badges";
 
 export async function loginAction(formData: FormData) {
   const email = String(formData.get("email") || "").trim();
@@ -69,7 +70,7 @@ export async function createProductAction(formData: FormData) {
   const description = String(formData.get("description") || "").trim();
   const imageUrl = String(formData.get("imageUrl") || "").trim();
   const sku = String(formData.get("sku") || "").trim() || `SKU-${Date.now()}`;
-  const featured = formData.get("featured") === "on";
+  const badges = serializeBadges(formData.getAll("badge") as string[]);
 
   if (!name || !categoryId) return;
 
@@ -87,7 +88,7 @@ export async function createProductAction(formData: FormData) {
       priceEur,
       priceBgn,
       categoryId,
-      featured,
+      badges,
       variants: { create: variants },
       images: imageUrl ? { create: [{ url: imageUrl, position: 0 }] } : undefined,
     },
@@ -109,7 +110,7 @@ export async function updateProductAction(formData: FormData) {
   const description = String(formData.get("description") || "").trim();
   const imageUrl = String(formData.get("imageUrl") || "").trim();
   const active = formData.get("active") === "on";
-  const featured = formData.get("featured") === "on";
+  const badges = serializeBadges(formData.getAll("badge") as string[]);
 
   if (!id || !name || !categoryId) return;
 
@@ -117,7 +118,7 @@ export async function updateProductAction(formData: FormData) {
 
   await db.product.update({
     where: { id },
-    data: { name, categoryId, priceEur, priceBgn, material, color, description, active, featured },
+    data: { name, categoryId, priceEur, priceBgn, material, color, description, active, badges },
   });
 
   await db.productVariant.deleteMany({ where: { productId: id } });

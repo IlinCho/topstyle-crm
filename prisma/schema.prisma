@@ -33,6 +33,10 @@ model Product {
   priceBgn     Float
   active       Boolean         @default(true)
   featured     Boolean         @default(false)
+  // Comma-separated subset of: bestseller, new, limited, most_popular.
+  // Set manually from the admin panel - never inferred automatically, so
+  // the client always controls exactly which real claim is shown.
+  badges       String          @default("")
   sourceUrl    String          @default("")
   categoryId   String
   category     Category        @relation(fields: [categoryId], references: [id])

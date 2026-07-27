@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { BADGE_DEFS } from "@/lib/badges";
 
 type Category = { id: string; name: string };
 type Variant = { size: string; color: string; stock: number };
@@ -24,7 +25,7 @@ export default function ProductForm({
     description?: string;
     imageUrl?: string;
     active?: boolean;
-    featured?: boolean;
+    badges?: string[];
     variants?: Variant[];
   };
 }) {
@@ -102,11 +103,23 @@ export default function ProductForm({
             <label htmlFor="active" style={{ marginBottom: 0 }}>Активен (видим в магазина)</label>
           </div>
         )}
-        <div className="field" style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-          <input type="checkbox" name="featured" defaultChecked={initial?.featured ?? false} id="featured" style={{ width: "auto" }} />
-          <label htmlFor="featured" style={{ marginBottom: 0 }}>
-            Топ продукт (показва бадж "Топ продукт" в магазина — маркирай ръчно реалните бестселъри)
-          </label>
+        <div className="field">
+          <label>Баджове (показват се на продукта в магазина — маркирай ръчно, само за реални случаи)</label>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {BADGE_DEFS.map((b) => (
+              <div key={b.key} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <input
+                  type="checkbox"
+                  name="badge"
+                  value={b.key}
+                  defaultChecked={initial?.badges?.includes(b.key) ?? false}
+                  id={`badge_${b.key}`}
+                  style={{ width: "auto" }}
+                />
+                <label htmlFor={`badge_${b.key}`} style={{ marginBottom: 0, fontWeight: 400 }}>{b.label}</label>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

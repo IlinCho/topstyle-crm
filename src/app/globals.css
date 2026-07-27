@@ -207,6 +207,9 @@ a { color: inherit; text-decoration: none; }
 .badge--out { background: #eee; color: #888; }
 .badge--new { background: #e7f0fd; color: #1d5fc2; }
 .badge--top { background: #fdf3d9; color: #9a6b00; }
+.badge--bestseller { background: #fdf3d9; color: #9a6b00; }
+.badge--limited { background: #fdecea; color: #b3221f; }
+.badge--popular { background: #ecebfc; color: #4a4fc4; }
 .card__badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
 .card__badges:empty { margin-bottom: 0; }
 .card__badges .badge { margin-bottom: 0; }
