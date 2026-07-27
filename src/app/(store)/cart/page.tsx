@@ -55,7 +55,7 @@ export default function CartPage() {
       </div>
 
       <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
-        <Link href="/checkout" className="btn">Продължи към поръчката →</Link>
+        <Link href="/account/login?next=/checkout&guest=1" className="btn">Продължи към поръчката →</Link>
       </div>
 
       <div style={{ marginTop: 20, display: "flex", justifyContent: "flex-end" }}>

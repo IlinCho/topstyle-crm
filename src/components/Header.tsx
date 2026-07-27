@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
+import { getCustomerSession } from "@/lib/customer-auth";
 import CartPill from "./CartPill";
 
 export default async function Header() {
   const categories = await db.category.findMany({ orderBy: { position: "asc" } });
   const storeName = process.env.NEXT_PUBLIC_STORE_NAME || "TopStyle.bg";
+  const session = await getCustomerSession();
 
   return (
     <header className="site-header">
@@ -13,6 +15,9 @@ export default async function Header() {
           Top<span>Style</span>.bg
         </Link>
         <div className="header-actions">
+          <Link href={session ? "/account" : "/account/login"}>
+            {session ? "Моят профил" : "Вход"}
+          </Link>
           <Link href="/admin">Админ</Link>
           <CartPill />
         </div>

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { getCustomerSession } from "@/lib/customer-auth";
 
 export async function POST(req: NextRequest) {
   try {
@@ -30,8 +31,18 @@ export async function POST(req: NextRequest) {
     const totalEur = lines.reduce((s, l) => s + l.qty * l.priceEur, 0);
     const orderNumber = `TS${Date.now().toString().slice(-8)}`;
 
+    // Attribute the order to the logged-in account, if any - derived from the
+    // server-side session cookie, never trusted from the request body, so a
+    // client can't attach an order to someone else's account.
+    const session = await getCustomerSession();
+
     let customerRecord = null;
-    if (customer.email) {
+    if (session) {
+      customerRecord = await db.customer.update({
+        where: { id: session.sub },
+        data: { name: customer.name, phone: customer.phone, address: customer.address, city: customer.city },
+      });
+    } else if (customer.email) {
       customerRecord = await db.customer.upsert({
         where: { email: customer.email },
         update: { name: customer.name, phone: customer.phone, address: customer.address, city: customer.city },

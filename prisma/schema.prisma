@@ -72,14 +72,17 @@ model AdminUser {
 }
 
 model Customer {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String   @default("")
-  phone     String   @default("")
-  address   String   @default("")
-  city      String   @default("")
-  orders    Order[]
-  createdAt DateTime @default(now())
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String   @default("")
+  phone        String   @default("")
+  address      String   @default("")
+  city         String   @default("")
+  // Empty passwordHash = record created from a guest order, no login account yet.
+  // Non-empty = the customer has registered and can log in.
+  passwordHash String   @default("")
+  orders       Order[]
+  createdAt    DateTime @default(now())
 }
 
 model Order {
