@@ -8,6 +8,12 @@
   --ok: #1f7a3d;
   --bg-soft: #f7f7f8;
   --radius: 4px;
+
+  /* Brand palette copied from topstyle.bg's own hero/CTA styling */
+  --brand-black: #0a0a0a;
+  --brand-periwinkle: #7c86e8;
+  --brand-green: #4caf50;
+  --brand-green-dark: #3d8b40;
 }
 
 * { box-sizing: border-box; }
@@ -42,8 +48,9 @@ a { color: inherit; text-decoration: none; }
   justify-content: space-between;
   padding: 16px 0;
 }
-.logo { font-size: 22px; font-weight: 800; letter-spacing: 0.5px; }
+.logo { font-size: 22px; font-weight: 800; letter-spacing: 0.5px; display: inline-flex; align-items: center; }
 .logo span { color: var(--danger); }
+.logo__img { height: 26px; width: auto; display: block; }
 .header-actions { display: flex; align-items: center; gap: 18px; font-size: 14px; }
 .cart-pill {
   border: 1px solid var(--ink);
@@ -66,28 +73,67 @@ a { color: inherit; text-decoration: none; }
 .nav a { white-space: nowrap; padding: 4px 0; }
 .nav a:hover { color: var(--danger); }
 
-/* ---------- Hero ---------- */
+/* ---------- Hero (photo + palette copied from topstyle.bg's own hero banner) ---------- */
 .hero {
-  background: var(--bg-soft);
-  padding: 48px 0;
-  text-align: center;
+  background: var(--brand-black);
+  color: #fff;
   margin-bottom: 36px;
+  overflow: hidden;
 }
-.hero h1 { font-size: 32px; margin: 0 0 10px; }
-.hero p { color: var(--muted); margin: 0; font-size: 15px; }
-.hero__authority { font-weight: 700; color: var(--ink); margin-top: 10px; font-size: 14px; }
+.hero__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  min-height: 420px;
+}
+@media (max-width: 800px) {
+  .hero__split { grid-template-columns: 1fr; min-height: 0; }
+}
+.hero__photo {
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(1);
+}
+.hero__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+  padding: 40px 48px;
+}
+@media (max-width: 800px) {
+  .hero__panel { padding: 32px 24px; align-items: center; text-align: center; }
+}
+.hero h1 {
+  font-size: 34px;
+  margin: 0 0 14px;
+  color: var(--brand-periwinkle);
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+@media (max-width: 800px) { .hero h1 { font-size: 26px; } }
+.hero p { color: #e9e9ee; margin: 0; font-size: 15px; text-transform: uppercase; letter-spacing: 0.4px; }
+.hero__authority { font-weight: 700; color: #fff; margin-top: 10px; font-size: 14px; }
 .hero__value-row {
   list-style: none;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 22px;
   flex-wrap: wrap;
   margin: 18px 0 0;
   padding: 0;
   font-size: 13px;
   font-weight: 600;
+  color: #fff;
 }
-@media (max-width: 700px) { .hero__value-row { gap: 12px 18px; } }
+@media (max-width: 800px) { .hero__value-row { justify-content: center; gap: 12px 18px; } }
+.hero__cta { margin-top: 26px; }
 
 /* ---------- Product grid ---------- */
 .section-title {
@@ -265,6 +311,17 @@ a { color: inherit; text-decoration: none; }
 .btn--ghost { background: transparent; color: var(--ink); }
 .btn--danger { background: var(--danger); border-color: var(--danger); }
 .btn--sm { padding: 8px 14px; font-size: 12px; }
+
+/* Storefront primary action color = the green CTA copied from topstyle.bg
+   ("ПАЗАРУВАЙ СЕГА" button). Scoped to the storefront <main> only, so the
+   admin panel keeps its neutral black buttons. */
+main:not(.admin-main) .btn {
+  background: var(--brand-green);
+  border-color: var(--brand-green);
+}
+main:not(.admin-main) .btn:hover { background: var(--brand-green-dark); border-color: var(--brand-green-dark); }
+main:not(.admin-main) .btn--ghost { background: transparent; color: var(--ink); }
+main:not(.admin-main) .btn--danger { background: var(--danger); border-color: var(--danger); }
 
 /* ---------- Cart ---------- */
 .cart-row { display: grid; grid-template-columns: 90px 1fr auto; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); align-items: center; }

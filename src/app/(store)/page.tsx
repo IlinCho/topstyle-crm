@@ -21,14 +21,23 @@ export default async function HomePage() {
   return (
     <>
       <div className="hero">
-        <h1>Мъжка мода, която усещаш</h1>
-        <p>Качествени тениски, якета, дънки и ризи — с точния размер за теб, доставени до дни.</p>
-        {authorityLine && <p className="hero__authority">{authorityLine}</p>}
-        <ul className="hero__value-row">
-          <li>✓ Плащане при доставка</li>
-          <li>✓ Лесна замяна</li>
-          <li>✓ Връщане до {TRUST_CONFIG.returnWindowDays} дни</li>
-        </ul>
+        <div className="hero__split">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/hero-photo.jpg" alt="TopStyle.bg" className="hero__photo" />
+          <div className="hero__panel">
+            <h1>Усети тръпката да бъдеш модерен</h1>
+            <p>Твоят стил, твоите дрехи</p>
+            {authorityLine && <p className="hero__authority">{authorityLine}</p>}
+            <ul className="hero__value-row">
+              <li>✓ Плащане при доставка</li>
+              <li>✓ Лесна замяна</li>
+              <li>✓ Връщане до {TRUST_CONFIG.returnWindowDays} дни</li>
+            </ul>
+            <div className="hero__cta">
+              <Link href="#продукти" className="btn">Пазарувай сега</Link>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="container">
@@ -40,7 +49,7 @@ export default async function HomePage() {
           ))}
         </div>
 
-        <h2 className="section-title">Нови продукти</h2>
+        <h2 className="section-title" id="продукти">Нови продукти</h2>
         <div className="grid">
           {newest.map((p) => (
             <ProductCard key={p.id} product={p} />
