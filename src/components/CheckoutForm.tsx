@@ -174,12 +174,20 @@ export default function CheckoutForm({ initialCustomer }: { initialCustomer: Ini
             </p>
             {error && <p className="error-text">{error}</p>}
             <button className="btn" style={{ width: "100%" }} onClick={placeOrder} disabled={submitting}>
-              {submitting ? "Изпращане..." : "Завърши поръчката"}
+              {submitting ? "Изпращане..." : "Поръчай с преглед и тест"}
             </button>
             <div style={{ marginTop: 16 }}>
               <TrustStrip variant="checkout" />
             </div>
           </div>
+        </div>
+
+        {/* Sticky mobile CTA - only visible on small screens via CSS */}
+        <div className="sticky-cta">
+          <div className="sticky-cta__price">{formatBgn(totalBgn)}</div>
+          <button className="btn" style={{ flex: 1 }} onClick={placeOrder} disabled={submitting}>
+            {submitting ? "Изпращане..." : "Поръчай с преглед и тест"}
+          </button>
         </div>
 
         <div className="card-box" style={{ position: "sticky", top: 90 }}>
