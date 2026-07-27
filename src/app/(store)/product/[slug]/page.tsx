@@ -34,13 +34,17 @@ export default async function ProductPage({ params }: { params: { slug: string }
         <div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={img} alt={product.name} className="pdp__img" />
-          <div style={{ marginTop: 10 }}>
-            <RatingStars reviews={product.reviews} size="md" />
-          </div>
         </div>
 
         <div>
           <h1 className="pdp__title">{product.name}</h1>
+
+          <div className="pdp__rating-row">
+            <RatingStars reviews={product.reviews} size="md" showOutOf5 />
+            {product.reviews.length > 0 && <span className="pdp__rating-sep">|</span>}
+            <span className="muted" style={{ fontSize: 13 }}>SKU: {product.sku}</span>
+          </div>
+
           <div className="pdp__price">
             {formatEur(product.priceEur)} <small>{formatBgn(product.priceBgn)}</small>
           </div>
@@ -48,7 +52,6 @@ export default async function ProductPage({ params }: { params: { slug: string }
           <div className="pdp__meta">
             <div>Материя: {product.material || "—"}</div>
             <div>Цвят: {product.color || "—"}</div>
-            <div>Артикул: {product.sku}</div>
             <div>{totalStock > 0 ? `В наличност (${totalStock} бр.)` : "Изчерпан"}</div>
           </div>
 

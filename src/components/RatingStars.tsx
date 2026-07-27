@@ -11,10 +11,12 @@ export default function RatingStars({
   reviews,
   size = "sm",
   showCount = true,
+  showOutOf5 = false,
 }: {
   reviews: { rating: number }[];
   size?: "sm" | "md";
   showCount?: boolean;
+  showOutOf5?: boolean;
 }) {
   if (!reviews.length) return null;
   const avg = averageRating(reviews);
@@ -31,7 +33,7 @@ export default function RatingStars({
       </span>
       {showCount && (
         <span className="rating-stars__text">
-          {avg.toFixed(1)} ({reviews.length})
+          {avg.toFixed(1)}{showOutOf5 ? " от 5" : ""} ({reviews.length})
         </span>
       )}
     </div>
