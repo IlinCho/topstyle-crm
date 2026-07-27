@@ -53,6 +53,8 @@ html, body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
+html { scroll-behavior: smooth; }
+
 a { color: inherit; text-decoration: none; }
 
 .container {
@@ -246,6 +248,8 @@ a { color: inherit; text-decoration: none; }
 .pdp__meta { color: var(--muted); font-size: 13.5px; margin-bottom: 20px; line-height: 1.6; }
 .pdp__rating-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
 .pdp__rating-sep { color: var(--line); }
+.pdp__rating-link { cursor: pointer; }
+.pdp__rating-link:hover .rating-stars__text { text-decoration: underline; }
 .opt-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; margin: 18px 0 8px; }
 .opt-row { display: flex; gap: 8px; flex-wrap: wrap; }
 .opt {
@@ -400,7 +404,7 @@ main:not(.admin-main) .btn--danger { background: var(--danger); border-color: va
 .rating-stars__icons .star--half { color: #f0a52c; opacity: 0.5; }
 .rating-stars__text { color: var(--muted); font-size: 0.85em; font-weight: 600; }
 
-.reviews-section { margin: 20px 0 60px; }
+.reviews-section { margin: 20px 0 60px; scroll-margin-top: 90px; }
 .review-list { display: flex; flex-direction: column; gap: 16px; margin-top: 14px; }
 .review-item { border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; background: var(--surface); }
 .review-item__top { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 4px; }

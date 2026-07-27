@@ -40,7 +40,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
           <h1 className="pdp__title">{product.name}</h1>
 
           <div className="pdp__rating-row">
-            <RatingStars reviews={product.reviews} size="md" showOutOf5 />
+            {product.reviews.length > 0 ? (
+              <a href="#otzivi" className="pdp__rating-link">
+                <RatingStars reviews={product.reviews} size="md" showOutOf5 />
+              </a>
+            ) : (
+              <RatingStars reviews={product.reviews} size="md" showOutOf5 />
+            )}
             {product.reviews.length > 0 && <span className="pdp__rating-sep">|</span>}
             <span className="muted" style={{ fontSize: 13 }}>SKU: {product.sku}</span>
           </div>
@@ -79,7 +85,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
       </div>
 
       {product.reviews.length > 0 && (
-        <div className="reviews-section">
+        <div className="reviews-section" id="otzivi">
           <h2 className="section-title" style={{ marginTop: 0 }}>Отзиви от клиенти</h2>
           <RatingStars reviews={product.reviews} size="md" />
           <div className="review-list">
