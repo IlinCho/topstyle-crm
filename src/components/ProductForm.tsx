@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { BADGE_DEFS } from "@/lib/badges";
 
-type Category = { id: string; name: string };
+type Category = { id: string; name: string; depth?: number };
 type Variant = { size: string; color: string; stock: number };
 
 export default function ProductForm({
@@ -60,7 +60,10 @@ export default function ProductForm({
             <select name="categoryId" defaultValue={initial?.categoryId} required>
               <option value="">Избери...</option>
               {categories.map((c) => (
-                <option key={c.id} value={c.id}>{c.name}</option>
+                <option key={c.id} value={c.id}>
+                  {c.depth ? "  ".repeat(c.depth) + "↳ " : ""}
+                  {c.name}
+                </option>
               ))}
             </select>
           </div>

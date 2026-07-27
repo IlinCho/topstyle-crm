@@ -26,10 +26,11 @@ export async function logoutAction() {
 // ---------- Categories ----------
 export async function createCategoryAction(formData: FormData) {
   const name = String(formData.get("name") || "").trim();
+  const parentId = String(formData.get("parentId") || "").trim() || null;
   if (!name) return;
   const slug = slugifyBasic(name);
   const count = await db.category.count();
-  await db.category.create({ data: { name, slug, position: count } });
+  await db.category.create({ data: { name, slug, position: count, parentId } });
   revalidatePath("/admin/categories");
   revalidatePath("/");
 }
@@ -38,6 +39,8 @@ export async function deleteCategoryAction(formData: FormData) {
   const id = String(formData.get("id") || "");
   const productsInCategory = await db.product.count({ where: { categoryId: id } });
   if (productsInCategory > 0) return; // guard: don't orphan products
+  const subcategories = await db.category.count({ where: { parentId: id } });
+  if (subcategories > 0) return; // guard: don't orphan subcategories
   await db.category.delete({ where: { id } });
   revalidatePath("/admin/categories");
   revalidatePath("/");

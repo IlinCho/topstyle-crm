@@ -12,13 +12,18 @@ url      = env("NEON_DATABASE_URL")
 }
 
 model Category {
-  id        String    @id @default(cuid())
-  slug      String    @unique
+  id        String     @id @default(cuid())
+  slug      String     @unique
   name      String
-  position  Int       @default(0)
+  position  Int        @default(0)
   products  Product[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  // Self-relation for one level of subcategories (e.g. "Мъжки тениски" ->
+  // "Тениски с яка"). parentId null = top-level category.
+  parentId  String?
+  parent    Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children  Category[] @relation("CategoryHierarchy")
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
 model Product {

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import ProductForm from "@/components/ProductForm";
 import { parseBadges } from "@/lib/badges";
+import { buildCategoryTree, flattenCategoryTree } from "@/lib/categories";
 import {
   updateProductAction,
   deleteProductAction,
@@ -25,6 +26,7 @@ export default async function EditProductPage({
   ]);
 
   if (!product) notFound();
+  const categoryOptions = flattenCategoryTree(buildCategoryTree(categories));
 
   return (
     <>
@@ -50,7 +52,7 @@ export default async function EditProductPage({
       <ProductForm
         key={product.updatedAt.toISOString()}
         action={updateProductAction}
-        categories={categories}
+        categories={categoryOptions}
         initial={{
           id: product.id,
           sku: product.sku,
