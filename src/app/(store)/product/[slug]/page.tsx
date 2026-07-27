@@ -3,6 +3,7 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { formatBgn, formatEur } from "@/lib/format";
 import AddToCart from "@/components/AddToCart";
+import RatingStars from "@/components/RatingStars";
 import { TRUST_CONFIG } from "@/lib/trust-config";
 
 export const dynamic = "force-dynamic";
@@ -10,7 +11,12 @@ export const dynamic = "force-dynamic";
 export default async function ProductPage({ params }: { params: { slug: string } }) {
   const product = await db.product.findUnique({
     where: { slug: params.slug },
-    include: { images: true, variants: true, category: true },
+    include: {
+      images: true,
+      variants: true,
+      category: true,
+      reviews: { orderBy: { createdAt: "desc" } },
+    },
   });
   if (!product) notFound();
 
@@ -25,8 +31,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
       </p>
 
       <div className="pdp">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={img} alt={product.name} className="pdp__img" />
+        <div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={img} alt={product.name} className="pdp__img" />
+          <div style={{ marginTop: 10 }}>
+            <RatingStars reviews={product.reviews} size="md" />
+          </div>
+        </div>
 
         <div>
           <h1 className="pdp__title">{product.name}</h1>
@@ -63,6 +74,25 @@ export default async function ProductPage({ params }: { params: { slug: string }
           />
         </div>
       </div>
+
+      {product.reviews.length > 0 && (
+        <div className="reviews-section">
+          <h2 className="section-title" style={{ marginTop: 0 }}>Отзиви от клиенти</h2>
+          <RatingStars reviews={product.reviews} size="md" />
+          <div className="review-list">
+            {product.reviews.map((r) => (
+              <div key={r.id} className="review-item">
+                <div className="review-item__top">
+                  <strong>{r.authorName}</strong>
+                  <RatingStars reviews={[{ rating: r.rating }]} size="sm" showCount={false} />
+                </div>
+                {r.comment && <p className="review-item__comment">{r.comment}</p>}
+                <p className="review-item__date">{new Date(r.createdAt).toLocaleDateString("bg-BG")}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

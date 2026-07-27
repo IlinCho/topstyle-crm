@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { formatBgn, formatEur } from "@/lib/format";
+import RatingStars from "./RatingStars";
 
 type CardProduct = {
   slug: string;
@@ -10,6 +11,7 @@ type CardProduct = {
   variants: { size: string; stock: number }[];
   featured?: boolean;
   createdAt?: Date | string;
+  reviews?: { rating: number }[];
 };
 
 const NEW_WINDOW_DAYS = 14;
@@ -45,6 +47,7 @@ export default function ProductCard({ product }: { product: CardProduct }) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={img} alt={product.name} className="card__img" loading="lazy" />
       <div className="card__body">
+        <RatingStars reviews={product.reviews || []} size="sm" />
         <div className="card__badges">
           {product.featured && <span className="badge badge--top">Топ продукт</span>}
           {isNew && <span className="badge badge--new">Нов</span>}

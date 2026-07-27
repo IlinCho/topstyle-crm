@@ -156,3 +156,26 @@ export async function updateOrderStatusAction(formData: FormData) {
   revalidatePath("/admin/orders");
   revalidatePath(`/admin/orders/${id}`);
 }
+
+// ---------- Reviews ----------
+export async function createReviewAction(formData: FormData) {
+  const productId = String(formData.get("productId") || "");
+  const authorName = String(formData.get("authorName") || "").trim();
+  const rating = Math.min(5, Math.max(1, parseInt(String(formData.get("rating") || "5"), 10) || 5));
+  const comment = String(formData.get("comment") || "").trim();
+
+  if (!productId || !authorName) return;
+
+  await db.review.create({ data: { productId, authorName, rating, comment } });
+  // Storefront pages all use `export const dynamic = "force-dynamic"`, so they
+  // already re-query the database on every request - no cache to invalidate there.
+  revalidatePath(`/admin/products/${productId}/edit`);
+}
+
+export async function deleteReviewAction(formData: FormData) {
+  const id = String(formData.get("id") || "");
+  const productId = String(formData.get("productId") || "");
+  if (!id) return;
+  await db.review.delete({ where: { id } });
+  revalidatePath(`/admin/products/${productId}/edit`);
+}

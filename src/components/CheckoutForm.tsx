@@ -182,14 +182,6 @@ export default function CheckoutForm({ initialCustomer }: { initialCustomer: Ini
           </div>
         </div>
 
-        {/* Sticky mobile CTA - only visible on small screens via CSS */}
-        <div className="sticky-cta">
-          <div className="sticky-cta__price">{formatBgn(totalBgn)}</div>
-          <button className="btn" style={{ flex: 1 }} onClick={placeOrder} disabled={submitting}>
-            {submitting ? "Изпращане..." : "Поръчай с преглед и тест"}
-          </button>
-        </div>
-
         <div className="card-box" style={{ position: "sticky", top: 90 }}>
           <p className="opt-label" style={{ marginTop: 0 }}>Резюме на поръчката</p>
           {lines.map((l) => (

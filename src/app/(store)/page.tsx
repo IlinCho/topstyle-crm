@@ -9,7 +9,7 @@ export default async function HomePage() {
   const categories = await db.category.findMany({ orderBy: { position: "asc" } });
   const newest = await db.product.findMany({
     where: { active: true },
-    include: { images: true, variants: true },
+    include: { images: true, variants: true, reviews: true },
     orderBy: { createdAt: "desc" },
     take: 8,
   });

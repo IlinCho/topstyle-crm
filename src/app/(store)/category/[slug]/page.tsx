@@ -13,7 +13,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
     db.category.findMany({ orderBy: { position: "asc" } }),
     db.product.findMany({
       where: { categoryId: category.id, active: true },
-      include: { images: true, variants: true },
+      include: { images: true, variants: true, reviews: true },
       orderBy: { createdAt: "desc" },
     }),
   ]);

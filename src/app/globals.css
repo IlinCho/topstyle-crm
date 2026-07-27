@@ -305,6 +305,22 @@ a { color: inherit; text-decoration: none; }
 .checkout-steps__item--done { color: var(--ink); }
 .checkout-steps__item--done .checkout-steps__dot { background: var(--ink); border-color: var(--ink); color: #fff; }
 
+/* ---------- Ratings & reviews ---------- */
+.rating-stars { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.rating-stars--md { font-size: 15px; }
+.rating-stars--sm { font-size: 12px; }
+.rating-stars__icons .star { color: #e2e2e2; }
+.rating-stars__icons .star--full { color: #f0a52c; }
+.rating-stars__icons .star--half { color: #f0a52c; opacity: 0.5; }
+.rating-stars__text { color: var(--muted); font-size: 0.85em; font-weight: 600; }
+
+.reviews-section { margin: 20px 0 60px; }
+.review-list { display: flex; flex-direction: column; gap: 16px; margin-top: 14px; }
+.review-item { border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
+.review-item__top { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 4px; }
+.review-item__comment { font-size: 13.5px; line-height: 1.5; margin: 6px 0; }
+.review-item__date { font-size: 11.5px; color: var(--muted); margin: 0; }
+
 /* ---------- Delivery method cards ---------- */
 .delivery-cards { display: flex; gap: 12px; flex-wrap: wrap; }
 .delivery-card {
