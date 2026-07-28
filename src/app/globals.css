@@ -309,7 +309,7 @@ a { color: inherit; text-decoration: none; }
   margin: 0 0 10px;
 }
 .opt-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; margin: 18px 0 8px; }
-.opt-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.opt-row { display: flex; gap: 8px 8px; flex-wrap: wrap; margin-bottom: 14px; row-gap: 20px; }
 .opt {
   border: 1px solid var(--line);
   min-width: 44px;
@@ -320,9 +320,13 @@ a { color: inherit; text-decoration: none; }
   font-weight: 600;
   cursor: pointer;
   background: var(--paper);
+  position: relative;
 }
 .opt.selected { border-color: var(--fill); background: var(--fill); color: var(--fill-text); }
-.opt.disabled { color: #bbb; text-decoration: line-through; cursor: not-allowed; border-color: #eee; }
+/* Sold-out sizes stay clickable (not "not-allowed") - selecting one shows the
+   "Изчерпан" status + a notify-me capture instead of just looking inert. */
+.opt.disabled { color: #bbb; text-decoration: line-through; opacity: 0.7; border-color: #eee; }
+.opt.disabled.selected { border-color: var(--muted); background: var(--bg-soft); color: var(--muted); }
 
 .size-guide-link {
   background: none;
@@ -356,6 +360,50 @@ a { color: inherit; text-decoration: none; }
   color: var(--ink);
   font-weight: 600;
   font-size: 12.5px;
+}
+
+/* ---------- Smart Scarcity Intelligence - tiered stock messaging ---------- */
+.scarcity-badge {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.scarcity-badge--ok { color: var(--brand-green); }
+.scarcity-badge--info { color: #b58c00; }
+.scarcity-badge--warn { color: #d9720c; }
+.scarcity-badge--danger { color: var(--danger); font-weight: 800; }
+.scarcity-badge--out { color: var(--muted); }
+
+.size-chip-hint {
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  color: #d9720c;
+}
+
+.stock-alert-box {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.stock-alert-box__row { display: flex; gap: 8px; margin-top: 8px; }
+.stock-alert-box__row input {
+  flex: 1;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 13px;
 }
 
 /* ---------- Trust strip ---------- */

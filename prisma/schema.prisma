@@ -53,8 +53,26 @@ model Product {
   variants     ProductVariant[]
   orderItems   OrderItem[]
   reviews      Review[]
+  stockAlerts  StockAlert[]
   createdAt    DateTime        @default(now())
   updatedAt    DateTime        @updatedAt
+}
+
+// "Уведоми ме при наличност" - captured when a customer picks a sold-out
+// size/color combo. Turns a lost sale into a real demand signal the admin
+// can see (Admin -> Известия за наличност), instead of the visitor just
+// bouncing off a dead "Изчерпан" button.
+model StockAlert {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  size      String
+  color     String   @default("")
+  email     String
+  notified  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([productId, size, color])
 }
 
 model Review {

@@ -196,3 +196,18 @@ export async function deleteReviewAction(formData: FormData) {
   await db.review.delete({ where: { id } });
   revalidatePath(`/admin/products/${productId}/edit`);
 }
+
+// ---------- Stock alerts ("Уведоми ме при наличност") ----------
+export async function markStockAlertNotifiedAction(formData: FormData) {
+  const id = String(formData.get("id") || "");
+  if (!id) return;
+  await db.stockAlert.update({ where: { id }, data: { notified: true } });
+  revalidatePath("/admin/stock-alerts");
+}
+
+export async function deleteStockAlertAction(formData: FormData) {
+  const id = String(formData.get("id") || "");
+  if (!id) return;
+  await db.stockAlert.delete({ where: { id } });
+  revalidatePath("/admin/stock-alerts");
+}

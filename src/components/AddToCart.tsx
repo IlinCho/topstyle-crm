@@ -4,7 +4,9 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "./CartProvider";
 import TrustStrip from "./TrustStrip";
+import ScarcityBadge from "./ScarcityBadge";
 import { TRUST_CONFIG } from "@/lib/trust-config";
+import { getCompactStockHint } from "@/lib/scarcity";
 
 type Variant = { size: string; color: string; stock: number };
 
@@ -34,13 +36,21 @@ export default function AddToCart({
   const [added, setAdded] = useState(false);
   const [sizeError, setSizeError] = useState(false);
   const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const [alertEmail, setAlertEmail] = useState("");
+  const [alertState, setAlertState] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   const selectedVariant = variants.find((v) => v.size === size);
-  const inStock = !size || (selectedVariant?.stock ?? 0) > 0;
+  const selectedStock = selectedVariant?.stock ?? 0;
+  const inStock = !size || selectedStock > 0;
 
   function selectSize(s: string) {
+    // Sold-out sizes stay selectable on purpose - a customer who picks their
+    // real size should see its actual status (and the notify-me option)
+    // instead of the chip just doing nothing.
     setSize(s);
     setSizeError(false);
+    setAlertState("idle");
+    setAlertEmail("");
   }
 
   function handleAdd() {
@@ -65,6 +75,27 @@ export default function AddToCart({
     setTimeout(() => setAdded(false), 1800);
   }
 
+  async function submitStockAlert() {
+    if (!alertEmail.trim() || !selectedVariant) return;
+    setAlertState("sending");
+    try {
+      const res = await fetch("/api/stock-alert", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId,
+          size,
+          color: selectedVariant.color,
+          email: alertEmail.trim(),
+        }),
+      });
+      if (!res.ok) throw new Error();
+      setAlertState("sent");
+    } catch {
+      setAlertState("error");
+    }
+  }
+
   return (
     <div>
       <div className="flex-between" style={{ alignItems: "baseline" }}>
@@ -85,18 +116,61 @@ export default function AddToCart({
       <div className="opt-row">
         {sizes.map((s) => {
           const v = variants.find((vv) => vv.size === s);
-          const disabled = !v || v.stock === 0;
+          const stock = v?.stock ?? 0;
+          const disabled = !v || stock === 0;
+          const hint = getCompactStockHint(stock);
           return (
             <div
               key={s}
               className={`opt ${size === s ? "selected" : ""} ${disabled ? "disabled" : ""}`}
-              onClick={() => !disabled && selectSize(s)}
+              onClick={() => selectSize(s)}
             >
               {s}
+              {hint && <span className="size-chip-hint">{hint}</span>}
             </div>
           );
         })}
       </div>
+
+      {/* Real-stock scarcity message for the exact size just chosen - this is
+          Priority 1/2 from the Smart Scarcity Intelligence rules: only shown
+          once a size is selected, driven purely by that variant's real stock. */}
+      {size && <ScarcityBadge stock={selectedStock} />}
+
+      {size && selectedStock === 0 && (
+        <div className="stock-alert-box">
+          {alertState === "sent" ? (
+            <p style={{ margin: 0, fontWeight: 600, color: "var(--brand-green)" }}>
+              ✓ Ще ти пишем на {alertEmail}, щом размер {size} се появи в наличност.
+            </p>
+          ) : (
+            <>
+              <p style={{ margin: 0, fontWeight: 600 }}>Уведоми ме при наличност</p>
+              <div className="stock-alert-box__row">
+                <input
+                  type="email"
+                  placeholder="твоят имейл"
+                  value={alertEmail}
+                  onChange={(e) => setAlertEmail(e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="btn btn--sm"
+                  onClick={submitStockAlert}
+                  disabled={alertState === "sending" || !alertEmail.trim()}
+                >
+                  {alertState === "sending" ? "..." : "Уведоми ме"}
+                </button>
+              </div>
+              {alertState === "error" && (
+                <p className="error-text" style={{ marginTop: 6 }}>
+                  Възникна грешка. Опитайте отново.
+                </p>
+              )}
+            </>
+          )}
+        </div>
+      )}
 
       {showSizeGuide && (
         <div className="size-guide-box">

@@ -17,6 +17,7 @@ export default async function AdminDashboardLayout({ children }: { children: Rea
         <Link href="/admin/products">Продукти</Link>
         <Link href="/admin/categories">Категории</Link>
         <Link href="/admin/orders">Поръчки</Link>
+        <Link href="/admin/stock-alerts">Известия за наличност</Link>
         <Link href="/" target="_blank">↗ Виж магазина</Link>
         <form action={logoutAction} style={{ marginTop: 20, padding: "0 20px" }}>
           <button className="btn btn--sm" style={{ width: "100%", background: "#333", borderColor: "#333" }}>

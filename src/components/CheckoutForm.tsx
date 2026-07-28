@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useCart } from "@/components/CartProvider";
 import { formatBgn, formatEur } from "@/lib/format";
 import TrustStrip from "@/components/TrustStrip";
+import { useLiveStock } from "@/lib/useLiveStock";
+import { isCriticalStock } from "@/lib/scarcity";
 
 const STEPS = ["Лични данни", "Доставка", "Плащане", "Потвърждение"] as const;
 
@@ -26,6 +28,10 @@ type FormStep = 1 | 2 | 3;
 
 export default function CheckoutForm({ initialCustomer }: { initialCustomer: InitialCustomer }) {
   const { lines, totalBgn, totalEur, clear } = useCart();
+  // Checkout stays quiet about stock by default (Priority 4 of the scarcity
+  // rules) - this is only used to flag a line that's genuinely critical
+  // (1 or 0 left) right before the customer confirms.
+  const { getStock } = useLiveStock(lines.map((l) => l.productId));
   const [form, setForm] = useState({
     name: initialCustomer?.name || "",
     email: initialCustomer?.email || "",
@@ -262,20 +268,29 @@ export default function CheckoutForm({ initialCustomer }: { initialCustomer: Ini
 
         <div className="card-box" style={{ position: "sticky", top: 90 }}>
           <p className="opt-label" style={{ marginTop: 0 }}>Резюме на поръчката</p>
-          {lines.map((l) => (
-            <div
-              key={`${l.productId}-${l.size}-${l.color}`}
-              style={{ display: "flex", gap: 10, alignItems: "center", padding: "10px 0", borderBottom: "1px solid #f0f0f0" }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={l.image} alt={l.name} style={{ width: 48, height: 60, objectFit: "cover", borderRadius: 4, background: "var(--bg-soft)", flexShrink: 0 }} />
-              <div style={{ flex: 1, fontSize: 13 }}>
-                <div style={{ fontWeight: 600 }}>{l.name}</div>
-                <div className="muted">Размер: {l.size} · Цвят: {l.color} · × {l.qty}</div>
+          {lines.map((l) => {
+            const stock = getStock(l.productId, l.size, l.color);
+            const critical = stock !== null && isCriticalStock(stock);
+            return (
+              <div
+                key={`${l.productId}-${l.size}-${l.color}`}
+                style={{ display: "flex", gap: 10, alignItems: "center", padding: "10px 0", borderBottom: "1px solid #f0f0f0" }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={l.image} alt={l.name} style={{ width: 48, height: 60, objectFit: "cover", borderRadius: 4, background: "var(--bg-soft)", flexShrink: 0 }} />
+                <div style={{ flex: 1, fontSize: 13 }}>
+                  <div style={{ fontWeight: 600 }}>{l.name}</div>
+                  <div className="muted">Размер: {l.size} · Цвят: {l.color} · × {l.qty}</div>
+                  {critical && (
+                    <div style={{ color: "var(--danger)", fontWeight: 700, fontSize: 12, marginTop: 2 }}>
+                      🔴 {stock === 0 ? "Изчерпан" : "Последен наличен брой"}
+                    </div>
+                  )}
+                </div>
+                <span style={{ fontWeight: 600, fontSize: 13 }}>{formatBgn(l.priceBgn * l.qty)}</span>
               </div>
-              <span style={{ fontWeight: 600, fontSize: 13 }}>{formatBgn(l.priceBgn * l.qty)}</span>
-            </div>
-          ))}
+            );
+          })}
           <div className="cart-totals">
             <table>
               <tbody>
