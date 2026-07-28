@@ -3,6 +3,7 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import ProductCard from "@/components/ProductCard";
 import { categoryAndDescendantIds } from "@/lib/categories";
+import { applyCategoryRankPins } from "@/lib/product-order";
 
 export const dynamic = "force-dynamic";
 
@@ -22,13 +23,15 @@ export default async function CategoryPage({ params }: { params: { slug: string 
   // browsing "Мъжки тениски" doesn't hide everything filed under "Тениски с яка".
   const categoryIds = categoryAndDescendantIds(category, allCategories);
 
-  // Admin-pinned products (categoryRank 1-8) show first, in that order;
-  // everything else falls back to newest-first.
-  const products = await db.product.findMany({
+  // Natural order first (newest first), then splice in admin-pinned products
+  // (categoryRank) at their exact target slot - see product-order.ts for why
+  // a plain orderBy isn't enough for "position 4 really means 4th on the page".
+  const naturalOrder = await db.product.findMany({
     where: { categoryId: { in: categoryIds }, active: true },
     include: { images: true, variants: true, reviews: true },
-    orderBy: [{ categoryRank: { sort: "asc", nulls: "last" } }, { createdAt: "desc" }],
+    orderBy: { createdAt: "desc" },
   });
+  const products = applyCategoryRankPins(naturalOrder);
 
   return (
     <div className="container">
