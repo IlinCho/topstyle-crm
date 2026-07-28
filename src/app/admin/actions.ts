@@ -63,6 +63,16 @@ function parseVariantsFromForm(formData: FormData) {
   return variants;
 }
 
+// Empty input -> no pin (falls back to newest-first). Anything else is
+// clamped to a sane 1-8 range so a typo can't push a product to rank -50.
+function parseCategoryRank(formData: FormData): number | null {
+  const raw = String(formData.get("categoryRank") || "").trim();
+  if (!raw) return null;
+  const n = parseInt(raw, 10);
+  if (!Number.isFinite(n)) return null;
+  return Math.min(8, Math.max(1, n));
+}
+
 export async function createProductAction(formData: FormData) {
   const name = String(formData.get("name") || "").trim();
   const categoryId = String(formData.get("categoryId") || "");
@@ -74,6 +84,7 @@ export async function createProductAction(formData: FormData) {
   const imageUrl = String(formData.get("imageUrl") || "").trim();
   const sku = String(formData.get("sku") || "").trim() || `SKU-${Date.now()}`;
   const badges = serializeBadges(formData.getAll("badge") as string[]);
+  const categoryRank = parseCategoryRank(formData);
 
   if (!name || !categoryId) return;
 
@@ -92,6 +103,7 @@ export async function createProductAction(formData: FormData) {
       priceBgn,
       categoryId,
       badges,
+      categoryRank,
       variants: { create: variants },
       images: imageUrl ? { create: [{ url: imageUrl, position: 0 }] } : undefined,
     },
@@ -114,6 +126,7 @@ export async function updateProductAction(formData: FormData) {
   const imageUrl = String(formData.get("imageUrl") || "").trim();
   const active = formData.get("active") === "on";
   const badges = serializeBadges(formData.getAll("badge") as string[]);
+  const categoryRank = parseCategoryRank(formData);
 
   if (!id || !name || !categoryId) return;
 
@@ -121,7 +134,7 @@ export async function updateProductAction(formData: FormData) {
 
   await db.product.update({
     where: { id },
-    data: { name, categoryId, priceEur, priceBgn, material, color, description, active, badges },
+    data: { name, categoryId, priceEur, priceBgn, material, color, description, active, badges, categoryRank },
   });
 
   await db.productVariant.deleteMany({ where: { productId: id } });

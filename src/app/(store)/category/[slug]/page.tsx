@@ -22,10 +22,12 @@ export default async function CategoryPage({ params }: { params: { slug: string 
   // browsing "Мъжки тениски" doesn't hide everything filed under "Тениски с яка".
   const categoryIds = categoryAndDescendantIds(category, allCategories);
 
+  // Admin-pinned products (categoryRank 1-8) show first, in that order;
+  // everything else falls back to newest-first.
   const products = await db.product.findMany({
     where: { categoryId: { in: categoryIds }, active: true },
     include: { images: true, variants: true, reviews: true },
-    orderBy: { createdAt: "desc" },
+    orderBy: [{ categoryRank: { sort: "asc", nulls: "last" } }, { createdAt: "desc" }],
   });
 
   return (

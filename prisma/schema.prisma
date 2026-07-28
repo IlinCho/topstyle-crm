@@ -38,6 +38,10 @@ model Product {
   priceBgn     Float
   active       Boolean         @default(true)
   featured     Boolean         @default(false)
+  // Manual pin position (1-8) controlling display order within the product's
+  // category page - lets the admin push best-sellers / picks to the front
+  // instead of always sorting by newest. Null = no pin, falls back to newest-first.
+  categoryRank Int?
   // Comma-separated subset of: bestseller, new, limited, most_popular.
   // Set manually from the admin panel - never inferred automatically, so
   // the client always controls exactly which real claim is shown.

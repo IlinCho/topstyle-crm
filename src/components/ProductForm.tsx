@@ -26,6 +26,7 @@ export default function ProductForm({
     imageUrl?: string;
     active?: boolean;
     badges?: string[];
+    categoryRank?: number | null;
     variants?: Variant[];
   };
 }) {
@@ -93,7 +94,22 @@ export default function ProductForm({
             <label>Снимка (URL)</label>
             <input name="imageUrl" defaultValue={initial?.imageUrl} placeholder="https://..." />
           </div>
+          <div className="field">
+            <label>Позиция в категорията (1-8, по избор)</label>
+            <input
+              name="categoryRank"
+              type="number"
+              min={1}
+              max={8}
+              defaultValue={initial?.categoryRank ?? ""}
+              placeholder="напр. 1 = първи в категорията"
+            />
+          </div>
         </div>
+        <p className="muted" style={{ fontSize: 12.5, marginTop: -8, marginBottom: 12 }}>
+          Продукти с позиция (1-8) излизат най-отпред в страницата на категорията си, в реда на
+          позициите. Остави празно, за да се показва по обичайния ред (най-новите първи).
+        </p>
 
         <div className="field">
           <label>Описание</label>

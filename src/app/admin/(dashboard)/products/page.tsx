@@ -43,7 +43,7 @@ export default async function AdminProductsPage({
         <table className="admin-table">
           <thead>
             <tr>
-              <th></th><th>Име</th><th>Категория</th><th>Цена</th><th>Наличност</th><th>Статус</th><th></th>
+              <th></th><th>Име</th><th>Категория</th><th>Позиция</th><th>Цена</th><th>Наличност</th><th>Статус</th><th></th>
             </tr>
           </thead>
           <tbody>
@@ -60,6 +60,7 @@ export default async function AdminProductsPage({
                     <div className="muted" style={{ fontSize: 12 }}>{p.sku}</div>
                   </td>
                   <td>{p.category.name}</td>
+                  <td>{p.categoryRank ? <span className="pill pill--ok">#{p.categoryRank}</span> : <span className="muted">—</span>}</td>
                   <td>{formatBgn(p.priceBgn)}</td>
                   <td>{stock}</td>
                   <td>
@@ -76,7 +77,7 @@ export default async function AdminProductsPage({
               );
             })}
             {products.length === 0 && (
-              <tr><td colSpan={7} className="muted">Няма намерени продукти.</td></tr>
+              <tr><td colSpan={8} className="muted">Няма намерени продукти.</td></tr>
             )}
           </tbody>
         </table>
