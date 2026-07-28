@@ -92,17 +92,20 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   gap: 22px;
   padding: 10px 0;
-  overflow-x: auto;
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.4px;
   font-weight: 600;
   border-top: 1px solid var(--line);
+  /* overflow stays visible so the subcategory dropdown below isn't clipped;
+     horizontal scrolling is only enabled on narrow screens (see media query),
+     where there's no room for a hover dropdown anyway. */
 }
 .nav a { white-space: nowrap; padding: 4px 0; }
 .nav a:hover { color: var(--danger); }
-.nav__item { position: relative; }
-.nav__item:hover .nav__dropdown { display: flex; }
+.nav__item { position: relative; padding-bottom: 10px; margin-bottom: -10px; }
+.nav__item:hover .nav__dropdown,
+.nav__item:focus-within .nav__dropdown { display: flex; }
 .nav__dropdown {
   display: none;
   flex-direction: column;
@@ -114,7 +117,7 @@ a { color: inherit; text-decoration: none; }
   border-radius: var(--radius);
   padding: 8px 0;
   min-width: 200px;
-  z-index: 25;
+  z-index: 60;
   text-transform: none;
   letter-spacing: normal;
   font-weight: 500;
@@ -122,6 +125,10 @@ a { color: inherit; text-decoration: none; }
 }
 .nav__dropdown a { padding: 8px 16px; }
 .nav__dropdown a:hover { background: var(--bg-soft); }
+@media (max-width: 640px) {
+  .nav { overflow-x: auto; }
+  .nav__dropdown { display: none !important; }
+}
 
 /* ---------- Hero (photo + palette copied from topstyle.bg's own hero banner) ---------- */
 .hero {
