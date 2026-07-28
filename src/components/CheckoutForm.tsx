@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/components/CartProvider";
 import { formatBgn, formatEur } from "@/lib/format";
@@ -45,6 +45,21 @@ export default function CheckoutForm({ initialCustomer }: { initialCustomer: Ini
   const [step, setStep] = useState<FormStep>(1);
 
   const activeIndex = placed ? 3 : step - 1; // 0-based index into STEPS for the progress bar
+
+  // On mobile the step content is short, so switching steps (Назад/Продължи,
+  // or landing on the confirmation screen) can leave the page scrolled down
+  // exactly where it was - the customer sees new fields but not the progress
+  // bar telling them which step they're on. Scroll back to the top of the
+  // checkout on every step change so that's always visible. Skipped on the
+  // very first render so loading the page doesn't itself trigger a jump.
+  const isFirstRender = useRef(true);
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [step, placed]);
 
   function goToStep(target: FormStep) {
     // Only allow jumping back to an already-completed step, never skipping ahead.
