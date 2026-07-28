@@ -6,7 +6,7 @@ import { useCart } from "@/components/CartProvider";
 import { formatBgn, formatEur } from "@/lib/format";
 import TrustStrip from "@/components/TrustStrip";
 
-const STEPS = ["Количка", "Доставка", "Плащане", "Готово"] as const;
+const STEPS = ["Лични данни", "Доставка", "Плащане", "Потвърждение"] as const;
 
 const DELIVERY_OPTIONS = [
   {
@@ -22,6 +22,7 @@ const DELIVERY_OPTIONS = [
 ] as const;
 
 type InitialCustomer = { id: string; name: string; email: string; phone: string } | null;
+type FormStep = 1 | 2 | 3;
 
 export default function CheckoutForm({ initialCustomer }: { initialCustomer: InitialCustomer }) {
   const { lines, totalBgn, totalEur, clear } = useCart();
@@ -38,7 +39,45 @@ export default function CheckoutForm({ initialCustomer }: { initialCustomer: Ini
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const currentStepIndex = placed ? 3 : 2; // this page always covers "Доставка" + "Плащане"
+  // The checkout is a real 4-step wizard: only one step's fields are shown
+  // at a time, matching the progress bar 1-to-1 (Лични данни / Доставка /
+  // Плащане / Потвърждение), instead of showing everything on one long page.
+  const [step, setStep] = useState<FormStep>(1);
+
+  const activeIndex = placed ? 3 : step - 1; // 0-based index into STEPS for the progress bar
+
+  function goToStep(target: FormStep) {
+    // Only allow jumping back to an already-completed step, never skipping ahead.
+    if (placed || target >= step) return;
+    setError("");
+    setStep(target);
+  }
+
+  function goNextFromPersonal() {
+    if (!form.name.trim() || !form.phone.trim()) {
+      setError("Моля попълнете име и телефон.");
+      return;
+    }
+    setError("");
+    setStep(2);
+  }
+
+  function goNextFromDelivery() {
+    if (deliveryMethod === "econt_office" && !officeName.trim()) {
+      setError("Моля посочете кой офис на Еконт е удобен за вас.");
+      return;
+    }
+    if (deliveryMethod === "speedy_address" && !form.address.trim()) {
+      setError("Моля попълнете адрес за доставка.");
+      return;
+    }
+    if (!form.city.trim()) {
+      setError("Моля попълнете град.");
+      return;
+    }
+    setError("");
+    setStep(3);
+  }
 
   async function placeOrder() {
     if (!form.name || !form.phone || !form.city) {
@@ -80,7 +119,7 @@ export default function CheckoutForm({ initialCustomer }: { initialCustomer: Ini
   if (placed) {
     return (
       <div className="container" style={{ padding: "30px 0 60px" }}>
-        <CheckoutSteps activeIndex={3} />
+        <CheckoutSteps activeIndex={3} onStepClick={() => {}} />
         <div style={{ padding: "30px 0" }}>
           <h1>Благодарим за поръчката!</h1>
           <p>Номер на поръчката: <strong>{placed}</strong></p>
@@ -102,7 +141,7 @@ export default function CheckoutForm({ initialCustomer }: { initialCustomer: Ini
 
   return (
     <div className="container" style={{ padding: "30px 0 60px" }}>
-      <CheckoutSteps activeIndex={currentStepIndex} />
+      <CheckoutSteps activeIndex={activeIndex} onStepClick={(i) => goToStep((i + 1) as FormStep)} />
 
       <h1 className="section-title" style={{ marginTop: 0 }}>Завършване на поръчката</h1>
       {initialCustomer && (
@@ -113,73 +152,97 @@ export default function CheckoutForm({ initialCustomer }: { initialCustomer: Ini
 
       <div className="pdp" style={{ alignItems: "start" }}>
         <div>
-          <div className="card-box">
-            <p className="opt-label" style={{ marginTop: 0 }}>1. Данни за връзка</p>
-            <div className="field">
-              <label>Име и фамилия</label>
-              <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-            </div>
-            <div className="field">
-              <label>Имейл (по избор)</label>
-              <input value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-            </div>
-            <div className="field">
-              <label>Телефон</label>
-              <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
-            </div>
-          </div>
-
-          <div className="card-box">
-            <p className="opt-label" style={{ marginTop: 0 }}>2. Начин на доставка</p>
-            <div className="delivery-cards">
-              {DELIVERY_OPTIONS.map((opt) => (
-                <div
-                  key={opt.id}
-                  className={`delivery-card ${deliveryMethod === opt.id ? "delivery-card--selected" : ""}`}
-                  onClick={() => setDeliveryMethod(opt.id)}
-                >
-                  <div className="delivery-card__title">{opt.title}</div>
-                  <div className="delivery-card__subtitle">{opt.subtitle}</div>
-                </div>
-              ))}
-            </div>
-
-            {deliveryMethod === "econt_office" ? (
-              <div className="field" style={{ marginTop: 14 }}>
-                <label>Офис на Еконт (град и адрес)</label>
-                <input value={officeName} onChange={(e) => setOfficeName(e.target.value)} placeholder="напр. Еконт офис, ул. ... , София" />
-              </div>
-            ) : (
-              <div className="field" style={{ marginTop: 14 }}>
-                <label>Адрес за доставка</label>
-                <input value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
-              </div>
-            )}
-            <div className="field">
-              <label>Град</label>
-              <input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
-            </div>
-            {deliveryMethod === "econt_office" && (
+          {step === 1 && (
+            <div className="card-box">
+              <p className="opt-label" style={{ marginTop: 0 }}>Лични данни</p>
               <div className="field">
-                <label>Адрес (по документ, ако е различен)</label>
-                <input value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} placeholder="незадължително" />
+                <label>Име и фамилия</label>
+                <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
               </div>
-            )}
-          </div>
-
-          <div className="card-box">
-            <p className="opt-label" style={{ marginTop: 0 }}>3. Плащане</p>
-            <p style={{ fontSize: 14, color: "var(--muted)", marginTop: 0 }}>
-              Плащане в брой при получаване (наложен платеж).
-            </p>
-            {error && <p className="error-text">{error}</p>}
-            <button className="btn" style={{ width: "100%" }} onClick={placeOrder} disabled={submitting}>
-              {submitting ? "Изпращане..." : "Поръчай с преглед и тест"}
-            </button>
-            <div style={{ marginTop: 16 }}>
-              <TrustStrip variant="checkout" />
+              <div className="field">
+                <label>Имейл (по избор)</label>
+                <input value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+              </div>
+              <div className="field">
+                <label>Телефон</label>
+                <input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+              </div>
+              {error && <p className="error-text">{error}</p>}
+              <button className="btn" style={{ width: "100%", marginTop: 8 }} onClick={goNextFromPersonal}>
+                Продължи към доставка →
+              </button>
             </div>
-          </div>
+          )}
+
+          {step === 2 && (
+            <div className="card-box">
+              <p className="opt-label" style={{ marginTop: 0 }}>Начин на доставка</p>
+              <div className="delivery-cards">
+                {DELIVERY_OPTIONS.map((opt) => (
+                  <div
+                    key={opt.id}
+                    className={`delivery-card ${deliveryMethod === opt.id ? "delivery-card--selected" : ""}`}
+                    onClick={() => setDeliveryMethod(opt.id)}
+                  >
+                    <div className="delivery-card__title">{opt.title}</div>
+                    <div className="delivery-card__subtitle">{opt.subtitle}</div>
+                  </div>
+                ))}
+              </div>
+
+              {deliveryMethod === "econt_office" ? (
+                <div className="field" style={{ marginTop: 14 }}>
+                  <label>Офис на Еконт (град и адрес)</label>
+                  <input value={officeName} onChange={(e) => setOfficeName(e.target.value)} placeholder="напр. Еконт офис, ул. ... , София" />
+                </div>
+              ) : (
+                <div className="field" style={{ marginTop: 14 }}>
+                  <label>Адрес за доставка</label>
+                  <input value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
+                </div>
+              )}
+              <div className="field">
+                <label>Град</label>
+                <input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
+              </div>
+              {deliveryMethod === "econt_office" && (
+                <div className="field">
+                  <label>Адрес (по документ, ако е различен)</label>
+                  <input value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} placeholder="незадължително" />
+                </div>
+              )}
+              {error && <p className="error-text">{error}</p>}
+              <div style={{ display: "flex", gap: 10, marginTop: 8 }}>
+                <button className="btn btn--ghost" style={{ flex: 1 }} onClick={() => goToStep(1)}>
+                  ← Назад
+                </button>
+                <button className="btn" style={{ flex: 2 }} onClick={goNextFromDelivery}>
+                  Продължи към плащане →
+                </button>
+              </div>
+            </div>
+          )}
+
+          {step === 3 && (
+            <div className="card-box">
+              <p className="opt-label" style={{ marginTop: 0 }}>Плащане</p>
+              <p style={{ fontSize: 14, color: "var(--muted)", marginTop: 0 }}>
+                Плащане в брой при получаване (наложен платеж).
+              </p>
+              {error && <p className="error-text">{error}</p>}
+              <div style={{ display: "flex", gap: 10 }}>
+                <button className="btn btn--ghost" style={{ flex: 1 }} onClick={() => goToStep(2)} disabled={submitting}>
+                  ← Назад
+                </button>
+                <button className="btn" style={{ flex: 2 }} onClick={placeOrder} disabled={submitting}>
+                  {submitting ? "Изпращане..." : "Потвърди поръчката"}
+                </button>
+              </div>
+              <div style={{ marginTop: 16 }}>
+                <TrustStrip variant="checkout" />
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="card-box" style={{ position: "sticky", top: 90 }}>
@@ -213,15 +276,36 @@ export default function CheckoutForm({ initialCustomer }: { initialCustomer: Ini
   );
 }
 
-function CheckoutSteps({ activeIndex }: { activeIndex: number }) {
+function CheckoutSteps({
+  activeIndex,
+  onStepClick,
+}: {
+  activeIndex: number;
+  onStepClick: (i: number) => void;
+}) {
   return (
-    <ol className="checkout-steps">
-      {STEPS.map((step, i) => (
-        <li key={step} className={i <= activeIndex ? "checkout-steps__item--done" : ""}>
-          <span className="checkout-steps__dot">{i + 1}</span>
-          {step}
-        </li>
-      ))}
+    <ol className="checkout-progress">
+      {STEPS.map((step, i) => {
+        const done = i < activeIndex;
+        const active = i === activeIndex;
+        const clickable = i < activeIndex;
+        return (
+          <li
+            key={step}
+            className={[
+              "checkout-progress__step",
+              done ? "checkout-progress__step--done" : "",
+              active ? "checkout-progress__step--active" : "",
+              clickable ? "checkout-progress__step--clickable" : "",
+            ].join(" ").trim()}
+            onClick={() => clickable && onStepClick(i)}
+          >
+            <span className="checkout-progress__line" />
+            <span className="checkout-progress__dot">{done ? "✓" : i + 1}</span>
+            <span className="checkout-progress__label">{step}</span>
+          </li>
+        );
+      })}
     </ol>
   );
 }

@@ -421,37 +421,72 @@ main:not(.admin-main) .btn--danger { background: var(--danger); border-color: va
 .cart-totals table td { padding: 6px 14px; font-size: 14px; }
 .cart-totals table td:last-child { text-align: right; font-weight: 700; }
 
-/* ---------- Checkout progress ---------- */
-.checkout-steps {
+/* ---------- Checkout progress bar (4 steps: Лични данни / Доставка / Плащане / Потвърждение) ---------- */
+.checkout-progress {
   list-style: none;
   display: flex;
-  gap: 10px;
   padding: 0;
-  margin: 18px 0 6px;
-  font-size: 12.5px;
-  font-weight: 700;
-  color: #bbb;
-  flex-wrap: wrap;
+  margin: 18px 0 28px;
 }
-.checkout-steps li { display: flex; align-items: center; gap: 8px; }
-.checkout-steps li:not(:last-child)::after {
-  content: "→";
-  margin-left: 10px;
-  color: #ddd;
-  font-weight: 400;
+.checkout-progress__step {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 0;
 }
-.checkout-steps__dot {
-  width: 20px;
-  height: 20px;
+.checkout-progress__line {
+  position: absolute;
+  top: 15px;
+  left: -50%;
+  width: 100%;
+  height: 2px;
+  background: var(--line);
+  z-index: 1;
+}
+.checkout-progress__step:first-child .checkout-progress__line { display: none; }
+.checkout-progress__dot {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
   border-radius: 50%;
-  border: 1px solid #ddd;
+  border: 2px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 11px;
+  font-size: 13px;
+  font-weight: 700;
+  position: relative;
+  z-index: 2;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
-.checkout-steps__item--done { color: var(--ink); }
-.checkout-steps__item--done .checkout-steps__dot { background: var(--fill); border-color: var(--fill); color: var(--fill-text); }
+.checkout-progress__label {
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  line-height: 1.25;
+  padding: 0 4px;
+}
+.checkout-progress__step--done .checkout-progress__dot {
+  background: var(--brand-green);
+  border-color: var(--brand-green);
+  color: #fff;
+}
+.checkout-progress__step--done .checkout-progress__line { background: var(--brand-green); }
+.checkout-progress__step--done .checkout-progress__label { color: var(--ink); }
+.checkout-progress__step--active .checkout-progress__dot { border-color: var(--brand-green); color: var(--ink); }
+.checkout-progress__step--active .checkout-progress__label { color: var(--ink); font-weight: 800; }
+.checkout-progress__step--clickable { cursor: pointer; }
+@media (max-width: 560px) {
+  .checkout-progress__dot { width: 24px; height: 24px; font-size: 11.5px; }
+  .checkout-progress__line { top: 12px; }
+  .checkout-progress__label { font-size: 10px; margin-top: 6px; }
+}
 
 /* ---------- Ratings & reviews ---------- */
 .rating-stars { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
