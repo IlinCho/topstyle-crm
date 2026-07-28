@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "./CartProvider";
 import TrustStrip from "./TrustStrip";
+import { TRUST_CONFIG } from "@/lib/trust-config";
 
 type Variant = { size: string; color: string; stock: number };
 
@@ -76,6 +77,11 @@ export default function AddToCart({
           Как да избера размер?
         </button>
       </div>
+      {TRUST_CONFIG.sameDayCutoffTime && (
+        <p className="urgency-line urgency-line--soft">
+          🟢 Поръчай до {TRUST_CONFIG.sameDayCutoffTime} ч. и получи пратката още утре
+        </p>
+      )}
       <div className="opt-row">
         {sizes.map((s) => {
           const v = variants.find((vv) => vv.size === s);
@@ -113,6 +119,9 @@ export default function AddToCart({
           </button>
         )}
       </div>
+      <p className="urgency-line urgency-line--soft" style={{ marginTop: 10 }}>
+        🚚 Доставка с преглед и тест.
+      </p>
       {sizeError && (
         <p className="error-text" style={{ marginTop: 10 }}>
           Моля, избери размер, преди да добавиш продукта в количката.

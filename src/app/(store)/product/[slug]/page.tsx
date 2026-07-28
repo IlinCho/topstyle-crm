@@ -68,11 +68,6 @@ export default async function ProductPage({ params }: { params: { slug: string }
           {totalStock > 0 && totalStock <= 5 && (
             <p className="urgency-line">Последни {totalStock} бр. в наличност</p>
           )}
-          {TRUST_CONFIG.sameDayCutoffTime && (
-            <p className="urgency-line">
-              Поръчай до {TRUST_CONFIG.sameDayCutoffTime} ч. — изпращаме още днес
-            </p>
-          )}
 
           <p style={{ fontSize: 14.5, lineHeight: 1.6, marginBottom: 8 }}>{product.description}</p>
 

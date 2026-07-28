@@ -349,6 +349,14 @@ a { color: inherit; text-decoration: none; }
   font-size: 13px;
   margin: 0 0 10px;
 }
+/* Calmer variant for positive/informational urgency claims (shipping cutoff,
+   try-before-you-buy) - these aren't warnings, so they don't get the red
+   scarcity-alert treatment. */
+.urgency-line--soft {
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 12.5px;
+}
 
 /* ---------- Trust strip ---------- */
 .trust-strip {
