@@ -42,7 +42,7 @@ export function flattenCategoryTree<T extends CategoryLike>(
   function walk(nodes: CategoryNode<T>[], depth: number) {
     for (const n of nodes) {
       const { children, ...rest } = n;
-      out.push({ ...(rest as T), depth });
+      out.push({ ...(rest as unknown as T), depth });
       walk(children, depth + 1);
     }
   }
