@@ -51,6 +51,10 @@ export default async function ProductPage({ params }: { params: { slug: string }
             <span className="muted" style={{ fontSize: 13 }}>SKU: {product.sku}</span>
           </div>
 
+          {TRUST_CONFIG.customersServedText && (
+            <p className="pdp__trust-line">✓ {TRUST_CONFIG.customersServedText}</p>
+          )}
+
           <div className="pdp__price">
             {formatEur(product.priceEur)} <small>{formatBgn(product.priceBgn)}</small>
           </div>
