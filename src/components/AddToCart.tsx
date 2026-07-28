@@ -27,15 +27,28 @@ export default function AddToCart({
   const { add } = useCart();
   const router = useRouter();
   const sizes = useMemo(() => Array.from(new Set(variants.map((v) => v.size))), [variants]);
-  const [size, setSize] = useState(sizes[0] || "");
+  // No size is preselected - the customer must actively choose one before
+  // an item can be added to the cart.
+  const [size, setSize] = useState("");
   const [added, setAdded] = useState(false);
+  const [sizeError, setSizeError] = useState(false);
   const [showSizeGuide, setShowSizeGuide] = useState(false);
 
   const selectedVariant = variants.find((v) => v.size === size);
-  const inStock = (selectedVariant?.stock ?? 0) > 0;
+  const inStock = !size || (selectedVariant?.stock ?? 0) > 0;
+
+  function selectSize(s: string) {
+    setSize(s);
+    setSizeError(false);
+  }
 
   function handleAdd() {
-    if (!selectedVariant || !inStock) return;
+    if (!size) {
+      setSizeError(true);
+      return;
+    }
+    if (!selectedVariant || selectedVariant.stock === 0) return;
+    setSizeError(false);
     add({
       productId,
       name,
@@ -71,7 +84,7 @@ export default function AddToCart({
             <div
               key={s}
               className={`opt ${size === s ? "selected" : ""} ${disabled ? "disabled" : ""}`}
-              onClick={() => !disabled && setSize(s)}
+              onClick={() => !disabled && selectSize(s)}
             >
               {s}
             </div>
@@ -92,7 +105,7 @@ export default function AddToCart({
 
       <div style={{ marginTop: 22, display: "flex", gap: 12, alignItems: "center" }}>
         <button className="btn" disabled={!inStock} onClick={handleAdd}>
-          {inStock ? "Добави в количката" : "Изчерпан размер"}
+          {size && !inStock ? "Изчерпан размер" : "Добави в количката"}
         </button>
         {added && (
           <button className="btn btn--ghost btn--sm" onClick={() => router.push("/cart")}>
@@ -100,7 +113,12 @@ export default function AddToCart({
           </button>
         )}
       </div>
-      {added && <p style={{ color: "#1f7a3d", fontSize: 13, marginTop: 10 }}>Добавено в количката.</p>}
+      {sizeError && (
+        <p className="error-text" style={{ marginTop: 10 }}>
+          Моля, избери размер, преди да добавиш продукта в количката.
+        </p>
+      )}
+      {added && <p style={{ color: "var(--brand-green)", fontSize: 13, marginTop: 10, fontWeight: 600 }}>✓ Добавено в количката.</p>}
 
       <div style={{ marginTop: 20 }}>
         <TrustStrip variant="product" />
@@ -112,7 +130,7 @@ export default function AddToCart({
           {priceBgn ? `${priceBgn.toFixed(2)} лв.` : ""}
         </div>
         <button className="btn" disabled={!inStock} onClick={handleAdd} style={{ flex: 1 }}>
-          {inStock ? "Добави в количката" : "Изчерпан размер"}
+          {size && !inStock ? "Изчерпан размер" : "Добави в количката"}
         </button>
       </div>
     </div>

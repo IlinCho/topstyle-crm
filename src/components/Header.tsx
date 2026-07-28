@@ -21,7 +21,6 @@ export default async function Header() {
           <Link href={session ? "/account" : "/account/login"}>
             {session ? "Моят профил" : "Вход"}
           </Link>
-          <Link href="/admin">Админ</Link>
           <CartPill />
         </div>
       </div>
