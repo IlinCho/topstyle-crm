@@ -13,7 +13,10 @@ export default function LoginPage({ searchParams }: { searchParams: { error?: st
           <label>Парола</label>
           <input name="password" type="password" required />
         </div>
-        {searchParams?.error && <p className="error-text">Грешен имейл или парола.</p>}
+        {searchParams?.error === "locked" && (
+          <p className="error-text">Твърде много неуспешни опити. Опитайте отново след 15 минути.</p>
+        )}
+        {searchParams?.error === "1" && <p className="error-text">Грешен имейл или парола.</p>}
         <button className="btn" style={{ width: "100%", marginTop: 8 }} type="submit">
           Вход
         </button>

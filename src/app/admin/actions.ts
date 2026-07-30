@@ -3,17 +3,33 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
-import { createSession, clearSession, verifyAdminCredentials } from "@/lib/auth";
+import { createSession, clearSession, verifyAdminCredentials, requireAdminSession } from "@/lib/auth";
 import { slugifyBasic } from "@/lib/format";
 import { serializeBadges } from "@/lib/badges";
+import { clientIp, isRateLimited, recordFailedAttempt, clearAttempts } from "@/lib/rate-limit";
 
 export async function loginAction(formData: FormData) {
-  const email = String(formData.get("email") || "").trim();
+  const email = String(formData.get("email") || "").trim().toLowerCase();
   const password = String(formData.get("password") || "");
+  const ip = clientIp();
+  const emailKey = `admin:email:${email}`;
+  const ipKey = `admin:ip:${ip}`;
+
+  // Checking both email and IP means an attacker can't dodge the limit by
+  // either rotating IPs against one known admin email, or spraying many
+  // guessed emails from a single machine.
+  if ((await isRateLimited(emailKey)) || (await isRateLimited(ipKey))) {
+    redirect("/admin/login?error=locked");
+  }
+
   const admin = await verifyAdminCredentials(email, password);
   if (!admin) {
+    await recordFailedAttempt(emailKey);
+    await recordFailedAttempt(ipKey);
     redirect("/admin/login?error=1");
   }
+  await clearAttempts(emailKey);
+  await clearAttempts(ipKey);
   await createSession(admin.id, admin.email);
   redirect("/admin");
 }
@@ -25,6 +41,7 @@ export async function logoutAction() {
 
 // ---------- Categories ----------
 export async function createCategoryAction(formData: FormData) {
+  await requireAdminSession();
   const name = String(formData.get("name") || "").trim();
   const parentId = String(formData.get("parentId") || "").trim() || null;
   if (!name) return;
@@ -36,6 +53,7 @@ export async function createCategoryAction(formData: FormData) {
 }
 
 export async function deleteCategoryAction(formData: FormData) {
+  await requireAdminSession();
   const id = String(formData.get("id") || "");
   const productsInCategory = await db.product.count({ where: { categoryId: id } });
   if (productsInCategory > 0) return; // guard: don't orphan products
@@ -74,6 +92,7 @@ function parseCategoryRank(formData: FormData): number | null {
 }
 
 export async function createProductAction(formData: FormData) {
+  await requireAdminSession();
   const name = String(formData.get("name") || "").trim();
   const categoryId = String(formData.get("categoryId") || "");
   const priceEur = parseFloat(String(formData.get("priceEur") || "0"));
@@ -115,6 +134,7 @@ export async function createProductAction(formData: FormData) {
 }
 
 export async function updateProductAction(formData: FormData) {
+  await requireAdminSession();
   const id = String(formData.get("id") || "");
   const name = String(formData.get("name") || "").trim();
   const categoryId = String(formData.get("categoryId") || "");
@@ -158,6 +178,7 @@ export async function updateProductAction(formData: FormData) {
 }
 
 export async function deleteProductAction(formData: FormData) {
+  await requireAdminSession();
   const id = String(formData.get("id") || "");
   if (!id) return;
   await db.product.delete({ where: { id } });
@@ -167,6 +188,7 @@ export async function deleteProductAction(formData: FormData) {
 
 // ---------- Orders ----------
 export async function updateOrderStatusAction(formData: FormData) {
+  await requireAdminSession();
   const id = String(formData.get("id") || "");
   const status = String(formData.get("status") || "pending");
   await db.order.update({ where: { id }, data: { status } });
@@ -176,6 +198,7 @@ export async function updateOrderStatusAction(formData: FormData) {
 
 // ---------- Reviews ----------
 export async function createReviewAction(formData: FormData) {
+  await requireAdminSession();
   const productId = String(formData.get("productId") || "");
   const authorName = String(formData.get("authorName") || "").trim();
   const rating = Math.min(5, Math.max(1, parseInt(String(formData.get("rating") || "5"), 10) || 5));
@@ -190,6 +213,7 @@ export async function createReviewAction(formData: FormData) {
 }
 
 export async function deleteReviewAction(formData: FormData) {
+  await requireAdminSession();
   const id = String(formData.get("id") || "");
   const productId = String(formData.get("productId") || "");
   if (!id) return;
@@ -199,6 +223,7 @@ export async function deleteReviewAction(formData: FormData) {
 
 // ---------- Stock alerts ("Уведоми ме при наличност") ----------
 export async function markStockAlertNotifiedAction(formData: FormData) {
+  await requireAdminSession();
   const id = String(formData.get("id") || "");
   if (!id) return;
   await db.stockAlert.update({ where: { id }, data: { notified: true } });
@@ -206,6 +231,7 @@ export async function markStockAlertNotifiedAction(formData: FormData) {
 }
 
 export async function deleteStockAlertAction(formData: FormData) {
+  await requireAdminSession();
   const id = String(formData.get("id") || "");
   if (!id) return;
   await db.stockAlert.delete({ where: { id } });

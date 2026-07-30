@@ -36,6 +36,9 @@ export default async function LoginPage({
       <div className={showGuestOption ? "pdp" : ""} style={showGuestOption ? { alignItems: "start" } : { maxWidth: 440 }}>
         <div className="card-box">
           <p className="opt-label" style={{ marginTop: 0 }}>Вход с имейл</p>
+          {searchParams?.error === "locked" && (
+            <p className="error-text">Твърде много неуспешни опити. Опитайте отново след 15 минути.</p>
+          )}
           {searchParams?.error === "1" && (
             <p className="error-text">Грешен имейл или парола.</p>
           )}

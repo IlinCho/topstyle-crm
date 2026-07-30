@@ -85,6 +85,19 @@ model Review {
   createdAt  DateTime @default(now())
 }
 
+// Login brute-force protection for both admin and customer login. Each failed
+// attempt inserts a row keyed by a scope like "admin:email:x@y.com" or
+// "admin:ip:1.2.3.4" - checking both email and IP means an attacker can't get
+// around the limit just by rotating one or the other. Rows age out on their
+// own (see src/lib/rate-limit.ts), so this table stays small.
+model LoginAttempt {
+  id        String   @id @default(cuid())
+  key       String
+  createdAt DateTime @default(now())
+
+  @@index([key, createdAt])
+}
+
 model ProductImage {
   id        String   @id @default(cuid())
   productId String

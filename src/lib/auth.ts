@@ -38,6 +38,17 @@ export async function getSession(): Promise<{ sub: string; email: string } | nul
   }
 }
 
+// Guard for every admin server action, not just the dashboard pages - a page
+// redirect alone doesn't stop someone from invoking a server action directly,
+// so every mutating admin action must call this itself too.
+export async function requireAdminSession() {
+  const session = await getSession();
+  if (!session) {
+    throw new Error("Не сте влезли в администраторския панел.");
+  }
+  return session;
+}
+
 export async function verifyAdminCredentials(email: string, password: string) {
   const admin = await db.adminUser.findUnique({ where: { email } });
   if (!admin) return null;

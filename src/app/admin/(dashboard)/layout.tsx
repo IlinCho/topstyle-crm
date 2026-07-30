@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { logoutAction } from "../actions";
 
@@ -8,6 +9,12 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
+  // This layout wraps every page under admin/(dashboard) - without this
+  // check, product/order/customer data was reachable by anyone who knew or
+  // guessed the URL, with no login required at all.
+  if (!session) {
+    redirect("/admin/login");
+  }
 
   return (
     <div className="admin-shell">
