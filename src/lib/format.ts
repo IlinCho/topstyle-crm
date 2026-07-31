@@ -10,11 +10,27 @@ export function formatPrice(priceEur: number, priceBgn: number) {
   return `${formatEur(priceEur)} / ${formatBgn(priceBgn)}`;
 }
 
+// Bulgarian Cyrillic -> Latin transliteration, so slugs are always plain
+// ASCII (same convention as the original scraped catalog's slugs, e.g.
+// "mazhka-teniska-..."). The previous version of this function kept Cyrillic
+// characters as-is, which produced non-ASCII slugs for any admin-created
+// product - those slugs round-trip through the browser's URL encoding and
+// can end up not matching the stored value, causing a 404 on the product
+// page even though the product exists. Transliterating avoids the whole
+// class of problem by keeping slugs plain a-z0-9- only.
+const CYRILLIC_TO_LATIN: Record<string, string> = {
+  а: "a", б: "b", в: "v", г: "g", д: "d", е: "e", ж: "zh", з: "z",
+  и: "i", й: "y", к: "k", л: "l", м: "m", н: "n", о: "o", п: "p",
+  р: "r", с: "s", т: "t", у: "u", ф: "f", х: "h", ц: "ts", ч: "ch",
+  ш: "sh", щ: "sht", ъ: "a", ь: "y", ю: "yu", я: "ya",
+};
+
 export function slugifyBasic(input: string) {
-  return input
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9а-я\s-]/gi, "")
+  const lower = input.toLowerCase().trim();
+  const transliterated = lower.replace(/[а-я]/g, (ch) => CYRILLIC_TO_LATIN[ch] ?? "");
+  return transliterated
+    .replace(/[^a-z0-9\s-]/g, "")
     .replace(/\s+/g, "-")
-    .replace(/-+/g, "-");
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }

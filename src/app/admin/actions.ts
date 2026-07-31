@@ -100,7 +100,9 @@ export async function createProductAction(formData: FormData) {
   const material = String(formData.get("material") || "").trim();
   const color = String(formData.get("color") || "").trim();
   const description = String(formData.get("description") || "").trim();
-  const imageUrl = String(formData.get("imageUrl") || "").trim();
+  const imageUrls = (formData.getAll("imageUrl") as string[])
+    .map((u) => u.trim())
+    .filter(Boolean);
   const sku = String(formData.get("sku") || "").trim() || `SKU-${Date.now()}`;
   const badges = serializeBadges(formData.getAll("badge") as string[]);
   const categoryRank = parseCategoryRank(formData);
@@ -124,7 +126,9 @@ export async function createProductAction(formData: FormData) {
       badges,
       categoryRank,
       variants: { create: variants },
-      images: imageUrl ? { create: [{ url: imageUrl, position: 0 }] } : undefined,
+      images: imageUrls.length
+        ? { create: imageUrls.map((url, position) => ({ url, position })) }
+        : undefined,
     },
   });
 
@@ -143,7 +147,9 @@ export async function updateProductAction(formData: FormData) {
   const material = String(formData.get("material") || "").trim();
   const color = String(formData.get("color") || "").trim();
   const description = String(formData.get("description") || "").trim();
-  const imageUrl = String(formData.get("imageUrl") || "").trim();
+  const imageUrls = (formData.getAll("imageUrl") as string[])
+    .map((u) => u.trim())
+    .filter(Boolean);
   const active = formData.get("active") === "on";
   const badges = serializeBadges(formData.getAll("badge") as string[]);
   const categoryRank = parseCategoryRank(formData);
@@ -162,13 +168,14 @@ export async function updateProductAction(formData: FormData) {
     await db.productVariant.createMany({ data: variants.map((v) => ({ ...v, productId: id })) });
   }
 
-  if (imageUrl) {
-    const firstImage = await db.productImage.findFirst({ where: { productId: id }, orderBy: { position: "asc" } });
-    if (firstImage) {
-      await db.productImage.update({ where: { id: firstImage.id }, data: { url: imageUrl } });
-    } else {
-      await db.productImage.create({ data: { productId: id, url: imageUrl, position: 0 } });
-    }
+  // Images are rebuilt from scratch on every save (same pattern as variants
+  // above) - simplest way to support an arbitrary number of photos, add/remove
+  // included, without needing to track individual row ids from the form.
+  await db.productImage.deleteMany({ where: { productId: id } });
+  if (imageUrls.length) {
+    await db.productImage.createMany({
+      data: imageUrls.map((url, position) => ({ productId: id, url, position })),
+    });
   }
 
   revalidatePath("/admin/products");

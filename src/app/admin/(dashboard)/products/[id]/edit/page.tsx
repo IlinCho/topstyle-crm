@@ -20,7 +20,11 @@ export default async function EditProductPage({
   const [product, categories] = await Promise.all([
     db.product.findUnique({
       where: { id: params.id },
-      include: { images: true, variants: true, reviews: { orderBy: { createdAt: "desc" } } },
+      include: {
+        images: { orderBy: { position: "asc" } },
+        variants: true,
+        reviews: { orderBy: { createdAt: "desc" } },
+      },
     }),
     db.category.findMany({ orderBy: { position: "asc" } }),
   ]);
@@ -63,7 +67,7 @@ export default async function EditProductPage({
           material: product.material,
           color: product.color,
           description: product.description,
-          imageUrl: product.images[0]?.url,
+          images: product.images.map((i) => i.url),
           active: product.active,
           badges: parseBadges(product.badges),
           categoryRank: product.categoryRank,

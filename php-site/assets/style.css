@@ -15,20 +15,11 @@
   --brand-green: #4caf50;
   --brand-green-dark: #3d8b40;
 
-  /* elevated card surface + "inverted fill" (active/selected chip) tokens -
-     redefined below for the storefront's dark theme so every component that
-     already uses these variables adapts automatically */
   --surface: #ffffff;
   --fill: var(--ink);
   --fill-text: #ffffff;
 }
 
-/* ---------- Storefront dark theme (copied from topstyle.bg) ---------- */
-/* Wraps Header + <main> + Footer in the (store) layout. Redefining the
-   custom properties here cascades to every storefront component that
-   already references var(--ink)/var(--paper)/etc, without needing to
-   touch each rule individually. The admin panel is not wrapped in this
-   class, so it keeps its original light theme untouched. */
 .storefront {
   --paper: var(--brand-black);
   --ink: #f2f2f4;
@@ -111,9 +102,6 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.4px;
   font-weight: 600;
   border-top: 1px solid var(--line);
-  /* overflow stays visible so the subcategory dropdown below isn't clipped;
-     horizontal scrolling is only enabled on narrow screens (see media query),
-     where there's no room for a hover dropdown anyway. */
 }
 .nav a { white-space: nowrap; padding: 4px 0; }
 .nav a:hover { color: var(--danger); }
@@ -151,7 +139,7 @@ a { color: inherit; text-decoration: none; }
   .cart-pill { padding: 6px 10px; font-size: 12px; }
 }
 
-/* ---------- Hero (photo + palette copied from topstyle.bg's own hero banner) ---------- */
+/* ---------- Hero ---------- */
 .hero {
   background: var(--brand-black);
   color: #fff;
@@ -294,20 +282,6 @@ a { color: inherit; text-decoration: none; }
 .pdp { display: grid; grid-template-columns: 1fr 1fr; gap: 46px; margin: 30px 0 60px; }
 @media (max-width: 800px) { .pdp { grid-template-columns: 1fr; gap: 24px; padding-bottom: 70px; } }
 .pdp__img { width: 100%; border-radius: var(--radius); background: var(--bg-soft); aspect-ratio: 4/5; object-fit: cover; }
-.pdp__thumbs { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-.pdp__thumb {
-  padding: 0;
-  border: 2px solid transparent;
-  border-radius: var(--radius);
-  background: none;
-  cursor: pointer;
-  width: 60px;
-  height: 75px;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-.pdp__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; background: var(--bg-soft); }
-.pdp__thumb--active { border-color: var(--ink); }
 .pdp__title { font-size: 24px; margin: 0 0 8px; }
 .pdp__price { font-size: 22px; font-weight: 800; margin: 4px 0 20px; }
 .pdp__price small { font-size: 14px; color: var(--muted); font-weight: 500; margin-left: 8px; }
@@ -337,8 +311,6 @@ a { color: inherit; text-decoration: none; }
   position: relative;
 }
 .opt.selected { border-color: var(--fill); background: var(--fill); color: var(--fill-text); }
-/* Sold-out sizes stay clickable (not "not-allowed") - selecting one shows the
-   "Изчерпан" status + a notify-me capture instead of just looking inert. */
 .opt.disabled { color: #bbb; text-decoration: line-through; opacity: 0.7; border-color: #eee; }
 .opt.disabled.selected { border-color: var(--muted); background: var(--bg-soft); color: var(--muted); }
 
@@ -367,16 +339,13 @@ a { color: inherit; text-decoration: none; }
   font-size: 13px;
   margin: 0 0 10px;
 }
-/* Calmer variant for positive/informational urgency claims (shipping cutoff,
-   try-before-you-buy) - these aren't warnings, so they don't get the red
-   scarcity-alert treatment. */
 .urgency-line--soft {
   color: var(--ink);
   font-weight: 600;
   font-size: 12.5px;
 }
 
-/* ---------- Smart Scarcity Intelligence - tiered stock messaging ---------- */
+/* ---------- Smart Scarcity Intelligence ---------- */
 .scarcity-badge {
   font-size: 13px;
   font-weight: 700;
@@ -473,9 +442,6 @@ a { color: inherit; text-decoration: none; }
 .btn--danger { background: var(--danger); border-color: var(--danger); }
 .btn--sm { padding: 8px 14px; font-size: 12px; }
 
-/* Storefront primary action color = the green CTA copied from topstyle.bg
-   ("ПАЗАРУВАЙ СЕГА" button). Scoped to the storefront <main> only, so the
-   admin panel keeps its neutral black buttons. */
 main:not(.admin-main) .btn {
   background: var(--brand-green);
   border-color: var(--brand-green);
@@ -491,7 +457,7 @@ main:not(.admin-main) .btn--danger { background: var(--danger); border-color: va
 .cart-totals table td { padding: 6px 14px; font-size: 14px; }
 .cart-totals table td:last-child { text-align: right; font-weight: 700; }
 
-/* ---------- Checkout progress bar (4 steps: Лични данни / Доставка / Плащане / Потвърждение) ---------- */
+/* ---------- Checkout progress bar ---------- */
 .checkout-progress {
   list-style: none;
   display: flex;

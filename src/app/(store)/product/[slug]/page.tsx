@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { formatBgn, formatEur } from "@/lib/format";
 import AddToCart from "@/components/AddToCart";
 import RatingStars from "@/components/RatingStars";
+import ProductGallery from "@/components/ProductGallery";
 import { TRUST_CONFIG } from "@/lib/trust-config";
 
 export const dynamic = "force-dynamic";
@@ -12,7 +13,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
   const product = await db.product.findUnique({
     where: { slug: params.slug },
     include: {
-      images: true,
+      images: { orderBy: { position: "asc" } },
       variants: true,
       category: true,
       reviews: { orderBy: { createdAt: "desc" } },
@@ -20,7 +21,6 @@ export default async function ProductPage({ params }: { params: { slug: string }
   });
   if (!product) notFound();
 
-  const img = product.images[0]?.url || "https://placehold.co/600x750/eeeeee/999999?text=TopStyle";
   const totalStock = product.variants.reduce((s, v) => s + v.stock, 0);
 
   return (
@@ -32,8 +32,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
 
       <div className="pdp">
         <div>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={img} alt={product.name} className="pdp__img" />
+          <ProductGallery images={product.images.map((i) => i.url)} alt={product.name} />
         </div>
 
         <div>
@@ -75,7 +74,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
             productId={product.id}
             slug={product.slug}
             name={product.name}
-            image={img}
+            image={product.images[0]?.url || "https://placehold.co/600x750/eeeeee/999999?text=TopStyle"}
             priceBgn={product.priceBgn}
             priceEur={product.priceEur}
             variants={product.variants}

@@ -23,7 +23,7 @@ export default function ProductForm({
     material?: string;
     color?: string;
     description?: string;
-    imageUrl?: string;
+    images?: string[];
     active?: boolean;
     badges?: string[];
     categoryRank?: number | null;
@@ -44,6 +44,22 @@ export default function ProductForm({
     setVariants((v) =>
       v.map((row, i) => (i === idx ? { ...row, [field]: field === "stock" ? Number(value) || 0 : value } : row))
     );
+  }
+
+  // Images: repeatable URL fields, same pattern as the variants table above.
+  // The first row is always the "main" photo shown on cards/category pages -
+  // order here = position in the DB.
+  const [images, setImages] = useState<string[]>(
+    initial?.images?.length ? initial.images : [""]
+  );
+  function addImageRow() {
+    setImages((imgs) => [...imgs, ""]);
+  }
+  function removeImageRow(idx: number) {
+    setImages((imgs) => imgs.filter((_, i) => i !== idx));
+  }
+  function updateImageRow(idx: number, value: string) {
+    setImages((imgs) => imgs.map((url, i) => (i === idx ? value : url)));
   }
 
   return (
@@ -91,10 +107,6 @@ export default function ProductForm({
             </div>
           )}
           <div className="field">
-            <label>Снимка (URL)</label>
-            <input name="imageUrl" defaultValue={initial?.imageUrl} placeholder="https://..." />
-          </div>
-          <div className="field">
             <label>Позиция в категорията (1-8, по избор)</label>
             <input
               name="categoryRank"
@@ -139,6 +151,36 @@ export default function ProductForm({
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      <div className="card-box">
+        <div className="flex-between" style={{ marginBottom: 10 }}>
+          <strong>Снимки</strong>
+          <button type="button" className="btn btn--ghost btn--sm" onClick={addImageRow}>+ Добави снимка</button>
+        </div>
+        <p className="muted" style={{ fontSize: 12.5, marginTop: -6, marginBottom: 10 }}>
+          Постави линк (URL) към всяка снимка. Първата е основната — тя се показва в списъка с
+          продукти и в категориите; следващите се виждат на самата продуктова страница.
+        </p>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {images.map((url, idx) => (
+            <div key={idx} style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              <span className="muted" style={{ fontSize: 12, width: 60, flexShrink: 0 }}>
+                {idx === 0 ? "Основна" : `Снимка ${idx + 1}`}
+              </span>
+              <input
+                name="imageUrl"
+                value={url}
+                onChange={(e) => updateImageRow(idx, e.target.value)}
+                placeholder="https://..."
+                style={{ flex: 1 }}
+              />
+              {images.length > 1 && (
+                <button type="button" className="btn btn--ghost btn--sm" onClick={() => removeImageRow(idx)}>✕</button>
+              )}
+            </div>
+          ))}
         </div>
       </div>
 
