@@ -1,16 +1,18 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { formatBgn } from "@/lib/format";
+import { statusLabel, statusPillClass, isQuickOrder } from "@/lib/order-status";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {
-  const [productCount, categoryCount, orderCount, lowStockCount, recentOrders] = await Promise.all([
+  const [productCount, categoryCount, orderCount, quickOrderCount, lowStockCount, recentOrders] = await Promise.all([
     db.product.count(),
     db.category.count(),
     db.order.count(),
+    db.order.count({ where: { deliveryMethod: "quick_order" } }),
     db.productVariant.count({ where: { stock: { gt: 0, lte: 3 } } }),
-    db.order.findMany({ orderBy: { createdAt: "desc" }, take: 6, include: { items: true } }),
+    db.order.findMany({ orderBy: { createdAt: "desc" }, take: 8, include: { items: true } }),
   ]);
 
   return (
@@ -36,6 +38,10 @@ export default async function AdminDashboard() {
           <div className="stat-box__label">Ниска наличност</div>
           <div className="stat-box__value">{lowStockCount}</div>
         </div>
+        <div className="stat-box">
+          <div className="stat-box__label">Бързи поръчки</div>
+          <div className="stat-box__value">{quickOrderCount}</div>
+        </div>
       </div>
 
       <div className="card-box">
@@ -46,7 +52,7 @@ export default async function AdminDashboard() {
         <table className="admin-table">
           <thead>
             <tr>
-              <th>№</th><th>Клиент</th><th>Артикули</th><th>Сума</th><th>Статус</th>
+              <th>№</th><th>Клиент</th><th>Тип</th><th>Артикули</th><th>Сума</th><th>Статус</th>
             </tr>
           </thead>
           <tbody>
@@ -54,13 +60,20 @@ export default async function AdminDashboard() {
               <tr key={o.id}>
                 <td><Link href={`/admin/orders/${o.id}`}>{o.orderNumber}</Link></td>
                 <td>{o.guestName}</td>
+                <td>
+                  {isQuickOrder(o.deliveryMethod) ? (
+                    <span className="pill pill--warn">⚡ бърза</span>
+                  ) : (
+                    <span className="pill pill--muted">обикновена</span>
+                  )}
+                </td>
                 <td>{o.items.length}</td>
                 <td>{formatBgn(o.totalBgn)}</td>
-                <td><span className="pill pill--warn">{o.status}</span></td>
+                <td><span className={statusPillClass(o.status)}>{statusLabel(o.status)}</span></td>
               </tr>
             ))}
             {recentOrders.length === 0 && (
-              <tr><td colSpan={5} className="muted">Все още няма поръчки.</td></tr>
+              <tr><td colSpan={6} className="muted">Все още няма поръчки.</td></tr>
             )}
           </tbody>
         </table>

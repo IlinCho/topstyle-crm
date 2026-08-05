@@ -39,6 +39,14 @@ export default function AddToCart({
   const [alertEmail, setAlertEmail] = useState("");
   const [alertState, setAlertState] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
+  // "Бърза поръчка" - one-tap order with just name + phone, no cart/checkout.
+  const [showQuickOrder, setShowQuickOrder] = useState(false);
+  const [quickName, setQuickName] = useState("");
+  const [quickPhone, setQuickPhone] = useState("");
+  const [quickState, setQuickState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [quickError, setQuickError] = useState("");
+  const [quickOrderNumber, setQuickOrderNumber] = useState("");
+
   const selectedVariant = variants.find((v) => v.size === size);
   const selectedStock = selectedVariant?.stock ?? 0;
   const inStock = !size || selectedStock > 0;
@@ -73,6 +81,60 @@ export default function AddToCart({
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 1800);
+  }
+
+  function openQuickOrder() {
+    if (!size) {
+      setSizeError(true);
+      return;
+    }
+    if (!selectedVariant || selectedVariant.stock === 0) return;
+    setSizeError(false);
+    setQuickState("idle");
+    setQuickError("");
+    setShowQuickOrder(true);
+  }
+
+  async function submitQuickOrder() {
+    if (!selectedVariant) return;
+    if (quickName.trim().length < 2) {
+      setQuickError("Моля, въведете вашето име.");
+      return;
+    }
+    if (quickPhone.replace(/[^0-9+]/g, "").length < 6) {
+      setQuickError("Моля, въведете валиден телефонен номер.");
+      return;
+    }
+    setQuickError("");
+    setQuickState("sending");
+    try {
+      const res = await fetch("/api/quick-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId,
+          name: quickName.trim(),
+          phone: quickPhone.trim(),
+          size,
+          color: selectedVariant.color,
+          qty: 1,
+          priceBgn,
+          priceEur,
+          productName: name,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setQuickError(data.error || "Възникна грешка. Опитайте отново.");
+        setQuickState("error");
+        return;
+      }
+      setQuickOrderNumber(data.orderNumber);
+      setQuickState("sent");
+    } catch {
+      setQuickError("Възникна грешка. Опитайте отново или ни се обадете.");
+      setQuickState("error");
+    }
   }
 
   async function submitStockAlert() {
@@ -183,9 +245,12 @@ export default function AddToCart({
         </div>
       )}
 
-      <div style={{ marginTop: 22, display: "flex", gap: 12, alignItems: "center" }}>
+      <div style={{ marginTop: 22, display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
         <button className="btn" disabled={!inStock} onClick={handleAdd}>
           {size && !inStock ? "Изчерпан размер" : "Добави в количката"}
+        </button>
+        <button className="btn btn--ghost" disabled={!inStock} onClick={openQuickOrder}>
+          📞 Поръчай бързо
         </button>
         {added && (
           <button className="btn btn--ghost btn--sm" onClick={() => router.push("/cart")}>
@@ -202,6 +267,60 @@ export default function AddToCart({
         </p>
       )}
       {added && <p style={{ color: "var(--brand-green)", fontSize: 13, marginTop: 10, fontWeight: 600 }}>✓ Добавено в количката.</p>}
+
+      {/* "Бърза поръчка" - name + phone only, no cart/checkout. The store
+          calls back to confirm address, so this is deliberately minimal. */}
+      {showQuickOrder && (
+        <div className="stock-alert-box" style={{ marginTop: 14 }}>
+          {quickState === "sent" ? (
+            <p style={{ margin: 0, fontWeight: 600, color: "var(--brand-green)" }}>
+              ✓ Поръчката е приета (№ {quickOrderNumber}). Ще Ви позвъним на {quickPhone}, за да потвърдим адреса за доставка.
+            </p>
+          ) : (
+            <>
+              <p style={{ margin: "0 0 8px", fontWeight: 600 }}>
+                Бърза поръчка — оставете име и телефон, ние ще Ви се обадим за адреса
+              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <input
+                  type="text"
+                  placeholder="Име"
+                  value={quickName}
+                  onChange={(e) => setQuickName(e.target.value)}
+                />
+                <input
+                  type="tel"
+                  placeholder="Телефон"
+                  value={quickPhone}
+                  onChange={(e) => setQuickPhone(e.target.value)}
+                />
+                <div style={{ display: "flex", gap: 8 }}>
+                  <button
+                    type="button"
+                    className="btn btn--sm"
+                    onClick={submitQuickOrder}
+                    disabled={quickState === "sending"}
+                  >
+                    {quickState === "sending" ? "Изпращане..." : "Поръчай"}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn--ghost btn--sm"
+                    onClick={() => setShowQuickOrder(false)}
+                  >
+                    Отказ
+                  </button>
+                </div>
+              </div>
+              {quickError && (
+                <p className="error-text" style={{ marginTop: 8 }}>
+                  {quickError}
+                </p>
+              )}
+            </>
+          )}
+        </div>
+      )}
 
       <div style={{ marginTop: 20 }}>
         <TrustStrip variant="product" />

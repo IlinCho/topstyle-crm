@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { formatBgn } from "@/lib/format";
+import { statusLabel, statusPillClass, isQuickOrder } from "@/lib/order-status";
 
 export const dynamic = "force-dynamic";
 
@@ -19,7 +20,9 @@ export default async function AdminOrdersPage() {
       <div className="card-box">
         <table className="admin-table">
           <thead>
-            <tr><th>№</th><th>Дата</th><th>Клиент</th><th>Град</th><th>Артикули</th><th>Сума</th><th>Статус</th></tr>
+            <tr>
+              <th>№</th><th>Дата</th><th>Клиент</th><th>Тип</th><th>Град</th><th>Артикули</th><th>Сума</th><th>Статус</th>
+            </tr>
           </thead>
           <tbody>
             {orders.map((o) => (
@@ -27,14 +30,21 @@ export default async function AdminOrdersPage() {
                 <td><Link href={`/admin/orders/${o.id}`}>{o.orderNumber}</Link></td>
                 <td className="muted">{new Date(o.createdAt).toLocaleDateString("bg-BG")}</td>
                 <td>{o.guestName}</td>
-                <td>{o.city}</td>
+                <td>
+                  {isQuickOrder(o.deliveryMethod) ? (
+                    <span className="pill pill--warn">⚡ бърза</span>
+                  ) : (
+                    <span className="pill pill--muted">обикновена</span>
+                  )}
+                </td>
+                <td>{o.city || (isQuickOrder(o.deliveryMethod) ? "— обади се за адрес" : "")}</td>
                 <td>{o.items.length}</td>
                 <td>{formatBgn(o.totalBgn)}</td>
-                <td><span className="pill pill--warn">{o.status}</span></td>
+                <td><span className={statusPillClass(o.status)}>{statusLabel(o.status)}</span></td>
               </tr>
             ))}
             {orders.length === 0 && (
-              <tr><td colSpan={7} className="muted">Все още няма поръчки.</td></tr>
+              <tr><td colSpan={8} className="muted">Все още няма поръчки.</td></tr>
             )}
           </tbody>
         </table>

@@ -2,12 +2,14 @@ import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import { formatBgn, formatEur } from "@/lib/format";
 import { updateOrderStatusAction } from "../../../actions";
+import { STATUS_LABELS, statusLabel, statusPillClass, isQuickOrder } from "@/lib/order-status";
 
 const STATUSES = ["pending", "confirmed", "shipped", "delivered", "cancelled"];
 
 const DELIVERY_LABELS: Record<string, string> = {
   econt_office: "Еконт — до офис",
   speedy_address: "Спиди — до адрес",
+  quick_order: "Бърза поръчка — липсва адрес, обади се на клиента",
 };
 
 export default async function AdminOrderDetailPage({ params }: { params: { id: string } }) {
@@ -20,7 +22,15 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
   return (
     <>
       <div className="admin-topbar">
-        <h1 className="admin-h1">Поръчка {order.orderNumber}</h1>
+        <h1 className="admin-h1">
+          Поръчка {order.orderNumber}{" "}
+          {isQuickOrder(order.deliveryMethod) ? (
+            <span className="pill pill--warn" style={{ marginLeft: 8 }}>⚡ бърза поръчка</span>
+          ) : (
+            <span className="pill pill--muted" style={{ marginLeft: 8 }}>обикновена</span>
+          )}{" "}
+          <span className={statusPillClass(order.status)} style={{ marginLeft: 4 }}>{statusLabel(order.status)}</span>
+        </h1>
       </div>
 
       <div className="card-box">
@@ -30,7 +40,8 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
             <p>{order.guestName}<br />{order.guestPhone}<br />{order.guestEmail}</p>
             <p>{order.address}, {order.city}</p>
             {order.deliveryMethod && (
-              <p className="muted">
+              <p className={isQuickOrder(order.deliveryMethod) ? "error-text" : "muted"}>
+                {isQuickOrder(order.deliveryMethod) ? "⚠ " : ""}
                 Доставка: {DELIVERY_LABELS[order.deliveryMethod] || order.deliveryMethod}
                 {order.officeName ? ` (${order.officeName})` : ""}
               </p>
@@ -42,7 +53,7 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
               <input type="hidden" name="id" value={order.id} />
               <select name="status" defaultValue={order.status} style={{ padding: 9, border: "1px solid #d7d7d7", borderRadius: 4 }}>
                 {STATUSES.map((s) => (
-                  <option key={s} value={s}>{s}</option>
+                  <option key={s} value={s}>{STATUS_LABELS[s]}</option>
                 ))}
               </select>
               <button className="btn btn--sm" type="submit">Обнови</button>
