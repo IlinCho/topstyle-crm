@@ -26,8 +26,13 @@ export default async function AdminOrdersPage() {
               <tr key={o.id}>
                 <td><Link href={`/admin/orders/${o.id}`}>{o.orderNumber}</Link></td>
                 <td className="muted">{new Date(o.createdAt).toLocaleDateString("bg-BG")}</td>
-                <td>{o.guestName}</td>
-                <td>{o.city}</td>
+                <td>
+                  {o.guestName}
+                  {o.deliveryMethod === "quick_order" && (
+                    <span className="pill pill--warn" style={{ marginLeft: 8 }}>бърза поръчка</span>
+                  )}
+                </td>
+                <td>{o.city || (o.deliveryMethod === "quick_order" ? "— обади се за адрес" : "")}</td>
                 <td>{o.items.length}</td>
                 <td>{formatBgn(o.totalBgn)}</td>
                 <td><span className="pill pill--warn">{o.status}</span></td>
@@ -42,3 +47,4 @@ export default async function AdminOrdersPage() {
     </>
   );
 }
+
