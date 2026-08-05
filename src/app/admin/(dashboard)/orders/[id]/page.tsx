@@ -8,6 +8,7 @@ const STATUSES = ["pending", "confirmed", "shipped", "delivered", "cancelled"];
 const DELIVERY_LABELS: Record<string, string> = {
   econt_office: "Еконт — до офис",
   speedy_address: "Спиди — до адрес",
+  quick_order: "Бърза поръчка — липсва адрес, обади се на клиента",
 };
 
 export default async function AdminOrderDetailPage({ params }: { params: { id: string } }) {
@@ -30,7 +31,8 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
             <p>{order.guestName}<br />{order.guestPhone}<br />{order.guestEmail}</p>
             <p>{order.address}, {order.city}</p>
             {order.deliveryMethod && (
-              <p className="muted">
+              <p className={order.deliveryMethod === "quick_order" ? "error-text" : "muted"}>
+                {order.deliveryMethod === "quick_order" ? "⚠ " : ""}
                 Доставка: {DELIVERY_LABELS[order.deliveryMethod] || order.deliveryMethod}
                 {order.officeName ? ` (${order.officeName})` : ""}
               </p>
@@ -80,3 +82,4 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
     </>
   );
 }
+
