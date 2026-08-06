@@ -2,6 +2,7 @@
 $activeNav = 'orders';
 $pageTitle = 'Поръчки';
 require __DIR__ . '/../includes/admin-header.php';
+require_once __DIR__ . '/../includes/order_status.php';
 
 $__validStatuses = ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'];
 $__error = '';
@@ -22,17 +23,29 @@ if ($__viewOrder) {
     $__items = db_all('SELECT * FROM order_item WHERE order_id = ?', [$__viewOrder['id']]);
     ?>
     <div class="admin-topbar">
-      <h1 class="admin-h1">Поръчка №<?= e($__viewOrder['order_number']) ?></h1>
+      <h1 class="admin-h1">
+        Поръчка №<?= e($__viewOrder['order_number']) ?>
+        <?php if (is_quick_order($__viewOrder['delivery_method'])): ?>
+          <span class="pill pill--warn" style="margin-left:8px;">⚡ бърза поръчка</span>
+        <?php else: ?>
+          <span class="pill pill--muted" style="margin-left:8px;">обикновена</span>
+        <?php endif; ?>
+        <span class="<?= e(order_status_pill_class($__viewOrder['status'])) ?>" style="margin-left:4px;"><?= e(order_status_label($__viewOrder['status'])) ?></span>
+      </h1>
       <a href="/admin/orders.php" class="btn btn--ghost">Назад към всички поръчки</a>
     </div>
 
     <div class="card-box">
       <p><strong>Клиент:</strong> <?= e($__viewOrder['guest_name']) ?> · <?= e($__viewOrder['guest_email']) ?> · <?= e($__viewOrder['guest_phone']) ?></p>
-      <p><strong>Доставка:</strong>
-        <?= $__viewOrder['delivery_method'] === 'office'
-              ? 'Офис на куриер — ' . e($__viewOrder['office_name'])
-              : 'Адрес — ' . e($__viewOrder['address']) . ', ' . e($__viewOrder['city']) ?>
-      </p>
+      <?php if (is_quick_order($__viewOrder['delivery_method'])): ?>
+        <p class="error-text"><strong>⚠ Доставка:</strong> Бърза поръчка — липсва адрес, обади се на клиента</p>
+      <?php else: ?>
+        <p><strong>Доставка:</strong>
+          <?= $__viewOrder['delivery_method'] === 'office'
+                ? 'Офис на куриер — ' . e($__viewOrder['office_name'])
+                : 'Адрес — ' . e($__viewOrder['address']) . ', ' . e($__viewOrder['city']) ?>
+        </p>
+      <?php endif; ?>
       <p><strong>Дата:</strong> <?= e(date('d.m.Y H:i', strtotime($__viewOrder['created_at']))) ?></p>
 
       <form method="POST" action="/admin/orders.php?id=<?= e($__viewOrder['id']) ?>" style="margin-top:12px;">
@@ -42,7 +55,7 @@ if ($__viewOrder) {
           <label>Статус</label>
           <select name="status">
             <?php foreach ($__validStatuses as $__s): ?>
-              <option value="<?= e($__s) ?>" <?= $__viewOrder['status'] === $__s ? 'selected' : '' ?>><?= e($__s) ?></option>
+              <option value="<?= e($__s) ?>" <?= $__viewOrder['status'] === $__s ? 'selected' : '' ?>><?= e(order_status_label($__s)) ?></option>
             <?php endforeach; ?>
           </select>
         </div>
@@ -79,13 +92,21 @@ if ($__viewOrder) {
         <p class="muted">Все още няма поръчки.</p>
       <?php else: ?>
         <table class="admin-table">
-          <thead><tr><th>Номер</th><th>Клиент</th><th>Статус</th><th>Сума</th><th>Дата</th><th></th></tr></thead>
+          <thead><tr><th>Номер</th><th>Клиент</th><th>Тип</th><th>Град</th><th>Статус</th><th>Сума</th><th>Дата</th><th></th></tr></thead>
           <tbody>
             <?php foreach ($__orders as $__o): ?>
               <tr>
                 <td>№<?= e($__o['order_number']) ?></td>
                 <td><?= e($__o['guest_name']) ?></td>
-                <td><span class="pill pill--ok"><?= e($__o['status']) ?></span></td>
+                <td>
+                  <?php if (is_quick_order($__o['delivery_method'])): ?>
+                    <span class="pill pill--warn">⚡ бърза</span>
+                  <?php else: ?>
+                    <span class="pill pill--muted">обикновена</span>
+                  <?php endif; ?>
+                </td>
+                <td><?= $__o['city'] ? e($__o['city']) : (is_quick_order($__o['delivery_method']) ? '— обади се за адрес' : '') ?></td>
+                <td><span class="<?= e(order_status_pill_class($__o['status'])) ?>"><?= e(order_status_label($__o['status'])) ?></span></td>
                 <td><?= format_bgn($__o['total_bgn']) ?></td>
                 <td><?= e(date('d.m.Y', strtotime($__o['created_at']))) ?></td>
                 <td><a href="/admin/orders.php?id=<?= e($__o['id']) ?>" class="btn btn--ghost btn--sm">Детайли</a></td>

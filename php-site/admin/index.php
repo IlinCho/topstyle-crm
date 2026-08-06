@@ -2,9 +2,11 @@
 $activeNav = 'dashboard';
 $pageTitle = 'Табло';
 require __DIR__ . '/../includes/admin-header.php';
+require_once __DIR__ . '/../includes/order_status.php';
 
 $__productCount = (int)(db_one('SELECT COUNT(*) AS c FROM product')['c'] ?? 0);
 $__orderCount = (int)(db_one('SELECT COUNT(*) AS c FROM `order`')['c'] ?? 0);
+$__quickOrderCount = (int)(db_one("SELECT COUNT(*) AS c FROM `order` WHERE delivery_method = 'quick_order'")['c'] ?? 0);
 $__customerCount = (int)(db_one("SELECT COUNT(*) AS c FROM customer WHERE password_hash != ''")['c'] ?? 0);
 $__revenue = (float)(db_one('SELECT COALESCE(SUM(total_bgn),0) AS s FROM `order`')['s'] ?? 0);
 $__pendingAlerts = (int)(db_one('SELECT COUNT(*) AS c FROM stock_alert WHERE notified = 0')['c'] ?? 0);
@@ -17,6 +19,7 @@ $__recentOrders = db_all('SELECT * FROM `order` ORDER BY created_at DESC LIMIT 8
 <div class="stat-grid">
   <div class="stat-box"><div class="stat-box__label">Продукти</div><div class="stat-box__value"><?= $__productCount ?></div></div>
   <div class="stat-box"><div class="stat-box__label">Поръчки</div><div class="stat-box__value"><?= $__orderCount ?></div></div>
+  <div class="stat-box"><div class="stat-box__label">Бързи поръчки</div><div class="stat-box__value"><?= $__quickOrderCount ?></div></div>
   <div class="stat-box"><div class="stat-box__label">Регистрирани клиенти</div><div class="stat-box__value"><?= $__customerCount ?></div></div>
   <div class="stat-box"><div class="stat-box__label">Оборот (лв.)</div><div class="stat-box__value"><?= number_format($__revenue, 0) ?></div></div>
 </div>
@@ -33,13 +36,20 @@ $__recentOrders = db_all('SELECT * FROM `order` ORDER BY created_at DESC LIMIT 8
     <p class="muted">Все още няма поръчки.</p>
   <?php else: ?>
     <table class="admin-table">
-      <thead><tr><th>Номер</th><th>Клиент</th><th>Статус</th><th>Сума</th><th>Дата</th></tr></thead>
+      <thead><tr><th>Номер</th><th>Клиент</th><th>Тип</th><th>Статус</th><th>Сума</th><th>Дата</th></tr></thead>
       <tbody>
         <?php foreach ($__recentOrders as $__o): ?>
           <tr>
             <td><a href="/admin/orders.php?id=<?= e($__o['id']) ?>">№<?= e($__o['order_number']) ?></a></td>
             <td><?= e($__o['guest_name']) ?></td>
-            <td><span class="pill pill--ok"><?= e($__o['status']) ?></span></td>
+            <td>
+              <?php if (is_quick_order($__o['delivery_method'])): ?>
+                <span class="pill pill--warn">⚡ бърза</span>
+              <?php else: ?>
+                <span class="pill pill--muted">обикновена</span>
+              <?php endif; ?>
+            </td>
+            <td><span class="<?= e(order_status_pill_class($__o['status'])) ?>"><?= e(order_status_label($__o['status'])) ?></span></td>
             <td><?= format_bgn($__o['total_bgn']) ?></td>
             <td><?= e(date('d.m.Y', strtotime($__o['created_at']))) ?></td>
           </tr>

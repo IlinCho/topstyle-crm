@@ -41,7 +41,18 @@ $__mainImage = $__images[0]['url'] ?? '/assets/placeholder.jpg';
 <div class="container">
   <div class="pdp">
     <div>
-      <img src="<?= e($__mainImage) ?>" alt="<?= e($__product['name']) ?>" class="pdp__img">
+      <img src="<?= e($__mainImage) ?>" alt="<?= e($__product['name']) ?>" class="pdp__img" id="pdp-main-img">
+      <?php if (count($__images) > 1): ?>
+        <div class="pdp__thumbs">
+          <?php foreach ($__images as $__i => $__img): ?>
+            <button type="button"
+                    class="pdp__thumb<?= $__i === 0 ? ' pdp__thumb--active' : '' ?>"
+                    onclick="tsSelectImage(this, '<?= e($__img['url']) ?>')">
+              <img src="<?= e($__img['url']) ?>" alt="<?= e($__product['name']) ?>">
+            </button>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
     </div>
     <div>
       <?php if ($__badges): ?>
@@ -80,6 +91,9 @@ $__mainImage = $__images[0]['url'] ?? '/assets/placeholder.jpg';
       <?php if (isset($_GET['alert_ok'])): ?>
         <p class="scarcity-badge scarcity-badge--ok">Записахме те — ще ти пишем при наличност.</p>
       <?php endif; ?>
+      <?php if (isset($_GET['quick_error'])): ?>
+        <p class="error-text">Моля, избери размер и въведи валидни име и телефон.</p>
+      <?php endif; ?>
 
       <form method="POST" action="/add-to-cart.php" id="add-to-cart-form">
         <input type="hidden" name="product_id" value="<?= e($__product['id']) ?>">
@@ -104,6 +118,7 @@ $__mainImage = $__images[0]['url'] ?? '/assets/placeholder.jpg';
         <div id="scarcity-area"></div>
 
         <button type="submit" class="btn" id="add-to-cart-btn">Добави в количката</button>
+        <button type="button" class="btn btn--ghost" id="quick-order-open-btn" onclick="tsOpenQuickOrder()" style="margin-left:12px;">📞 Поръчай бързо</button>
       </form>
 
       <p class="urgency-line--soft" style="margin-top:12px;">🚚 Доставка с преглед и тест.</p>
@@ -117,6 +132,32 @@ $__mainImage = $__images[0]['url'] ?? '/assets/placeholder.jpg';
           <button type="submit" class="btn btn--sm">Уведоми ме</button>
         </form>
       </div>
+
+      <?php /* "Бърза поръчка" - name + phone only, no cart/checkout. The store
+               calls back to confirm address, mirroring AddToCart.tsx. */ ?>
+      <?php if (isset($_GET['quick_ok'])): ?>
+        <div class="stock-alert-box" style="margin-top:14px;">
+          <p style="margin:0;font-weight:600;color:var(--brand-green);">
+            ✓ Поръчката е приета (№ <?= e($_GET['quick_order_number'] ?? '') ?>). Ще Ви позвъним на <?= e($_GET['quick_phone'] ?? '') ?>, за да потвърдим адреса за доставка.
+          </p>
+        </div>
+      <?php else: ?>
+        <div class="stock-alert-box" id="quick-order-box" style="display:none;margin-top:14px;">
+          <p style="margin:0 0 8px;font-weight:600;">Бърза поръчка — оставете име и телефон, ние ще Ви се обадим за адреса</p>
+          <form method="POST" action="/quick-order.php" id="quick-order-form">
+            <input type="hidden" name="product_id" value="<?= e($__product['id']) ?>">
+            <input type="hidden" name="size" id="quick-size-input" value="">
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <input type="text" name="name" placeholder="Име" required>
+              <input type="tel" name="phone" placeholder="Телефон" required>
+              <div style="display:flex;gap:8px;">
+                <button type="submit" class="btn btn--sm">Поръчай</button>
+                <button type="button" class="btn btn--ghost btn--sm" onclick="document.getElementById('quick-order-box').style.display='none';">Отказ</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      <?php endif; ?>
 
       <ul class="trust-strip" style="margin-top:22px;">
         <li><span class="trust-strip__check">&#10003;</span> Преглед и тест</li>
@@ -199,6 +240,24 @@ function tsGetScarcity(stock) {
   return {icon: '✔', text: 'В наличност', tone: 'ok'};
 }
 
+function tsSelectImage(btn, url) {
+  document.getElementById('pdp-main-img').src = url;
+  document.querySelectorAll('.pdp__thumb').forEach(function (b) { b.classList.remove('pdp__thumb--active'); });
+  btn.classList.add('pdp__thumb--active');
+}
+
+function tsOpenQuickOrder() {
+  var size = document.getElementById('selected-size-input').value;
+  if (!size) {
+    var err = document.getElementById('size-error');
+    err.style.display = 'block';
+    err.scrollIntoView({behavior: 'smooth', block: 'center'});
+    return;
+  }
+  document.getElementById('quick-size-input').value = size;
+  document.getElementById('quick-order-box').style.display = 'block';
+}
+
 function tsSelectSize(btn) {
   document.querySelectorAll('#size-row .opt').forEach(function (b) { b.classList.remove('selected'); });
   btn.classList.add('selected');
@@ -206,6 +265,8 @@ function tsSelectSize(btn) {
   var size = btn.dataset.size;
   var stock = btn.dataset.stock;
   document.getElementById('selected-size-input').value = size;
+  var quickSizeInput = document.getElementById('quick-size-input');
+  if (quickSizeInput) quickSizeInput.value = size;
   document.getElementById('size-error').style.display = 'none';
 
   var s = tsGetScarcity(stock);
