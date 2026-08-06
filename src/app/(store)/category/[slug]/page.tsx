@@ -16,7 +16,6 @@ export default async function CategoryPage({ params }: { params: { slug: string 
     category.parentId ? db.category.findUnique({ where: { id: category.parentId } }) : null,
   ]);
 
-  const topLevelCategories = allCategories.filter((c) => !c.parentId);
   const subcategories = allCategories.filter((c) => c.parentId === category.id);
 
   // A parent category page also shows products from its subcategories, so
@@ -35,27 +34,15 @@ export default async function CategoryPage({ params }: { params: { slug: string 
 
   return (
     <div className="container">
-      <div className="chip-row" style={{ marginTop: 24 }}>
-        {topLevelCategories.map((c) => (
-          <Link
-            key={c.slug}
-            href={`/category/${c.slug}`}
-            className={`chip ${c.slug === category.slug || c.id === category.parentId ? "active" : ""}`}
-          >
-            {c.name}
-          </Link>
-        ))}
-      </div>
-
       {parent && (
-        <p style={{ margin: "0 0 10px", fontSize: 13 }}>
+        <p style={{ margin: "24px 0 10px", fontSize: 13 }}>
           <Link href={`/category/${parent.slug}`} className="muted">{parent.name}</Link>
           {" / "}
           <span>{category.name}</span>
         </p>
       )}
 
-      <h1 className="section-title" style={{ marginTop: 0 }}>
+      <h1 className="section-title" style={{ marginTop: parent ? 0 : 24 }}>
         {category.name} <span className="muted" style={{ fontWeight: 400, fontSize: 14 }}>({products.length} продукта)</span>
       </h1>
 
