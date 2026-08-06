@@ -16,6 +16,10 @@ model Category {
   slug      String     @unique
   name      String
   position  Int        @default(0)
+  // Homepage tile image (the 3 top-level "Топ категории" shown under the
+  // hero). Empty string = falls back to the category's first product image
+  // at render time, so a tile never shows visibly broken.
+  imageUrl  String     @default("")
   products  Product[]
   // Self-relation for one level of subcategories (e.g. "Мъжки тениски" ->
   // "Тениски с яка"). parentId null = top-level category.

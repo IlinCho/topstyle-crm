@@ -25,3 +25,16 @@ define('STORE_PHONE', '0877 968 927');
 define('SAME_DAY_CUTOFF_TIME', '16:00');
 define('CUSTOMERS_SERVED_TEXT', 'Над 25 000 доволни клиента');
 define('RETURN_WINDOW_DAYS', 14);
+
+// Real social media links - pulled directly from the live topstyle.bg
+// (footer + header), not fabricated.
+define('STORE_FACEBOOK_URL', 'https://www.facebook.com/topstyle.bg/');
+define('STORE_INSTAGRAM_URL', 'https://www.instagram.com/topstyle.bg/?hl=bg');
+
+// Viber number - same as STORE_PHONE on the original site.
+define('STORE_VIBER_PHONE', '0877 968 927');
+
+// Contact email - left empty on purpose: the original site hides its email
+// behind Cloudflare email-obfuscation so it couldn't be read automatically.
+// Fill this in if you want an email line in the footer.
+define('STORE_EMAIL', '');

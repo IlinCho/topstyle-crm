@@ -52,6 +52,16 @@ export async function createCategoryAction(formData: FormData) {
   revalidatePath("/");
 }
 
+export async function updateCategoryImageAction(formData: FormData) {
+  await requireAdminSession();
+  const id = String(formData.get("id") || "");
+  const imageUrl = String(formData.get("imageUrl") || "").trim();
+  if (!id) return;
+  await db.category.update({ where: { id }, data: { imageUrl } });
+  revalidatePath("/admin/categories");
+  revalidatePath("/");
+}
+
 export async function deleteCategoryAction(formData: FormData) {
   await requireAdminSession();
   const id = String(formData.get("id") || "");

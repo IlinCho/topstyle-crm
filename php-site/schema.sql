@@ -12,6 +12,9 @@ CREATE TABLE IF NOT EXISTS category (
   name VARCHAR(191) NOT NULL,
   position INT NOT NULL DEFAULT 0,
   parent_id VARCHAR(32) NULL,
+  -- Homepage tile image (the 3 top-level "Топ категории" under the hero).
+  -- Empty = falls back to the category's first product image at render time.
+  image_url VARCHAR(500) NOT NULL DEFAULT '',
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (parent_id) REFERENCES category(id) ON DELETE RESTRICT
