@@ -211,6 +211,10 @@ a { color: inherit; text-decoration: none; }
   display: block;
   filter: grayscale(1);
 }
+@media (max-width: 640px) {
+  /* Just a smaller photo on mobile - text/CTA below stay exactly as-is. */
+  .hero__photo { min-height: 200px; }
+}
 .hero__panel {
   display: flex;
   flex-direction: column;
