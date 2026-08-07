@@ -224,8 +224,10 @@ a { color: inherit; text-decoration: none; }
   filter: grayscale(1);
 }
 @media (max-width: 640px) {
-  /* Just a smaller photo on mobile - text/CTA below stay exactly as-is. */
+  /* Smaller photo on mobile, and the authority line + value-row checkmarks
+     are dropped entirely (headline, subtext and CTA button stay). */
   .hero__photo { min-height: 140px; height: 140px; }
+  .hero__authority, .hero__value-row { display: none; }
 }
 .hero__panel {
   display: flex;
