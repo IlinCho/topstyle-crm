@@ -358,6 +358,76 @@ a { color: inherit; text-decoration: none; }
 }
 .chip.active, .chip:hover { border-color: var(--fill); background: var(--fill); color: var(--fill-text); }
 
+/* ---------- Category filters ---------- */
+/* Uses a native <details>/<summary> disclosure instead of the original
+   site's JS bottom-sheet + backdrop overlay - same practical result (tap to
+   expand/collapse) with zero client-side state to maintain, and it works
+   identically on the PHP version without duplicating any JS logic. */
+.filter-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  margin-bottom: 22px;
+  background: var(--surface);
+}
+.filter-panel summary {
+  cursor: pointer;
+  padding: 13px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.filter-panel summary::-webkit-details-marker { display: none; }
+.filter-panel summary::before { content: "▸"; font-size: 11px; color: var(--muted); }
+.filter-panel[open] summary::before { content: "▾"; }
+.filter-panel__badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--brand-green, var(--ink));
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+.filter-panel__body {
+  padding: 4px 16px 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  border-top: 1px solid var(--line);
+}
+.filter-section__title { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.filter-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13.5px;
+  padding: 4px 0;
+  cursor: pointer;
+}
+.filter-checkbox-row input { accent-color: var(--ink); }
+.filter-price-row { display: flex; align-items: center; gap: 8px; }
+.filter-price-row input {
+  width: 70px;
+  padding: 7px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 13px;
+}
+.filter-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
+}
+.filter-actions__clear { font-size: 13px; color: var(--muted); text-decoration: underline; }
+
 /* ---------- Product detail ---------- */
 .pdp { display: grid; grid-template-columns: 1fr 1fr; gap: 46px; margin: 30px 0 60px; }
 @media (max-width: 800px) { .pdp { grid-template-columns: 1fr; gap: 24px; padding-bottom: 70px; } }

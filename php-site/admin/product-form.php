@@ -79,6 +79,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $__categories = db_all('SELECT * FROM category ORDER BY position ASC, name ASC');
 $__categoryFlat = flatten_category_tree(build_category_tree($__categories));
 $__existingBadges = $__existing ? parse_badges($__existing['badges'] ?? '') : [];
+
+// Existing distinct material/color values across the catalog, offered as
+// <datalist> autocomplete so admins reuse "памук с еластант" instead of
+// typing near-duplicates that would fragment the category-page filter facets.
+$__materialOptions = array_values(array_unique(array_filter(array_column(db_all('SELECT DISTINCT material FROM product'), 'material'))));
+sort($__materialOptions, SORT_STRING | SORT_FLAG_CASE);
+$__colorOptions = array_values(array_unique(array_filter(array_merge(
+    array_column(db_all('SELECT DISTINCT color FROM product'), 'color'),
+    array_column(db_all('SELECT DISTINCT color FROM product_variant'), 'color')
+))));
+sort($__colorOptions, SORT_STRING | SORT_FLAG_CASE);
 $__existingImages = $__existing ? db_all('SELECT * FROM product_image WHERE product_id = ? ORDER BY position ASC', [$__existing['id']]) : [];
 $__existingVariants = $__existing ? db_all('SELECT * FROM product_variant WHERE product_id = ? ORDER BY size ASC', [$__existing['id']]) : [];
 $__imageUrlsText = implode("\n", array_map(fn($i) => $i['url'], $__existingImages));
@@ -95,6 +106,13 @@ while (count($__variantRows) < 8) {
   <a href="/admin/products.php" class="btn btn--ghost">Назад</a>
 </div>
 <?php if ($__error): ?><p class="error-text"><?= e($__error) ?></p><?php endif; ?>
+
+<datalist id="material-options">
+  <?php foreach ($__materialOptions as $__m): ?><option value="<?= e($__m) ?>"><?php endforeach; ?>
+</datalist>
+<datalist id="color-options">
+  <?php foreach ($__colorOptions as $__c): ?><option value="<?= e($__c) ?>"><?php endforeach; ?>
+</datalist>
 
 <form method="POST" action="/admin/product-form.php<?= $__existing ? '?id=' . urlencode($__existing['id']) : '' ?>">
   <div class="card-box">
@@ -132,12 +150,12 @@ while (count($__variantRows) < 8) {
         <input type="number" step="0.01" name="price_eur" value="<?= e($__existing['price_eur'] ?? '') ?>" required>
       </div>
       <div class="field">
-        <label>Материя</label>
-        <input type="text" name="material" value="<?= e($__existing['material'] ?? '') ?>">
+        <label>Материя (състав)</label>
+        <input type="text" name="material" value="<?= e($__existing['material'] ?? '') ?>" list="material-options">
       </div>
       <div class="field">
         <label>Цвят</label>
-        <input type="text" name="color" value="<?= e($__existing['color'] ?? '') ?>">
+        <input type="text" name="color" value="<?= e($__existing['color'] ?? '') ?>" list="color-options">
       </div>
       <div class="field">
         <label>Позиция в категорията (1–8, по избор)</label>
@@ -179,7 +197,7 @@ while (count($__variantRows) < 8) {
         <?php foreach ($__variantRows as $__v): ?>
           <tr>
             <td><input type="text" name="variant_size[]" value="<?= e($__v['size']) ?>" placeholder="напр. M"></td>
-            <td><input type="text" name="variant_color[]" value="<?= e($__v['color']) ?>" placeholder="по избор"></td>
+            <td><input type="text" name="variant_color[]" value="<?= e($__v['color']) ?>" placeholder="по избор" list="color-options"></td>
             <td><input type="number" min="0" name="variant_stock[]" value="<?= e((string)$__v['stock']) ?>"></td>
           </tr>
         <?php endforeach; ?>

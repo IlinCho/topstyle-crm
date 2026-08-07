@@ -10,9 +10,17 @@ export default function ProductForm({
   action,
   categories,
   initial,
+  materialOptions = [],
+  colorOptions = [],
 }: {
   action: (formData: FormData) => void;
   categories: Category[];
+  // Existing distinct material/color values across the catalog, offered as
+  // <datalist> autocomplete so admins reuse "памук с еластант" instead of
+  // typing near-duplicates ("Памук с еластант") that would fragment the
+  // category-page filter facets into separate options.
+  materialOptions?: string[];
+  colorOptions?: string[];
   initial?: {
     id?: string;
     sku?: string;
@@ -65,6 +73,12 @@ export default function ProductForm({
   return (
     <form action={action}>
       {initial?.id && <input type="hidden" name="id" value={initial.id} />}
+      <datalist id="material-options">
+        {materialOptions.map((m) => <option key={m} value={m} />)}
+      </datalist>
+      <datalist id="color-options">
+        {colorOptions.map((c) => <option key={c} value={c} />)}
+      </datalist>
 
       <div className="card-box">
         <div className="form-grid">
@@ -94,11 +108,11 @@ export default function ProductForm({
           </div>
           <div className="field">
             <label>Цвят</label>
-            <input name="color" defaultValue={initial?.color} />
+            <input name="color" defaultValue={initial?.color} list="color-options" />
           </div>
           <div className="field">
-            <label>Материя</label>
-            <input name="material" defaultValue={initial?.material} />
+            <label>Материя (състав)</label>
+            <input name="material" defaultValue={initial?.material} list="material-options" />
           </div>
           {!initial?.id && (
             <div className="field">
@@ -205,7 +219,7 @@ export default function ProductForm({
                   <input name="variant_size" value={v.size} onChange={(e) => updateRow(idx, "size", e.target.value)} placeholder="S / M / 42..." />
                 </td>
                 <td>
-                  <input name="variant_color" value={v.color} onChange={(e) => updateRow(idx, "color", e.target.value)} placeholder="черен" />
+                  <input name="variant_color" value={v.color} onChange={(e) => updateRow(idx, "color", e.target.value)} placeholder="черен" list="color-options" />
                 </td>
                 <td>
                   <input name="variant_stock" type="number" min={0} value={v.stock} onChange={(e) => updateRow(idx, "stock", e.target.value)} />

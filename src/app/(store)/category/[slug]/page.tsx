@@ -4,10 +4,26 @@ import { db } from "@/lib/db";
 import ProductCard from "@/components/ProductCard";
 import { categoryAndDescendantIds } from "@/lib/categories";
 import { applyCategoryRankPins } from "@/lib/product-order";
+import { computeFacets, applyProductFilters, toArrayParam } from "@/lib/product-filters";
 
 export const dynamic = "force-dynamic";
 
-export default async function CategoryPage({ params }: { params: { slug: string } }) {
+type SearchParams = {
+  sub?: string;
+  size?: string | string[];
+  color?: string | string[];
+  material?: string | string[];
+  minPrice?: string;
+  maxPrice?: string;
+};
+
+export default async function CategoryPage({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams: SearchParams;
+}) {
   const category = await db.category.findUnique({ where: { slug: params.slug } });
   if (!category) notFound();
 
@@ -30,7 +46,29 @@ export default async function CategoryPage({ params }: { params: { slug: string 
     include: { images: true, variants: true, reviews: true },
     orderBy: { createdAt: "desc" },
   });
-  const products = applyCategoryRankPins(naturalOrder);
+
+  const selectedSub = subcategories.find((s) => s.slug === searchParams.sub);
+  const scoped = selectedSub ? naturalOrder.filter((p) => p.categoryId === selectedSub.id) : naturalOrder;
+
+  const facets = computeFacets(scoped);
+
+  const selectedSizes = toArrayParam(searchParams.size);
+  const selectedColors = toArrayParam(searchParams.color);
+  const selectedMaterials = toArrayParam(searchParams.material);
+  const minPrice = searchParams.minPrice ? Number(searchParams.minPrice) : undefined;
+  const maxPrice = searchParams.maxPrice ? Number(searchParams.maxPrice) : undefined;
+
+  const filtered = applyProductFilters(scoped, {
+    sizes: selectedSizes,
+    colors: selectedColors,
+    materials: selectedMaterials,
+    minPrice,
+    maxPrice,
+  });
+  const products = applyCategoryRankPins(filtered);
+
+  const hasActiveFilters =
+    Boolean(selectedSub) || selectedSizes.length > 0 || selectedColors.length > 0 || selectedMaterials.length > 0 || minPrice != null || maxPrice != null;
 
   return (
     <div className="container">
@@ -46,18 +84,81 @@ export default async function CategoryPage({ params }: { params: { slug: string 
         {category.name} <span className="muted" style={{ fontWeight: 400, fontSize: 14 }}>({products.length} продукта)</span>
       </h1>
 
-      {subcategories.length > 0 && (
-        <div className="chip-row">
-          {subcategories.map((sub) => (
-            <Link key={sub.slug} href={`/category/${sub.slug}`} className="chip">
-              {sub.name}
-            </Link>
-          ))}
-        </div>
-      )}
+      <details className="filter-panel">
+        <summary>
+          Филтри {hasActiveFilters && <span className="filter-panel__badge">активни</span>}
+        </summary>
+        <form method="GET" action={`/category/${category.slug}`} className="filter-panel__body">
+          {subcategories.length > 0 && (
+            <div className="filter-section">
+              <div className="filter-section__title">Категории</div>
+              <label className="filter-checkbox-row">
+                <input type="radio" name="sub" value="" defaultChecked={!selectedSub} />
+                Всички
+              </label>
+              {subcategories.map((sub) => (
+                <label key={sub.slug} className="filter-checkbox-row">
+                  <input type="radio" name="sub" value={sub.slug} defaultChecked={selectedSub?.slug === sub.slug} />
+                  {sub.name}
+                </label>
+              ))}
+            </div>
+          )}
+
+          <div className="filter-section">
+            <div className="filter-section__title">Цена (лв.)</div>
+            <div className="filter-price-row">
+              <input type="number" name="minPrice" placeholder={String(facets.priceMin)} defaultValue={searchParams.minPrice || ""} min={0} />
+              <span>—</span>
+              <input type="number" name="maxPrice" placeholder={String(facets.priceMax)} defaultValue={searchParams.maxPrice || ""} min={0} />
+            </div>
+          </div>
+
+          {facets.sizes.length > 0 && (
+            <div className="filter-section">
+              <div className="filter-section__title">Размер</div>
+              {facets.sizes.map((opt) => (
+                <label key={opt.value} className="filter-checkbox-row">
+                  <input type="checkbox" name="size" value={opt.value} defaultChecked={selectedSizes.includes(opt.value)} />
+                  {opt.value} <span className="muted">({opt.count})</span>
+                </label>
+              ))}
+            </div>
+          )}
+
+          {facets.colors.length > 0 && (
+            <div className="filter-section">
+              <div className="filter-section__title">Цвят</div>
+              {facets.colors.map((opt) => (
+                <label key={opt.value} className="filter-checkbox-row">
+                  <input type="checkbox" name="color" value={opt.value} defaultChecked={selectedColors.includes(opt.value)} />
+                  {opt.value} <span className="muted">({opt.count})</span>
+                </label>
+              ))}
+            </div>
+          )}
+
+          {facets.materials.length > 0 && (
+            <div className="filter-section">
+              <div className="filter-section__title">Състав</div>
+              {facets.materials.map((opt) => (
+                <label key={opt.value} className="filter-checkbox-row">
+                  <input type="checkbox" name="material" value={opt.value} defaultChecked={selectedMaterials.includes(opt.value)} />
+                  {opt.value} <span className="muted">({opt.count})</span>
+                </label>
+              ))}
+            </div>
+          )}
+
+          <div className="filter-actions">
+            <Link href={`/category/${category.slug}`} className="filter-actions__clear">Изчисти</Link>
+            <button type="submit" className="btn">Приложи филтри</button>
+          </div>
+        </form>
+      </details>
 
       {products.length === 0 ? (
-        <p className="muted">Все още няма продукти в тази категория.</p>
+        <p className="muted">Няма продукти, отговарящи на избраните филтри.</p>
       ) : (
         <div className="grid">
           {products.map((p) => (

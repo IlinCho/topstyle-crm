@@ -17,7 +17,7 @@ export default async function EditProductPage({
   params: { id: string };
   searchParams: { created?: string; saved?: string };
 }) {
-  const [product, categories] = await Promise.all([
+  const [product, categories, allProducts, allVariants] = await Promise.all([
     db.product.findUnique({
       where: { id: params.id },
       include: {
@@ -27,10 +27,14 @@ export default async function EditProductPage({
       },
     }),
     db.category.findMany({ orderBy: { position: "asc" } }),
+    db.product.findMany({ select: { material: true, color: true } }),
+    db.productVariant.findMany({ select: { color: true } }),
   ]);
 
   if (!product) notFound();
   const categoryOptions = flattenCategoryTree(buildCategoryTree(categories));
+  const materialOptions = [...new Set(allProducts.map((p) => p.material).filter(Boolean))].sort((a, b) => a.localeCompare(b, "bg"));
+  const colorOptions = [...new Set([...allProducts.map((p) => p.color), ...allVariants.map((v) => v.color)].filter(Boolean))].sort((a, b) => a.localeCompare(b, "bg"));
 
   return (
     <>
