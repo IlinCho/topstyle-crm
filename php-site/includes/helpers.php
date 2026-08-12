@@ -33,6 +33,49 @@ function redirect_to(string $path): void {
     exit;
 }
 
+// Handles admin file uploads for product photos (a $_FILES[...] sub-array
+// from a name="image_files[]" multi-file input). Shared hosting has normal
+// persistent disk, so this is just plain move_uploaded_file() - no external
+// storage service needed the way the Vercel/Next.js version needs Blob.
+// Returns the public URLs to store in product_image.url, same shape as a
+// pasted external link.
+function save_uploaded_product_images(array $filesInput): array {
+    $urls = [];
+    if (empty($filesInput['name']) || !is_array($filesInput['name'])) return $urls;
+
+    $uploadDir = __DIR__ . '/../uploads/products/';
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
+
+    $allowedExt = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+    $maxBytes = 8 * 1024 * 1024; // 8MB per photo - generous for a phone photo, still sane
+
+    $count = count($filesInput['name']);
+    for ($i = 0; $i < $count; $i++) {
+        if (($filesInput['error'][$i] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) continue;
+        $size = (int)($filesInput['size'][$i] ?? 0);
+        if ($size <= 0 || $size > $maxBytes) continue;
+
+        $tmpPath = $filesInput['tmp_name'][$i];
+        // getimagesize() actually reads the file's image header, unlike the
+        // client-supplied MIME type/extension in $_FILES - both trivially
+        // fakeable, so a renamed .php file can't sneak through as a "photo".
+        $info = @getimagesize($tmpPath);
+        if (!$info) continue;
+
+        $ext = image_type_to_extension($info[2], false); // e.g. 'jpeg', 'png'
+        $ext = $ext === 'jpeg' ? 'jpg' : $ext;
+        if (!in_array($ext, $allowedExt, true)) continue;
+
+        $filename = bin2hex(random_bytes(8)) . '.' . $ext;
+        if (move_uploaded_file($tmpPath, $uploadDir . $filename)) {
+            $urls[] = '/uploads/products/' . $filename;
+        }
+    }
+    return $urls;
+}
+
 // ---- Product badges (Bestseller / New / Limited / Most Popular) ----
 // Always set manually from the admin panel - never inferred from sales data,
 // so the storefront never shows a claim the admin didn't explicitly choose.

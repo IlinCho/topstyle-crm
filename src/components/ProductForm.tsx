@@ -174,12 +174,13 @@ export default function ProductForm({
           <button type="button" className="btn btn--ghost btn--sm" onClick={addImageRow}>+ Добави снимка</button>
         </div>
         <p className="muted" style={{ fontSize: 12.5, marginTop: -6, marginBottom: 10 }}>
-          Постави линк (URL) към всяка снимка. Първата е основната — тя се показва в списъка с
-          продукти и в категориите; следващите се виждат на самата продуктова страница.
+          Качи файл от компютъра или постави линк (URL) към всяка снимка — ако избереш файл, той се
+          качва и има предимство пред линка на същия ред. Първата е основната — тя се показва в
+          списъка с продукти и в категориите; следващите се виждат на самата продуктова страница.
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {images.map((url, idx) => (
-            <div key={idx} style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <div key={idx} style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
               <span className="muted" style={{ fontSize: 12, width: 60, flexShrink: 0 }}>
                 {idx === 0 ? "Основна" : `Снимка ${idx + 1}`}
               </span>
@@ -187,9 +188,10 @@ export default function ProductForm({
                 name="imageUrl"
                 value={url}
                 onChange={(e) => updateImageRow(idx, e.target.value)}
-                placeholder="https://..."
-                style={{ flex: 1 }}
+                placeholder="https://... (по избор, ако не качваш файл)"
+                style={{ flex: 1, minWidth: 160 }}
               />
+              <input type="file" name="imageFile" accept="image/*" style={{ flex: 1, minWidth: 160, fontSize: 12.5 }} />
               {images.length > 1 && (
                 <button type="button" className="btn btn--ghost btn--sm" onClick={() => removeImageRow(idx)}>✕</button>
               )}

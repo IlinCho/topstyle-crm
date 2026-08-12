@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { put } from "@vercel/blob";
 import { db } from "@/lib/db";
 import { createSession, clearSession, verifyAdminCredentials, requireAdminSession } from "@/lib/auth";
 import { slugifyBasic } from "@/lib/format";
@@ -91,6 +92,32 @@ function parseVariantsFromForm(formData: FormData) {
   return variants;
 }
 
+// Each image row can either have a manually-pasted URL or an uploaded file -
+// the file takes priority when both are present on the same row. Uploaded
+// files go to Vercel Blob (the natural fit for a Vercel-hosted app - no
+// separate storage account/service needed beyond enabling it on the
+// project), and we get back a public URL to store exactly like a pasted one.
+async function resolveImageUrls(formData: FormData): Promise<string[]> {
+  const urlRows = formData.getAll("imageUrl") as string[];
+  const fileRows = formData.getAll("imageFile") as File[];
+  const results: string[] = [];
+
+  for (let i = 0; i < urlRows.length; i++) {
+    const file = fileRows[i];
+    if (file && file.size > 0) {
+      const blob = await put(`products/${Date.now()}-${i}-${file.name}`, file, {
+        access: "public",
+        addRandomSuffix: true,
+      });
+      results.push(blob.url);
+    } else {
+      const url = (urlRows[i] || "").trim();
+      if (url) results.push(url);
+    }
+  }
+  return results;
+}
+
 // Empty input -> no pin (falls back to newest-first). Anything else is
 // clamped to a sane 1-8 range so a typo can't push a product to rank -50.
 function parseCategoryRank(formData: FormData): number | null {
@@ -110,9 +137,7 @@ export async function createProductAction(formData: FormData) {
   const material = String(formData.get("material") || "").trim();
   const color = String(formData.get("color") || "").trim();
   const description = String(formData.get("description") || "").trim();
-  const imageUrls = (formData.getAll("imageUrl") as string[])
-    .map((u) => u.trim())
-    .filter(Boolean);
+  const imageUrls = await resolveImageUrls(formData);
   const sku = String(formData.get("sku") || "").trim() || `SKU-${Date.now()}`;
   const badges = serializeBadges(formData.getAll("badge") as string[]);
   const categoryRank = parseCategoryRank(formData);
@@ -157,9 +182,7 @@ export async function updateProductAction(formData: FormData) {
   const material = String(formData.get("material") || "").trim();
   const color = String(formData.get("color") || "").trim();
   const description = String(formData.get("description") || "").trim();
-  const imageUrls = (formData.getAll("imageUrl") as string[])
-    .map((u) => u.trim())
-    .filter(Boolean);
+  const imageUrls = await resolveImageUrls(formData);
   const active = formData.get("active") === "on";
   const badges = serializeBadges(formData.getAll("badge") as string[]);
   const categoryRank = parseCategoryRank(formData);

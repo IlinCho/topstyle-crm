@@ -43,10 +43,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 );
             }
 
-            // Images: simplest possible model for a no-build-step shared-host
-            // site - one image URL per line. Rebuilt from scratch on every save.
+            // Images: pasted URLs (one per line) come first, then any newly
+            // uploaded files are appended after them - so an admin who only
+            // uploads files (no pasted URLs) still gets their first upload
+            // as the main photo (position 0). Rebuilt from scratch on every save.
             db_query('DELETE FROM product_image WHERE product_id = ?', [$__productId]);
             $__urls = array_filter(array_map('trim', explode("\n", $_POST['image_urls'] ?? '')));
+            $__uploadedUrls = save_uploaded_product_images($_FILES['image_files'] ?? []);
+            $__urls = array_merge($__urls, $__uploadedUrls);
             $__pos = 0;
             foreach ($__urls as $__url) {
                 db_query('INSERT INTO product_image (id, product_id, url, position) VALUES (?, ?, ?, ?)', [db_id(), $__productId, $__url, $__pos]);
@@ -114,7 +118,7 @@ while (count($__variantRows) < 8) {
   <?php foreach ($__colorOptions as $__c): ?><option value="<?= e($__c) ?>"><?php endforeach; ?>
 </datalist>
 
-<form method="POST" action="/admin/product-form.php<?= $__existing ? '?id=' . urlencode($__existing['id']) : '' ?>">
+<form method="POST" action="/admin/product-form.php<?= $__existing ? '?id=' . urlencode($__existing['id']) : '' ?>" enctype="multipart/form-data">
   <div class="card-box">
     <h3 style="margin-top:0;">Основна информация</h3>
     <div class="form-grid">
@@ -184,9 +188,24 @@ while (count($__variantRows) < 8) {
   <div class="card-box">
     <h3 style="margin-top:0;">Снимки</h3>
     <div class="field">
-      <label>Един URL адрес на ред (първият е основната снимка)</label>
+      <label>Качи снимки от компютъра</label>
+      <input type="file" name="image_files[]" accept="image/*" multiple>
+      <p class="muted" style="font-size:12px;margin-top:4px;">Може да избереш няколко наведнъж (до 8MB всяка). Добавят се след линковете по-долу.</p>
+    </div>
+    <div class="field">
+      <label>Или линкове (URL) — един на ред, ако предпочиташ да пуснеш линк вместо файл</label>
       <textarea name="image_urls" rows="4"><?= e($__imageUrlsText) ?></textarea>
     </div>
+    <?php if ($__existingImages): ?>
+      <div class="field">
+        <label>Текущи снимки (първата е основната)</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <?php foreach ($__existingImages as $__img): ?>
+            <img src="<?= e($__img['url']) ?>" alt="" style="width:60px;height:75px;object-fit:cover;border-radius:4px;background:var(--bg-soft);">
+          <?php endforeach; ?>
+        </div>
+      </div>
+    <?php endif; ?>
   </div>
 
   <div class="card-box">
