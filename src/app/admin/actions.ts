@@ -76,16 +76,22 @@ export async function deleteCategoryAction(formData: FormData) {
 }
 
 // ---------- Products ----------
-function parseVariantsFromForm(formData: FormData) {
+// Color is entered once, at the product level ("Цвят") - every variant row
+// (size + stock) inherits it automatically. In this catalog a product never
+// actually has more than one color (PrestaShop treated each colorway as its
+// own product page, and our scrape preserved that 1:1), so a separate
+// per-variant color field was pure duplicate data entry with no real use -
+// confirmed by checking all 166 seeded products, zero of which have more
+// than one distinct variant color.
+function parseVariantsFromForm(formData: FormData, productColor: string) {
   const sizes = formData.getAll("variant_size") as string[];
-  const colors = formData.getAll("variant_color") as string[];
   const stocks = formData.getAll("variant_stock") as string[];
   const variants = [];
   for (let i = 0; i < sizes.length; i++) {
     if (!sizes[i]?.trim()) continue;
     variants.push({
       size: sizes[i].trim(),
-      color: (colors[i] || "").trim(),
+      color: productColor,
       stock: parseInt(stocks[i] || "0", 10) || 0,
     });
   }
@@ -145,7 +151,7 @@ export async function createProductAction(formData: FormData) {
   if (!name || !categoryId) return;
 
   const slug = `${slugifyBasic(name)}-${Date.now().toString().slice(-5)}`;
-  const variants = parseVariantsFromForm(formData);
+  const variants = parseVariantsFromForm(formData, color);
 
   const product = await db.product.create({
     data: {
@@ -189,7 +195,7 @@ export async function updateProductAction(formData: FormData) {
 
   if (!id || !name || !categoryId) return;
 
-  const variants = parseVariantsFromForm(formData);
+  const variants = parseVariantsFromForm(formData, color);
 
   await db.product.update({
     where: { id },

@@ -205,11 +205,15 @@ export default function ProductForm({
           <strong>Размери и наличност</strong>
           <button type="button" className="btn btn--ghost btn--sm" onClick={addRow}>+ Добави размер</button>
         </div>
+        <p className="muted" style={{ fontSize: 12.5, marginTop: -6, marginBottom: 10 }}>
+          Цветът се задава веднъж, горе в "Цвят" на продукта — всички размери тук го наследяват
+          автоматично (в тази база всеки продукт е с един цвят; различните цветове на един и същ
+          артикул се въвеждат като отделни продукти).
+        </p>
         <table className="variant-table">
           <thead>
             <tr>
               <th style={{ textAlign: "left", fontSize: 11.5, textTransform: "uppercase", color: "#6b7280" }}>Размер</th>
-              <th style={{ textAlign: "left", fontSize: 11.5, textTransform: "uppercase", color: "#6b7280" }}>Цвят (вариант)</th>
               <th style={{ textAlign: "left", fontSize: 11.5, textTransform: "uppercase", color: "#6b7280" }}>Наличност</th>
               <th></th>
             </tr>
@@ -219,9 +223,6 @@ export default function ProductForm({
               <tr key={idx}>
                 <td>
                   <input name="variant_size" value={v.size} onChange={(e) => updateRow(idx, "size", e.target.value)} placeholder="S / M / 42..." />
-                </td>
-                <td>
-                  <input name="variant_color" value={v.color} onChange={(e) => updateRow(idx, "color", e.target.value)} placeholder="черен" list="color-options" />
                 </td>
                 <td>
                   <input name="variant_stock" type="number" min={0} value={v.stock} onChange={(e) => updateRow(idx, "stock", e.target.value)} />

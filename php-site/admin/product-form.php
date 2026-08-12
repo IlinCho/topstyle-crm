@@ -58,18 +58,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
             // Variants: rebuilt from scratch on every save from the table rows.
+            // Color is entered once at the product level ("Цвят") and
+            // inherited by every variant row - in this catalog a product
+            // never actually has more than one color (confirmed: zero of the
+            // 166 seeded products have variants with different colors), so a
+            // separate per-variant color field was pure duplicate entry.
             db_query('DELETE FROM product_variant WHERE product_id = ?', [$__productId]);
             $__sizes = $_POST['variant_size'] ?? [];
-            $__colors = $_POST['variant_color'] ?? [];
             $__stocks = $_POST['variant_stock'] ?? [];
             foreach ($__sizes as $__i => $__size) {
                 $__size = trim($__size);
                 if ($__size === '') continue;
-                $__vColor = trim($__colors[$__i] ?? '');
                 $__vStock = max(0, (int)($__stocks[$__i] ?? 0));
                 db_query(
                     'INSERT INTO product_variant (id, product_id, size, color, stock) VALUES (?, ?, ?, ?, ?)',
-                    [db_id(), $__productId, $__size, $__vColor, $__vStock]
+                    [db_id(), $__productId, $__size, $color, $__vStock]
                 );
             }
 
@@ -210,13 +213,17 @@ while (count($__variantRows) < 8) {
 
   <div class="card-box">
     <h3 style="margin-top:0;">Размери и наличност</h3>
+    <p class="muted" style="font-size:12.5px;margin-top:-6px;margin-bottom:10px;">
+      Цветът се задава веднъж, горе в "Цвят" на продукта — всички размери тук го наследяват
+      автоматично (в тази база всеки продукт е с един цвят; различните цветове на един и същ
+      артикул се въвеждат като отделни продукти).
+    </p>
     <table class="variant-table">
-      <thead><tr><th>Размер</th><th>Цвят</th><th>Наличност (бр.)</th></tr></thead>
+      <thead><tr><th>Размер</th><th>Наличност (бр.)</th></tr></thead>
       <tbody>
         <?php foreach ($__variantRows as $__v): ?>
           <tr>
             <td><input type="text" name="variant_size[]" value="<?= e($__v['size']) ?>" placeholder="напр. M"></td>
-            <td><input type="text" name="variant_color[]" value="<?= e($__v['color']) ?>" placeholder="по избор" list="color-options"></td>
             <td><input type="number" min="0" name="variant_stock[]" value="<?= e((string)$__v['stock']) ?>"></td>
           </tr>
         <?php endforeach; ?>
