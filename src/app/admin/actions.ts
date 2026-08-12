@@ -231,9 +231,37 @@ export async function updateOrderStatusAction(formData: FormData) {
   await requireAdminSession();
   const id = String(formData.get("id") || "");
   const status = String(formData.get("status") || "pending");
+
+  const existing = await db.order.findUnique({ where: { id }, include: { items: true } });
+  if (!existing) return;
+
   await db.order.update({ where: { id }, data: { status } });
+
+  // Cancelling an order releases its reserved stock back to the catalog;
+  // un-cancelling (moving it to any other status afterwards) takes it back
+  // out again, so the two operations stay symmetric instead of quietly
+  // inflating stock if an admin toggles a cancellation by mistake.
+  const wasCancelled = existing.status === "cancelled";
+  const isCancelled = status === "cancelled";
+  if (wasCancelled !== isCancelled) {
+    const sign = isCancelled ? 1 : -1;
+    for (const item of existing.items) {
+      if (!item.productId) continue;
+      const variant = await db.productVariant.findFirst({
+        where: { productId: item.productId, size: item.size, color: item.color },
+      });
+      if (variant) {
+        await db.productVariant.update({
+          where: { id: variant.id },
+          data: { stock: Math.max(0, variant.stock + sign * item.qty) },
+        });
+      }
+    }
+  }
+
   revalidatePath("/admin/orders");
   revalidatePath(`/admin/orders/${id}`);
+  revalidatePath("/");
 }
 
 // ---------- Reviews ----------

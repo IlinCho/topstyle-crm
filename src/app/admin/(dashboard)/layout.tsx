@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { logoutAction } from "../actions";
 
 // Every admin page reads from the database (products, orders, sessions) -
@@ -16,6 +17,12 @@ export default async function AdminDashboardLayout({ children }: { children: Rea
     redirect("/admin/login");
   }
 
+  // Notification bell count - "seen" is set to true the moment an admin
+  // opens that specific order's detail page (see orders/[id]/page.tsx), so
+  // this naturally drops to 0 as orders get looked at, same as any other
+  // notification bell.
+  const unseenOrderCount = await db.order.count({ where: { seenByAdmin: false } });
+
   return (
     <div className="admin-shell">
       <aside className="admin-sidebar">
@@ -23,7 +30,25 @@ export default async function AdminDashboardLayout({ children }: { children: Rea
         <Link href="/admin">Табло</Link>
         <Link href="/admin/products">Продукти</Link>
         <Link href="/admin/categories">Категории</Link>
-        <Link href="/admin/orders">Поръчки</Link>
+        <Link href="/admin/orders" style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          Поръчки
+          {unseenOrderCount > 0 && (
+            <span
+              title={`${unseenOrderCount} нови поръчки`}
+              style={{
+                background: "#e5484d",
+                color: "#fff",
+                borderRadius: 999,
+                fontSize: 11,
+                fontWeight: 700,
+                padding: "1px 7px",
+                lineHeight: 1.5,
+              }}
+            >
+              🔔 {unseenOrderCount}
+            </span>
+          )}
+        </Link>
         <Link href="/admin/stock-alerts">Известия за наличност</Link>
         <Link href="/" target="_blank">↗ Виж магазина</Link>
         <form action={logoutAction} style={{ marginTop: 20, padding: "0 20px" }}>

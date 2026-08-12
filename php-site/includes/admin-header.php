@@ -11,6 +11,12 @@ require_once __DIR__ . '/auth.php';
 
 $__adminSession = require_admin_session();
 $__activeNav = $activeNav ?? '';
+
+// Notification bell count - "seen" is set to true the moment an admin opens
+// that specific order's detail page (see admin/orders.php), so this
+// naturally drops to 0 as orders get looked at, same as any other
+// notification bell.
+$__unseenOrderCount = (int)(db_one('SELECT COUNT(*) AS c FROM `order` WHERE seen_by_admin = 0')['c'] ?? 0);
 ?><!DOCTYPE html>
 <html lang="bg">
 <head>
@@ -26,7 +32,12 @@ $__activeNav = $activeNav ?? '';
     <a href="/admin/index.php" class="<?= $__activeNav === 'dashboard' ? 'active' : '' ?>">Табло</a>
     <a href="/admin/categories.php" class="<?= $__activeNav === 'categories' ? 'active' : '' ?>">Категории</a>
     <a href="/admin/products.php" class="<?= $__activeNav === 'products' ? 'active' : '' ?>">Продукти</a>
-    <a href="/admin/orders.php" class="<?= $__activeNav === 'orders' ? 'active' : '' ?>">Поръчки</a>
+    <a href="/admin/orders.php" class="<?= $__activeNav === 'orders' ? 'active' : '' ?>" style="display:flex;align-items:center;gap:8px;">
+      Поръчки
+      <?php if ($__unseenOrderCount > 0): ?>
+        <span title="<?= $__unseenOrderCount ?> нови поръчки" style="background:#e5484d;color:#fff;border-radius:999px;font-size:11px;font-weight:700;padding:1px 7px;line-height:1.5;">🔔 <?= $__unseenOrderCount ?></span>
+      <?php endif; ?>
+    </a>
     <a href="/admin/reviews.php" class="<?= $__activeNav === 'reviews' ? 'active' : '' ?>">Отзиви</a>
     <a href="/admin/stock-alerts.php" class="<?= $__activeNav === 'stock_alerts' ? 'active' : '' ?>">Известия за наличност</a>
     <a href="/admin/logout.php">Изход</a>

@@ -157,6 +157,7 @@ model Order {
   deliveryMethod String   @default("") // econt_office | speedy_address | ...
   officeName  String      @default("") // e.g. selected Econt office, if applicable
   status      String      @default("pending") // pending, confirmed, shipped, delivered, cancelled
+  seenByAdmin Boolean     @default(false) // powers the admin sidebar's order notification bell
   totalBgn    Float
   totalEur    Float
   items       OrderItem[]

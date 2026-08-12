@@ -21,14 +21,15 @@ export default async function AdminOrdersPage() {
         <table className="admin-table">
           <thead>
             <tr>
-              <th>№</th><th>Дата</th><th>Клиент</th><th>Тип</th><th>Град</th><th>Артикули</th><th>Сума</th><th>Статус</th>
+              <th></th><th>№</th><th>Дата</th><th>Клиент</th><th>Тип</th><th>Град</th><th>Артикули</th><th>Сума</th><th>Статус</th>
             </tr>
           </thead>
           <tbody>
             {orders.map((o) => (
-              <tr key={o.id}>
+              <tr key={o.id} style={!o.seenByAdmin ? { fontWeight: 700 } : undefined}>
+                <td>{!o.seenByAdmin && <span title="Нова поръчка">🔔</span>}</td>
                 <td><Link href={`/admin/orders/${o.id}`}>{o.orderNumber}</Link></td>
-                <td className="muted">{new Date(o.createdAt).toLocaleDateString("bg-BG")}</td>
+                <td className="muted" style={{ fontWeight: 400 }}>{new Date(o.createdAt).toLocaleDateString("bg-BG")}</td>
                 <td>{o.guestName}</td>
                 <td>
                   {isQuickOrder(o.deliveryMethod) ? (
@@ -44,7 +45,7 @@ export default async function AdminOrdersPage() {
               </tr>
             ))}
             {orders.length === 0 && (
-              <tr><td colSpan={8} className="muted">Все още няма поръчки.</td></tr>
+              <tr><td colSpan={9} className="muted">Все още няма поръчки.</td></tr>
             )}
           </tbody>
         </table>
