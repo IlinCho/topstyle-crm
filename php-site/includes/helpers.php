@@ -164,7 +164,18 @@ function parse_category_rank($raw): ?int {
 // so pins are spliced into the natural (newest-first) order in PHP instead.
 function apply_category_rank_pins(array $naturalOrder): array {
     $pinned = array_values(array_filter($naturalOrder, fn($p) => $p['category_rank'] !== null));
-    usort($pinned, fn($a, $b) => (int)$a['category_rank'] <=> (int)$b['category_rank']);
+    usort($pinned, function ($a, $b) {
+        $rankDiff = (int)$a['category_rank'] <=> (int)$b['category_rank'];
+        if ($rankDiff !== 0) return $rankDiff;
+        // Two products pinned to the same slot (e.g. an admin sets a new
+        // product to "1" while an older product already sits there) - the
+        // one edited most recently should win that exact slot, bumping the
+        // other one down by one instead of the other way around. The splice
+        // loop below always lands whichever item is processed LAST exactly
+        // on the target index, so the most-recently-edited item needs to
+        // sort last here (ascending by updated_at).
+        return strtotime($a['updated_at']) <=> strtotime($b['updated_at']);
+    });
     $rest = array_values(array_filter($naturalOrder, fn($p) => $p['category_rank'] === null));
 
     $result = $rest;
