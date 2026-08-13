@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { BADGE_DEFS } from "@/lib/badges";
 
 type Category = { id: string; name: string; depth?: number };
@@ -83,8 +83,46 @@ export default function ProductForm({
     );
   }
 
+  // "Преглед" - a client-only mockup of the product page built from whatever
+  // is currently typed into the form, WITHOUT saving anything. Inputs below
+  // are uncontrolled (defaultValue), so this reads a snapshot straight from
+  // the DOM via FormData at the moment the button is clicked, rather than
+  // requiring every field to become a controlled input just for this.
+  const formRef = useRef<HTMLFormElement>(null);
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewSnapshot, setPreviewSnapshot] = useState({
+    name: "",
+    categoryId: "",
+    priceEur: "",
+    priceBgn: "",
+    material: "",
+    color: "",
+    description: "",
+    badges: [] as string[],
+  });
+
+  function openPreview() {
+    if (!formRef.current) return;
+    const fd = new FormData(formRef.current);
+    setPreviewSnapshot({
+      name: String(fd.get("name") || ""),
+      categoryId: String(fd.get("categoryId") || ""),
+      priceEur: String(fd.get("priceEur") || ""),
+      priceBgn: String(fd.get("priceBgn") || ""),
+      material: String(fd.get("material") || ""),
+      color: String(fd.get("color") || ""),
+      description: String(fd.get("description") || ""),
+      badges: fd.getAll("badge") as string[],
+    });
+    setPreviewOpen(true);
+  }
+
+  const previewCategoryName = categories.find((c) => c.id === previewSnapshot.categoryId)?.name;
+  const previewMainImage = images[0]?.preview || images[0]?.url || "";
+  const previewSizes = variants.filter((v) => v.size.trim());
+
   return (
-    <form action={action}>
+    <form ref={formRef} action={action}>
       {initial?.id && <input type="hidden" name="id" value={initial.id} />}
       <datalist id="material-options">
         {materialOptions.map((m) => <option key={m} value={m} />)}
@@ -92,6 +130,76 @@ export default function ProductForm({
       <datalist id="color-options">
         {colorOptions.map((c) => <option key={c} value={c} />)}
       </datalist>
+
+      <div className="flex-between" style={{ marginBottom: 14 }}>
+        <span className="muted" style={{ fontSize: 12.5 }}>Прегледай как ще изглежда в магазина, преди да запазиш</span>
+        <button type="button" className="btn btn--ghost btn--sm" onClick={openPreview}>👁 Преглед на продукта</button>
+      </div>
+
+      {previewOpen && (
+        <div
+          style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,.6)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}
+          onClick={() => setPreviewOpen(false)}
+        >
+          <div
+            className="card-box"
+            style={{ maxWidth: 900, width: "100%", maxHeight: "90vh", overflowY: "auto", background: "#fff" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex-between" style={{ marginBottom: 16 }}>
+              <strong>Преглед — още не е запазено</strong>
+              <button type="button" className="btn btn--ghost btn--sm" onClick={() => setPreviewOpen(false)}>✕ Затвори</button>
+            </div>
+            <div className="pdp" style={{ margin: 0 }}>
+              <div>
+                {previewMainImage ? (
+                  <img src={previewMainImage} alt="" className="pdp__img" />
+                ) : (
+                  <div className="pdp__img" style={{ background: "#f2f2f2" }} />
+                )}
+              </div>
+              <div>
+                {previewSnapshot.badges.length > 0 && (
+                  <div style={{ marginBottom: 8 }}>
+                    {previewSnapshot.badges.map((key) => {
+                      const def = BADGE_DEFS.find((d) => d.key === key);
+                      return def ? (
+                        <span key={key} className={`badge ${def.className}`} style={{ marginRight: 6 }}>{def.label}</span>
+                      ) : null;
+                    })}
+                  </div>
+                )}
+                {previewCategoryName && <p className="muted" style={{ fontSize: 12.5, margin: "0 0 4px" }}>{previewCategoryName}</p>}
+                <h1 className="pdp__title">{previewSnapshot.name || "(без име)"}</h1>
+                <p className="pdp__price">
+                  {previewSnapshot.priceBgn ? `${previewSnapshot.priceBgn} лв.` : "—"}
+                  {previewSnapshot.priceEur && <small>{previewSnapshot.priceEur} €</small>}
+                </p>
+                <div className="pdp__meta">
+                  <div>Материя: {previewSnapshot.material || "—"}</div>
+                  <div>Цвят: {previewSnapshot.color || "—"}</div>
+                </div>
+                {previewSizes.length > 0 && (
+                  <div style={{ marginTop: 12 }}>
+                    <p className="opt-label">Размери</p>
+                    <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                      {previewSizes.map((v, i) => (
+                        <span key={i} className={`opt${v.stock <= 0 ? " disabled" : ""}`}>{v.size}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {previewSnapshot.description && (
+                  <p style={{ marginTop: 16, fontSize: 13.5, lineHeight: 1.6 }}>{previewSnapshot.description}</p>
+                )}
+              </div>
+            </div>
+            <p className="muted" style={{ fontSize: 12, marginTop: 16 }}>
+              Приблизителен преглед на текущо въведените данни — продуктът все още не е запазен. Затвори и натисни "Запази продукта", когато си готов.
+            </p>
+          </div>
+        </div>
+      )}
 
       <div className="card-box">
         <div className="form-grid">

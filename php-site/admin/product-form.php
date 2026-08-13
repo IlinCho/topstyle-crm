@@ -121,13 +121,31 @@ while (count($__variantRows) < 8) {
   <?php foreach ($__colorOptions as $__c): ?><option value="<?= e($__c) ?>"><?php endforeach; ?>
 </datalist>
 
+<div class="flex-between" style="margin-bottom:14px;">
+  <span class="muted" style="font-size:12.5px;">Прегледай как ще изглежда в магазина, преди да запазиш</span>
+  <button type="button" class="btn btn--ghost btn--sm" onclick="tsPreviewProduct()">👁 Преглед на продукта</button>
+</div>
+
+<div id="product-preview-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this) tsClosePreview()">
+  <div class="card-box" style="max-width:900px;width:100%;max-height:90vh;overflow-y:auto;background:#fff;">
+    <div class="flex-between" style="margin-bottom:16px;">
+      <strong>Преглед — още не е запазено</strong>
+      <button type="button" class="btn btn--ghost btn--sm" onclick="tsClosePreview()">✕ Затвори</button>
+    </div>
+    <div id="preview-content"></div>
+    <p class="muted" style="font-size:12px;margin-top:16px;">
+      Приблизителен преглед на текущо въведените данни — продуктът все още не е запазен. Затвори и натисни "Запази продукта", когато си готов.
+    </p>
+  </div>
+</div>
+
 <form method="POST" action="/admin/product-form.php<?= $__existing ? '?id=' . urlencode($__existing['id']) : '' ?>" enctype="multipart/form-data">
   <div class="card-box">
     <h3 style="margin-top:0;">Основна информация</h3>
     <div class="form-grid">
       <div class="field">
         <label>Име</label>
-        <input type="text" name="name" value="<?= e($__existing['name'] ?? '') ?>" required>
+        <input type="text" id="pf-name" name="name" value="<?= e($__existing['name'] ?? '') ?>" required>
       </div>
       <div class="field">
         <label>SKU</label>
@@ -139,7 +157,7 @@ while (count($__variantRows) < 8) {
       </div>
       <div class="field">
         <label>Категория</label>
-        <select name="category_id" required>
+        <select id="pf-category" name="category_id" required>
           <option value="">— Избери категория —</option>
           <?php foreach ($__categoryFlat as $__c): ?>
             <option value="<?= e($__c['id']) ?>" <?= (($__existing['category_id'] ?? '') === $__c['id']) ? 'selected' : '' ?>>
@@ -150,19 +168,19 @@ while (count($__variantRows) < 8) {
       </div>
       <div class="field">
         <label>Цена (лв.)</label>
-        <input type="number" step="0.01" name="price_bgn" value="<?= e($__existing['price_bgn'] ?? '') ?>" required>
+        <input type="number" step="0.01" id="pf-price-bgn" name="price_bgn" value="<?= e($__existing['price_bgn'] ?? '') ?>" required>
       </div>
       <div class="field">
         <label>Цена (€)</label>
-        <input type="number" step="0.01" name="price_eur" value="<?= e($__existing['price_eur'] ?? '') ?>" required>
+        <input type="number" step="0.01" id="pf-price-eur" name="price_eur" value="<?= e($__existing['price_eur'] ?? '') ?>" required>
       </div>
       <div class="field">
         <label>Материя (състав)</label>
-        <input type="text" name="material" value="<?= e($__existing['material'] ?? '') ?>" list="material-options">
+        <input type="text" id="pf-material" name="material" value="<?= e($__existing['material'] ?? '') ?>" list="material-options">
       </div>
       <div class="field">
         <label>Цвят</label>
-        <input type="text" name="color" value="<?= e($__existing['color'] ?? '') ?>" list="color-options">
+        <input type="text" id="pf-color" name="color" value="<?= e($__existing['color'] ?? '') ?>" list="color-options">
       </div>
       <div class="field">
         <label>Позиция в категорията (1–8, по избор)</label>
@@ -174,7 +192,7 @@ while (count($__variantRows) < 8) {
     </div>
     <div class="field">
       <label>Описание</label>
-      <textarea name="description"><?= e($__existing['description'] ?? '') ?></textarea>
+      <textarea id="pf-description" name="description"><?= e($__existing['description'] ?? '') ?></textarea>
     </div>
   </div>
 
@@ -249,6 +267,79 @@ function tsPreviewImageFiles(input) {
     img.style.cssText = 'width:44px;height:55px;object-fit:cover;border-radius:4px;background:#f2f2f2;';
     box.appendChild(img);
   }
+}
+
+// "Преглед" - builds a client-only mockup of the product page from whatever
+// is currently typed into the form, WITHOUT saving anything (mirrors the
+// same feature in the Next.js admin's ProductForm.tsx).
+function tsEscHtml(s) {
+  var div = document.createElement('div');
+  div.textContent = s || '';
+  return div.innerHTML;
+}
+var TS_BADGE_DEFS = {
+  bestseller: { label: 'Бестселър', cls: 'badge--bestseller' },
+  'new': { label: 'Нов', cls: 'badge--new' },
+  limited: { label: 'Ограничена бройка', cls: 'badge--limited' },
+  most_popular: { label: 'Най-търсен', cls: 'badge--popular' }
+};
+function tsPreviewProduct() {
+  var name = document.getElementById('pf-name').value.trim();
+  var categorySelect = document.getElementById('pf-category');
+  var categoryOpt = categorySelect.options[categorySelect.selectedIndex];
+  var categoryName = categoryOpt ? categoryOpt.text.replace(/^(—\s*)+/, '') : '';
+  var priceBgn = document.getElementById('pf-price-bgn').value;
+  var priceEur = document.getElementById('pf-price-eur').value;
+  var material = document.getElementById('pf-material').value.trim();
+  var color = document.getElementById('pf-color').value.trim();
+  var description = document.getElementById('pf-description').value.trim();
+
+  // Main image: first pasted URL line, else the first newly-picked file.
+  var urlsText = document.querySelector('textarea[name="image_urls"]').value.trim();
+  var firstUrl = urlsText ? urlsText.split('\n')[0].trim() : '';
+  var fileInput = document.querySelector('input[name="image_files[]"]');
+  var mainImageSrc = firstUrl;
+  if (!mainImageSrc && fileInput.files && fileInput.files[0]) {
+    mainImageSrc = URL.createObjectURL(fileInput.files[0]);
+  }
+  var imgHtml = mainImageSrc
+    ? '<img src="' + tsEscHtml(mainImageSrc) + '" class="pdp__img">'
+    : '<div class="pdp__img" style="background:#f2f2f2;"></div>';
+
+  var badgesHtml = '';
+  document.querySelectorAll('input[name="badges[]"]:checked').forEach(function (cb) {
+    var def = TS_BADGE_DEFS[cb.value];
+    if (def) badgesHtml += '<span class="badge ' + def.cls + '" style="margin-right:6px;">' + def.label + '</span>';
+  });
+
+  var sizesHtml = '';
+  var sizeInputs = document.querySelectorAll('input[name="variant_size[]"]');
+  var stockInputs = document.querySelectorAll('input[name="variant_stock[]"]');
+  sizeInputs.forEach(function (input, i) {
+    var size = input.value.trim();
+    if (!size) return;
+    var stock = parseInt((stockInputs[i] && stockInputs[i].value) || '0', 10);
+    sizesHtml += '<span class="opt' + (stock <= 0 ? ' disabled' : '') + '">' + tsEscHtml(size) + '</span>';
+  });
+
+  var html = ''
+    + '<div class="pdp" style="margin:0;">'
+    + '<div>' + imgHtml + '</div>'
+    + '<div>'
+    + (badgesHtml ? '<div style="margin-bottom:8px;">' + badgesHtml + '</div>' : '')
+    + (categoryName ? '<p class="muted" style="font-size:12.5px;margin:0 0 4px;">' + tsEscHtml(categoryName) + '</p>' : '')
+    + '<h1 class="pdp__title">' + (name ? tsEscHtml(name) : '(без име)') + '</h1>'
+    + '<p class="pdp__price">' + (priceBgn ? tsEscHtml(priceBgn) + ' лв.' : '—') + (priceEur ? '<small>' + tsEscHtml(priceEur) + ' €</small>' : '') + '</p>'
+    + '<div class="pdp__meta"><div>Материя: ' + (material ? tsEscHtml(material) : '—') + '</div><div>Цвят: ' + (color ? tsEscHtml(color) : '—') + '</div></div>'
+    + (sizesHtml ? '<div style="margin-top:12px;"><p class="opt-label">Размери</p><div style="display:flex;gap:6px;flex-wrap:wrap;">' + sizesHtml + '</div></div>' : '')
+    + (description ? '<p style="margin-top:16px;font-size:13.5px;line-height:1.6;">' + tsEscHtml(description) + '</p>' : '')
+    + '</div></div>';
+
+  document.getElementById('preview-content').innerHTML = html;
+  document.getElementById('product-preview-modal').style.display = 'flex';
+}
+function tsClosePreview() {
+  document.getElementById('product-preview-modal').style.display = 'none';
 }
 </script>
 <?php require __DIR__ . '/../includes/admin-footer.php'; ?>
