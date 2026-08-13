@@ -431,7 +431,25 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Product detail ---------- */
 .pdp { display: grid; grid-template-columns: 1fr 1fr; gap: 46px; margin: 30px 0 60px; }
 @media (max-width: 800px) { .pdp { grid-template-columns: 1fr; gap: 24px; padding-bottom: 70px; } }
-.pdp__img { width: 100%; border-radius: var(--radius); background: var(--bg-soft); aspect-ratio: 4/5; object-fit: cover; }
+.pdp__img-wrap { position: relative; overflow: hidden; border-radius: var(--radius); background: var(--bg-soft); }
+.pdp__img { width: 100%; display: block; aspect-ratio: 4/5; object-fit: cover; }
+/* Hover-zoom (desktop only, like the original site's product page): the
+   overlay pans its background-position to follow the cursor - see
+   ProductGallery.tsx for the mouse-tracking logic. Hidden on touch devices
+   since there's no cursor to hover with. */
+@media (hover: hover) and (pointer: fine) {
+  .pdp__img-wrap { cursor: zoom-in; }
+  .pdp__img-zoom {
+    position: absolute;
+    inset: 0;
+    background-repeat: no-repeat;
+    background-size: 200%;
+    pointer-events: none;
+  }
+}
+@media (hover: none), (pointer: coarse) {
+  .pdp__img-zoom { display: none !important; }
+}
 .pdp__thumbs { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
 .pdp__thumb {
   padding: 0;

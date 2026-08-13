@@ -41,7 +41,10 @@ $__mainImage = $__images[0]['url'] ?? '/assets/placeholder.jpg';
 <div class="container">
   <div class="pdp">
     <div>
-      <img src="<?= e($__mainImage) ?>" alt="<?= e($__product['name']) ?>" class="pdp__img" id="pdp-main-img">
+      <div class="pdp__img-wrap" id="pdp-img-wrap" onmouseenter="tsPdpZoomEnter()" onmouseleave="tsPdpZoomLeave()" onmousemove="tsPdpZoomMove(event)">
+        <img src="<?= e($__mainImage) ?>" alt="<?= e($__product['name']) ?>" class="pdp__img" id="pdp-main-img">
+        <div class="pdp__img-zoom" id="pdp-img-zoom" style="display:none;background-image:url('<?= e($__mainImage) ?>');"></div>
+      </div>
       <?php if (count($__images) > 1): ?>
         <div class="pdp__thumbs">
           <?php foreach ($__images as $__i => $__img): ?>
@@ -242,8 +245,28 @@ function tsGetScarcity(stock) {
 
 function tsSelectImage(btn, url) {
   document.getElementById('pdp-main-img').src = url;
+  document.getElementById('pdp-img-zoom').style.backgroundImage = "url('" + url + "')";
   document.querySelectorAll('.pdp__thumb').forEach(function (b) { b.classList.remove('pdp__thumb--active'); });
   btn.classList.add('pdp__thumb--active');
+}
+
+// Hover-zoom on desktop (like the original site's product page): moving the
+// cursor over the image reveals a zoomed-in crop under the pointer via a
+// background-position pan on an overlay layer - the CSS media query already
+// hides #pdp-img-zoom on touch devices, this just skips the work there too.
+function tsPdpZoomEnter() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  document.getElementById('pdp-img-zoom').style.display = 'block';
+}
+function tsPdpZoomLeave() {
+  document.getElementById('pdp-img-zoom').style.display = 'none';
+}
+function tsPdpZoomMove(e) {
+  var wrap = document.getElementById('pdp-img-wrap');
+  var rect = wrap.getBoundingClientRect();
+  var x = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+  var y = Math.max(0, Math.min(100, ((e.clientY - rect.top) / rect.height) * 100));
+  document.getElementById('pdp-img-zoom').style.backgroundPosition = x + '% ' + y + '%';
 }
 
 function tsOpenQuickOrder() {

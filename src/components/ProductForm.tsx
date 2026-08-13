@@ -196,7 +196,7 @@ export default function ProductForm({
               <button type="button" className="btn btn--ghost btn--sm" onClick={() => setPreviewOpen(false)}>✕ Затвори</button>
             </div>
             <div className="pdp" style={{ margin: 0 }}>
-              <div>
+              <div className="pdp__img-wrap">
                 {previewMainImage ? (
                   <img src={previewMainImage} alt="" className="pdp__img" />
                 ) : (

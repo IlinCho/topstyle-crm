@@ -312,9 +312,9 @@ function tsPreviewProduct() {
   if (!mainImageSrc && fileInput.files && fileInput.files[0]) {
     mainImageSrc = URL.createObjectURL(fileInput.files[0]);
   }
-  var imgHtml = mainImageSrc
+  var imgHtml = '<div class="pdp__img-wrap">' + (mainImageSrc
     ? '<img src="' + tsEscHtml(mainImageSrc) + '" class="pdp__img">'
-    : '<div class="pdp__img" style="background:#f2f2f2;"></div>';
+    : '<div class="pdp__img" style="background:#f2f2f2;"></div>') + '</div>';
 
   var badgesHtml = '';
   document.querySelectorAll('input[name="badges[]"]:checked').forEach(function (cb) {
