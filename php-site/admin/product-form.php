@@ -101,11 +101,21 @@ $__existingImages = $__existing ? db_all('SELECT * FROM product_image WHERE prod
 $__existingVariants = $__existing ? db_all('SELECT * FROM product_variant WHERE product_id = ? ORDER BY size ASC', [$__existing['id']]) : [];
 $__imageUrlsText = implode("\n", array_map(fn($i) => $i['url'], $__existingImages));
 
-// Always render at least a few blank variant rows so the admin can add sizes
-// to a brand-new product without any JS.
 $__variantRows = $__existingVariants;
-while (count($__variantRows) < 8) {
-    $__variantRows[] = ['size' => '', 'color' => '', 'stock' => ''];
+if (!$__variantRows) {
+    // Brand-new product with no variants yet - prefill S through 6XL so the
+    // admin only has to type stock counts, not every size label by hand.
+    // They can still delete rows they don't carry.
+    foreach (['S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL', '6XL'] as $__ds) {
+        $__variantRows[] = ['size' => $__ds, 'color' => '', 'stock' => ''];
+    }
+} else {
+    // Editing an existing product - always render a couple of blank rows
+    // too, so there's room to add a size it didn't have before, without
+    // needing "+ Добави размер".
+    while (count($__variantRows) < count($__existingVariants) + 2) {
+        $__variantRows[] = ['size' => '', 'color' => '', 'stock' => ''];
+    }
 }
 ?>
 <div class="admin-topbar">

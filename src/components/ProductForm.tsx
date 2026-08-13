@@ -6,6 +6,11 @@ import { BADGE_DEFS } from "@/lib/badges";
 type Category = { id: string; name: string; depth?: number };
 type Variant = { size: string; color: string; stock: number };
 
+// Pre-filled for a brand-new product so the admin only has to type stock
+// counts, not every size label by hand - they can still delete rows they
+// don't carry.
+const DEFAULT_SIZES = ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL", "6XL"];
+
 export default function ProductForm({
   action,
   categories,
@@ -39,7 +44,9 @@ export default function ProductForm({
   };
 }) {
   const [variants, setVariants] = useState<Variant[]>(
-    initial?.variants?.length ? initial.variants : [{ size: "S", color: "", stock: 0 }]
+    initial?.variants?.length
+      ? initial.variants
+      : DEFAULT_SIZES.map((size) => ({ size, color: "", stock: 0 }))
   );
 
   function addRow() {
