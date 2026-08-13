@@ -192,8 +192,9 @@ while (count($__variantRows) < 8) {
     <h3 style="margin-top:0;">Снимки</h3>
     <div class="field">
       <label>Качи снимки от компютъра</label>
-      <input type="file" name="image_files[]" accept="image/*" multiple>
+      <input type="file" name="image_files[]" accept="image/*" multiple onchange="tsPreviewImageFiles(this)">
       <p class="muted" style="font-size:12px;margin-top:4px;">Може да избереш няколко наведнъж (до 8MB всяка). Добавят се след линковете по-долу.</p>
+      <div id="new-image-previews" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;"></div>
     </div>
     <div class="field">
       <label>Или линкове (URL) — един на ред, ако предпочиташ да пуснеш линк вместо файл</label>
@@ -234,4 +235,20 @@ while (count($__variantRows) < 8) {
 
   <button type="submit" class="btn">Запази продукта</button>
 </form>
+<script>
+// Shows a thumbnail for each just-picked file before upload, so the admin
+// can see which photo they attached instead of just a filename - same
+// vanilla-JS pattern as tsSelectSize/tsToggleMobileNav elsewhere on the site.
+function tsPreviewImageFiles(input) {
+  var box = document.getElementById('new-image-previews');
+  box.innerHTML = '';
+  var files = input.files || [];
+  for (var i = 0; i < files.length; i++) {
+    var img = document.createElement('img');
+    img.src = URL.createObjectURL(files[i]);
+    img.style.cssText = 'width:44px;height:55px;object-fit:cover;border-radius:4px;background:#f2f2f2;';
+    box.appendChild(img);
+  }
+}
+</script>
 <?php require __DIR__ . '/../includes/admin-footer.php'; ?>

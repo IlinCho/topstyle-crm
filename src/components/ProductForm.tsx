@@ -56,18 +56,31 @@ export default function ProductForm({
 
   // Images: repeatable URL fields, same pattern as the variants table above.
   // The first row is always the "main" photo shown on cards/category pages -
-  // order here = position in the DB.
-  const [images, setImages] = useState<string[]>(
-    initial?.images?.length ? initial.images : [""]
+  // order here = position in the DB. `preview` is a local object URL for a
+  // just-picked file, shown as a thumbnail immediately (before the real
+  // upload/save happens) so the admin can see which photo they attached
+  // instead of just a filename in the file picker.
+  type ImageRow = { url: string; preview: string | null };
+  const [images, setImages] = useState<ImageRow[]>(
+    initial?.images?.length ? initial.images.map((url) => ({ url, preview: null })) : [{ url: "", preview: null }]
   );
   function addImageRow() {
-    setImages((imgs) => [...imgs, ""]);
+    setImages((imgs) => [...imgs, { url: "", preview: null }]);
   }
   function removeImageRow(idx: number) {
     setImages((imgs) => imgs.filter((_, i) => i !== idx));
   }
-  function updateImageRow(idx: number, value: string) {
-    setImages((imgs) => imgs.map((url, i) => (i === idx ? value : url)));
+  function updateImageUrl(idx: number, value: string) {
+    setImages((imgs) => imgs.map((row, i) => (i === idx ? { ...row, url: value } : row)));
+  }
+  function updateImageFile(idx: number, file: File | null) {
+    setImages((imgs) =>
+      imgs.map((row, i) => {
+        if (i !== idx) return row;
+        if (row.preview) URL.revokeObjectURL(row.preview);
+        return { ...row, preview: file ? URL.createObjectURL(file) : null };
+      })
+    );
   }
 
   return (
@@ -179,24 +192,43 @@ export default function ProductForm({
           списъка с продукти и в категориите; следващите се виждат на самата продуктова страница.
         </p>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          {images.map((url, idx) => (
-            <div key={idx} style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
-              <span className="muted" style={{ fontSize: 12, width: 60, flexShrink: 0 }}>
-                {idx === 0 ? "Основна" : `Снимка ${idx + 1}`}
-              </span>
-              <input
-                name="imageUrl"
-                value={url}
-                onChange={(e) => updateImageRow(idx, e.target.value)}
-                placeholder="https://... (по избор, ако не качваш файл)"
-                style={{ flex: 1, minWidth: 160 }}
-              />
-              <input type="file" name="imageFile" accept="image/*" style={{ flex: 1, minWidth: 160, fontSize: 12.5 }} />
-              {images.length > 1 && (
-                <button type="button" className="btn btn--ghost btn--sm" onClick={() => removeImageRow(idx)}>✕</button>
-              )}
-            </div>
-          ))}
+          {images.map((row, idx) => {
+            const thumbSrc = row.preview || row.url;
+            return (
+              <div key={idx} style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+                <span className="muted" style={{ fontSize: 12, width: 60, flexShrink: 0 }}>
+                  {idx === 0 ? "Основна" : `Снимка ${idx + 1}`}
+                </span>
+                {thumbSrc ? (
+                  <img
+                    src={thumbSrc}
+                    alt=""
+                    style={{ width: 44, height: 55, objectFit: "cover", borderRadius: 4, background: "#f2f2f2", flexShrink: 0 }}
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).style.visibility = "hidden"; }}
+                  />
+                ) : (
+                  <div style={{ width: 44, height: 55, borderRadius: 4, background: "#f2f2f2", flexShrink: 0 }} />
+                )}
+                <input
+                  name="imageUrl"
+                  value={row.url}
+                  onChange={(e) => updateImageUrl(idx, e.target.value)}
+                  placeholder="https://... (по избор, ако не качваш файл)"
+                  style={{ flex: 1, minWidth: 160 }}
+                />
+                <input
+                  type="file"
+                  name="imageFile"
+                  accept="image/*"
+                  style={{ flex: 1, minWidth: 160, fontSize: 12.5 }}
+                  onChange={(e) => updateImageFile(idx, e.target.files?.[0] || null)}
+                />
+                {images.length > 1 && (
+                  <button type="button" className="btn btn--ghost btn--sm" onClick={() => removeImageRow(idx)}>✕</button>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
 
