@@ -167,7 +167,7 @@ if (!$__variantRows) {
       </div>
       <div class="field">
         <label>Категория</label>
-        <select id="pf-category" name="category_id" required>
+        <select id="pf-category" name="category_id" onchange="tsHandleCategoryChange()" required>
           <option value="">— Избери категория —</option>
           <?php foreach ($__categoryFlat as $__c): ?>
             <option value="<?= e($__c['id']) ?>" <?= (($__existing['category_id'] ?? '') === $__c['id']) ? 'selected' : '' ?>>
@@ -350,6 +350,44 @@ function tsPreviewProduct() {
 }
 function tsClosePreview() {
   document.getElementById('product-preview-modal').style.display = 'none';
+}
+
+// Swaps the size column between letters and EU pants numbers when the admin
+// picks a category - only for a brand-new product, and only while the rows
+// are still untouched defaults, so it never clobbers real data. Both lists
+// are the same length (9) so this is a simple in-place value rewrite, no
+// rows added/removed. Mirrors handleCategoryChange in ProductForm.tsx.
+var TS_DEFAULT_SIZES_LETTER = ['S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL', '6XL'];
+var TS_DEFAULT_SIZES_NUMERIC = ['44', '46', '48', '50', '52', '54', '56', '58', '60'];
+var TS_IS_EXISTING_PRODUCT = <?= $__existing ? 'true' : 'false' ?>;
+
+function tsIsPantsCategoryText(text) {
+  var t = (text || '').toLowerCase();
+  return t.indexOf('дънк') !== -1 || t.indexOf('панталон') !== -1;
+}
+function tsRowsMatchPreset(sizeInputs, stockInputs, sizes) {
+  if (sizeInputs.length !== sizes.length) return false;
+  for (var i = 0; i < sizes.length; i++) {
+    if (sizeInputs[i].value.trim() !== sizes[i]) return false;
+    if (stockInputs[i] && stockInputs[i].value.trim() !== '') return false;
+  }
+  return true;
+}
+function tsHandleCategoryChange() {
+  if (TS_IS_EXISTING_PRODUCT) return;
+  var select = document.getElementById('pf-category');
+  var opt = select.options[select.selectedIndex];
+  var targetSizes = tsIsPantsCategoryText(opt ? opt.text : '') ? TS_DEFAULT_SIZES_NUMERIC : TS_DEFAULT_SIZES_LETTER;
+
+  var sizeInputs = document.querySelectorAll('input[name="variant_size[]"]');
+  var stockInputs = document.querySelectorAll('input[name="variant_stock[]"]');
+  var isDefault = tsRowsMatchPreset(sizeInputs, stockInputs, TS_DEFAULT_SIZES_LETTER)
+    || tsRowsMatchPreset(sizeInputs, stockInputs, TS_DEFAULT_SIZES_NUMERIC);
+  if (!isDefault) return;
+
+  for (var i = 0; i < sizeInputs.length && i < targetSizes.length; i++) {
+    sizeInputs[i].value = targetSizes[i];
+  }
 }
 </script>
 <?php require __DIR__ . '/../includes/admin-footer.php'; ?>

@@ -8,8 +8,30 @@ type Variant = { size: string; color: string; stock: number };
 
 // Pre-filled for a brand-new product so the admin only has to type stock
 // counts, not every size label by hand - they can still delete rows they
-// don't carry.
-const DEFAULT_SIZES = ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL", "6XL"];
+// don't carry. Jeans/trousers use EU waist numbers instead of letter sizes,
+// so the category dropdown swaps between these two sets automatically (see
+// handleCategoryChange below) - both lists are kept the same length (9) so
+// swapping is a simple in-place value rewrite, no rows added/removed.
+const DEFAULT_SIZES_LETTER = ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL", "6XL"];
+const DEFAULT_SIZES_NUMERIC = ["44", "46", "48", "50", "52", "54", "56", "58", "60"];
+
+function isPantsCategoryName(name?: string) {
+  if (!name) return false;
+  const n = name.toLowerCase();
+  return n.includes("дънк") || n.includes("панталон");
+}
+
+function buildDefaultVariants(sizes: string[]): Variant[] {
+  return sizes.map((size) => ({ size, color: "", stock: 0 }));
+}
+
+// Only safe to auto-swap sizes if nothing's been touched yet (all sizes
+// still match one of the two known presets, no stock typed in) - otherwise
+// we'd silently wipe out real data the admin already entered.
+function matchesDefaultPreset(v: Variant[], sizes: string[]) {
+  if (v.length !== sizes.length) return false;
+  return v.every((row, i) => row.size === sizes[i] && row.stock === 0 && row.color === "");
+}
 
 export default function ProductForm({
   action,
@@ -43,11 +65,27 @@ export default function ProductForm({
     variants?: Variant[];
   };
 }) {
+  const initialCategoryName = categories.find((c) => c.id === initial?.categoryId)?.name;
   const [variants, setVariants] = useState<Variant[]>(
     initial?.variants?.length
       ? initial.variants
-      : DEFAULT_SIZES.map((size) => ({ size, color: "", stock: 0 }))
+      : buildDefaultVariants(isPantsCategoryName(initialCategoryName) ? DEFAULT_SIZES_NUMERIC : DEFAULT_SIZES_LETTER)
   );
+
+  // Swaps the size column between letters and EU pants numbers when the
+  // admin picks a category - only for a brand-new product, and only while
+  // the rows are still untouched defaults, so it never clobbers real data.
+  function handleCategoryChange(categoryId: string) {
+    if (initial?.id) return;
+    const name = categories.find((c) => c.id === categoryId)?.name;
+    const targetSizes = isPantsCategoryName(name) ? DEFAULT_SIZES_NUMERIC : DEFAULT_SIZES_LETTER;
+    setVariants((v) => {
+      if (matchesDefaultPreset(v, DEFAULT_SIZES_LETTER) || matchesDefaultPreset(v, DEFAULT_SIZES_NUMERIC)) {
+        return buildDefaultVariants(targetSizes);
+      }
+      return v;
+    });
+  }
 
   function addRow() {
     setVariants((v) => [...v, { size: "", color: "", stock: 0 }]);
@@ -216,7 +254,7 @@ export default function ProductForm({
           </div>
           <div className="field">
             <label>Категория</label>
-            <select name="categoryId" defaultValue={initial?.categoryId} required>
+            <select name="categoryId" defaultValue={initial?.categoryId} onChange={(e) => handleCategoryChange(e.target.value)} required>
               <option value="">Избери...</option>
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>
