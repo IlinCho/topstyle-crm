@@ -18,6 +18,7 @@ export default function AddToCart({
   priceBgn,
   priceEur,
   variants,
+  sizeChartUrl,
 }: {
   productId: string;
   slug: string;
@@ -26,6 +27,7 @@ export default function AddToCart({
   priceBgn: number;
   priceEur: number;
   variants: Variant[];
+  sizeChartUrl?: string;
 }) {
   const { add } = useCart();
   const router = useRouter();
@@ -236,12 +238,21 @@ export default function AddToCart({
 
       {showSizeGuide && (
         <div className="size-guide-box">
-          <p style={{ margin: "0 0 6px", fontWeight: 700 }}>Съвет за избор на размер</p>
-          <p style={{ margin: 0, color: "var(--muted)" }}>
-            Кроят е стандартен (regular fit). Ако сте между два размера, препоръчваме
-            по-големия за по-свободно усещане. При въпроси за конкретни мерки — пишете ни
-            преди поръчка на телефона в контактите.
-          </p>
+          {sizeChartUrl ? (
+            <>
+              <p style={{ margin: "0 0 8px", fontWeight: 700 }}>Таблица за размери</p>
+              <img src={sizeChartUrl} alt="Таблица за размери" className="size-guide-chart" />
+            </>
+          ) : (
+            <>
+              <p style={{ margin: "0 0 6px", fontWeight: 700 }}>Съвет за избор на размер</p>
+              <p style={{ margin: 0, color: "var(--muted)" }}>
+                Кроят е стандартен (regular fit). Ако сте между два размера, препоръчваме
+                по-големия за по-свободно усещане. При въпроси за конкретни мерки — пишете ни
+                преди поръчка на телефона в контактите.
+              </p>
+            </>
+          )}
         </div>
       )}
 

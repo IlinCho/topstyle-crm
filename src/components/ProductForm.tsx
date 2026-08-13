@@ -59,6 +59,7 @@ export default function ProductForm({
     color?: string;
     description?: string;
     images?: string[];
+    sizeChartUrl?: string;
     active?: boolean;
     badges?: string[];
     categoryRank?: number | null;
@@ -126,6 +127,18 @@ export default function ProductForm({
         return { ...row, preview: file ? URL.createObjectURL(file) : null };
       })
     );
+  }
+
+  // Size chart: a single optional image shown to customers on the product
+  // page inside the existing "Как да избера размер?" toggle. Same
+  // url-or-file pattern as the photos above, just a single row.
+  const [sizeChartUrl, setSizeChartUrl] = useState(initial?.sizeChartUrl || "");
+  const [sizeChartPreview, setSizeChartPreview] = useState<string | null>(null);
+  function updateSizeChartFile(file: File | null) {
+    setSizeChartPreview((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return file ? URL.createObjectURL(file) : null;
+    });
   }
 
   // "Преглед" - a client-only mockup of the product page built from whatever
@@ -382,6 +395,43 @@ export default function ProductForm({
               </div>
             );
           })}
+        </div>
+      </div>
+
+      <div className="card-box">
+        <div className="flex-between" style={{ marginBottom: 10 }}>
+          <strong>Таблица за размери</strong>
+        </div>
+        <p className="muted" style={{ fontSize: 12.5, marginTop: -6, marginBottom: 10 }}>
+          По избор — снимка на таблица с мерки за този продукт. Показва се на клиента на
+          продуктовата страница, при клик върху "Как да избера размер?". Ако не качиш нищо,
+          там ще се показва общият текст със съвети.
+        </p>
+        <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+          {(sizeChartPreview || sizeChartUrl) ? (
+            <img
+              src={sizeChartPreview || sizeChartUrl}
+              alt=""
+              style={{ width: 60, height: 60, objectFit: "cover", borderRadius: 4, background: "#f2f2f2", flexShrink: 0 }}
+              onError={(e) => { (e.currentTarget as HTMLImageElement).style.visibility = "hidden"; }}
+            />
+          ) : (
+            <div style={{ width: 60, height: 60, borderRadius: 4, background: "#f2f2f2", flexShrink: 0 }} />
+          )}
+          <input
+            name="sizeChartUrl"
+            value={sizeChartUrl}
+            onChange={(e) => setSizeChartUrl(e.target.value)}
+            placeholder="https://... (по избор, ако не качваш файл)"
+            style={{ flex: 1, minWidth: 160 }}
+          />
+          <input
+            type="file"
+            name="sizeChartFile"
+            accept="image/*"
+            style={{ flex: 1, minWidth: 160, fontSize: 12.5 }}
+            onChange={(e) => updateSizeChartFile(e.target.files?.[0] || null)}
+          />
         </div>
       </div>
 

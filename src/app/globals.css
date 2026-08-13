@@ -516,6 +516,15 @@ a { color: inherit; text-decoration: none; }
   font-size: 13px;
   line-height: 1.5;
 }
+/* Size chart image inside the box above - constrained to the box width so it
+   never overflows on small screens (mobile is full-width, so this alone
+   covers both breakpoints without a separate media query). */
+.size-guide-chart {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
 
 .urgency-line {
   color: var(--danger);

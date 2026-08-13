@@ -78,6 +78,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
             priceBgn={product.priceBgn}
             priceEur={product.priceEur}
             variants={product.variants}
+            sizeChartUrl={product.sizeChartUrl}
           />
         </div>
       </div>

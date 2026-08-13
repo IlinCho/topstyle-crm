@@ -51,6 +51,10 @@ model Product {
   // the client always controls exactly which real claim is shown.
   badges       String          @default("")
   sourceUrl    String          @default("")
+  // Optional per-product size chart image, shown to customers when they
+  // click "Как да избера размер?" on the product page. Empty = fall back
+  // to the generic sizing advice text.
+  sizeChartUrl String          @default("")
   categoryId   String
   category     Category        @relation(fields: [categoryId], references: [id])
   images       ProductImage[]

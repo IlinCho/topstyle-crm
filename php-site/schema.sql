@@ -37,6 +37,10 @@ CREATE TABLE IF NOT EXISTS product (
   -- Comma-separated subset of: bestseller, new, limited, most_popular.
   -- Always set manually from the admin panel, never inferred automatically.
   badges VARCHAR(191) NOT NULL DEFAULT '',
+  -- Optional per-product size chart image, shown when the customer clicks
+  -- "Как да избера размер?" on the product page. Empty = fall back to the
+  -- generic sizing advice text.
+  size_chart_url VARCHAR(500) NOT NULL DEFAULT '',
   category_id VARCHAR(32) NOT NULL,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

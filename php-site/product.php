@@ -103,7 +103,23 @@ $__mainImage = $__images[0]['url'] ?? '/assets/placeholder.jpg';
         <input type="hidden" name="qty" value="1">
         <input type="hidden" name="size" id="selected-size-input" value="">
 
-        <p class="opt-label">Избери размер</p>
+        <div class="flex-between" style="align-items:baseline;">
+          <p class="opt-label" style="margin:18px 0 8px;">Избери размер</p>
+          <button type="button" class="size-guide-link" onclick="tsToggleSizeGuide()">Как да избера размер?</button>
+        </div>
+        <div class="size-guide-box" id="size-guide-box" style="display:none;">
+          <?php if (!empty($__product['size_chart_url'])): ?>
+            <p style="margin:0 0 8px;font-weight:700;">Таблица за размери</p>
+            <img src="<?= e($__product['size_chart_url']) ?>" alt="Таблица за размери" class="size-guide-chart">
+          <?php else: ?>
+            <p style="margin:0 0 6px;font-weight:700;">Съвет за избор на размер</p>
+            <p style="margin:0;color:var(--muted);">
+              Кроят е стандартен (regular fit). Ако сте между два размера, препоръчваме
+              по-големия за по-свободно усещане. При въпроси за конкретни мерки — пишете ни
+              преди поръчка на телефона в контактите.
+            </p>
+          <?php endif; ?>
+        </div>
         <div class="opt-row" id="size-row">
           <?php foreach ($__variants as $__v): $__hint = get_compact_stock_hint((int)$__v['stock']); ?>
             <button type="button"
@@ -279,6 +295,12 @@ function tsOpenQuickOrder() {
   }
   document.getElementById('quick-size-input').value = size;
   document.getElementById('quick-order-box').style.display = 'block';
+}
+
+function tsToggleSizeGuide() {
+  var box = document.getElementById('size-guide-box');
+  if (!box) return;
+  box.style.display = (box.style.display === 'none' || !box.style.display) ? 'block' : 'none';
 }
 
 function tsSelectSize(btn) {

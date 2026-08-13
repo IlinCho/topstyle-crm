@@ -24,22 +24,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $badgeKeys = isset($_POST['badges']) && is_array($_POST['badges']) ? $_POST['badges'] : [];
     $badges = serialize_badges($badgeKeys);
 
+    // Size chart: uploaded file wins over a pasted URL; leaving both empty on
+    // an edit keeps the existing value (the URL field is pre-filled with it),
+    // so a resave without touching this section doesn't clear it.
+    $__sizeChartUploaded = save_uploaded_size_chart_image($_FILES['size_chart_file'] ?? []);
+    $sizeChartUrl = $__sizeChartUploaded ?? trim($_POST['size_chart_url'] ?? '');
+
     if ($name === '' || $sku === '' || $categoryId === '' || $priceBgn <= 0 || $priceEur <= 0) {
         $__error = 'Моля, попълни име, SKU, категория и валидни цени.';
     } else {
         try {
             if ($__existing) {
                 db_query(
-                    'UPDATE product SET name=?, sku=?, slug=?, description=?, material=?, color=?, price_eur=?, price_bgn=?, active=?, category_id=?, category_rank=?, badges=? WHERE id=?',
-                    [$name, $sku, $slug, $description, $material, $color, $priceEur, $priceBgn, $active, $categoryId, $categoryRank, $badges, $__existing['id']]
+                    'UPDATE product SET name=?, sku=?, slug=?, description=?, material=?, color=?, price_eur=?, price_bgn=?, active=?, category_id=?, category_rank=?, badges=?, size_chart_url=? WHERE id=?',
+                    [$name, $sku, $slug, $description, $material, $color, $priceEur, $priceBgn, $active, $categoryId, $categoryRank, $badges, $sizeChartUrl, $__existing['id']]
                 );
                 $__productId = $__existing['id'];
             } else {
                 $__productId = db_id();
                 db_query(
-                    'INSERT INTO product (id, sku, name, slug, description, material, color, price_eur, price_bgn, active, category_rank, badges, category_id)
-                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                    [$__productId, $sku, $name, $slug, $description, $material, $color, $priceEur, $priceBgn, $active, $categoryRank, $badges, $categoryId]
+                    'INSERT INTO product (id, sku, name, slug, description, material, color, price_eur, price_bgn, active, category_rank, badges, size_chart_url, category_id)
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                    [$__productId, $sku, $name, $slug, $description, $material, $color, $priceEur, $priceBgn, $active, $categoryRank, $badges, $sizeChartUrl, $categoryId]
                 );
             }
 
@@ -241,6 +247,24 @@ if (!$__variantRows) {
   </div>
 
   <div class="card-box">
+    <h3 style="margin-top:0;">Таблица за размери</h3>
+    <p class="muted" style="font-size:12.5px;margin-top:-6px;margin-bottom:10px;">
+      По избор — снимка на таблица с мерки за този продукт. Показва се на клиента на
+      продуктовата страница, при клик върху "Как да избера размер?". Ако не качиш нищо,
+      там ще се показва общият текст със съвети.
+    </p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+      <img id="size-chart-thumb" src="<?= e($__existing['size_chart_url'] ?? '') ?>" alt=""
+           style="width:60px;height:60px;object-fit:cover;border-radius:4px;background:var(--bg-soft);flex-shrink:0;<?= empty($__existing['size_chart_url']) ? 'display:none;' : '' ?>">
+      <input type="text" name="size_chart_url" value="<?= e($__existing['size_chart_url'] ?? '') ?>"
+             placeholder="https://... (по избор, ако не качваш файл)" style="flex:1;min-width:160px;"
+             oninput="tsSizeChartUrlChange(this)">
+      <input type="file" name="size_chart_file" accept="image/*" style="flex:1;min-width:160px;font-size:12.5px;"
+             onchange="tsPreviewSizeChartFile(this)">
+    </div>
+  </div>
+
+  <div class="card-box">
     <h3 style="margin-top:0;">Размери и наличност</h3>
     <p class="muted" style="font-size:12.5px;margin-top:-6px;margin-bottom:10px;">
       Цветът се задава веднъж, горе в "Цвят" на продукта — всички размери тук го наследяват
@@ -277,6 +301,26 @@ function tsPreviewImageFiles(input) {
     img.style.cssText = 'width:44px;height:55px;object-fit:cover;border-radius:4px;background:#f2f2f2;';
     box.appendChild(img);
   }
+}
+
+// Same thumbnail-preview idea as tsPreviewImageFiles above, just for the
+// single size-chart image (URL field or file, whichever the admin uses).
+function tsSizeChartThumbShow(src) {
+  var thumb = document.getElementById('size-chart-thumb');
+  if (!thumb) return;
+  if (src) {
+    thumb.src = src;
+    thumb.style.display = '';
+  } else {
+    thumb.style.display = 'none';
+  }
+}
+function tsSizeChartUrlChange(input) {
+  tsSizeChartThumbShow(input.value.trim());
+}
+function tsPreviewSizeChartFile(input) {
+  var file = input.files && input.files[0];
+  if (file) tsSizeChartThumbShow(URL.createObjectURL(file));
 }
 
 // "Преглед" - builds a client-only mockup of the product page from whatever

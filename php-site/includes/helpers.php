@@ -76,6 +76,37 @@ function save_uploaded_product_images(array $filesInput): array {
     return $urls;
 }
 
+// Single-file counterpart to save_uploaded_product_images() above, for the
+// size-chart upload (one file, not a repeatable list) - same validation
+// rules (real image content via getimagesize(), 8MB cap, random filename),
+// just working off a plain $_FILES[...] entry (scalar fields) instead of
+// the array-shaped one a multi[] input produces.
+function save_uploaded_size_chart_image(array $fileInput): ?string {
+    if (($fileInput['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) return null;
+    $size = (int)($fileInput['size'] ?? 0);
+    $maxBytes = 8 * 1024 * 1024;
+    if ($size <= 0 || $size > $maxBytes) return null;
+
+    $tmpPath = $fileInput['tmp_name'] ?? '';
+    $info = @getimagesize($tmpPath);
+    if (!$info) return null;
+
+    $ext = image_type_to_extension($info[2], false);
+    $ext = $ext === 'jpeg' ? 'jpg' : $ext;
+    $allowedExt = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+    if (!in_array($ext, $allowedExt, true)) return null;
+
+    $uploadDir = __DIR__ . '/../uploads/size-charts/';
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
+    $filename = bin2hex(random_bytes(8)) . '.' . $ext;
+    if (move_uploaded_file($tmpPath, $uploadDir . $filename)) {
+        return '/uploads/size-charts/' . $filename;
+    }
+    return null;
+}
+
 // ---- Product badges (Bestseller / New / Limited / Most Popular) ----
 // Always set manually from the admin panel - never inferred from sales data,
 // so the storefront never shows a claim the admin didn't explicitly choose.

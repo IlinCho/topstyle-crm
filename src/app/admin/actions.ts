@@ -124,6 +124,22 @@ async function resolveImageUrls(formData: FormData): Promise<string[]> {
   return results;
 }
 
+// Single optional image, same url-or-file rule as resolveImageUrls above:
+// an uploaded file wins over a pasted URL. The text input is pre-filled
+// with the current value on edit, so leaving it untouched round-trips the
+// existing URL rather than clearing it.
+async function resolveSizeChartUrl(formData: FormData): Promise<string> {
+  const file = formData.get("sizeChartFile") as File | null;
+  if (file && file.size > 0) {
+    const blob = await put(`size-charts/${Date.now()}-${file.name}`, file, {
+      access: "public",
+      addRandomSuffix: true,
+    });
+    return blob.url;
+  }
+  return String(formData.get("sizeChartUrl") || "").trim();
+}
+
 // Empty input -> no pin (falls back to newest-first). Anything else is
 // clamped to a sane 1-8 range so a typo can't push a product to rank -50.
 function parseCategoryRank(formData: FormData): number | null {
@@ -144,6 +160,7 @@ export async function createProductAction(formData: FormData) {
   const color = String(formData.get("color") || "").trim();
   const description = String(formData.get("description") || "").trim();
   const imageUrls = await resolveImageUrls(formData);
+  const sizeChartUrl = await resolveSizeChartUrl(formData);
   const sku = String(formData.get("sku") || "").trim() || `SKU-${Date.now()}`;
   const badges = serializeBadges(formData.getAll("badge") as string[]);
   const categoryRank = parseCategoryRank(formData);
@@ -166,6 +183,7 @@ export async function createProductAction(formData: FormData) {
       categoryId,
       badges,
       categoryRank,
+      sizeChartUrl,
       variants: { create: variants },
       images: imageUrls.length
         ? { create: imageUrls.map((url, position) => ({ url, position })) }
@@ -189,6 +207,7 @@ export async function updateProductAction(formData: FormData) {
   const color = String(formData.get("color") || "").trim();
   const description = String(formData.get("description") || "").trim();
   const imageUrls = await resolveImageUrls(formData);
+  const sizeChartUrl = await resolveSizeChartUrl(formData);
   const active = formData.get("active") === "on";
   const badges = serializeBadges(formData.getAll("badge") as string[]);
   const categoryRank = parseCategoryRank(formData);
@@ -199,7 +218,7 @@ export async function updateProductAction(formData: FormData) {
 
   await db.product.update({
     where: { id },
-    data: { name, categoryId, priceEur, priceBgn, material, color, description, active, badges, categoryRank },
+    data: { name, categoryId, priceEur, priceBgn, material, color, description, active, badges, categoryRank, sizeChartUrl },
   });
 
   await db.productVariant.deleteMany({ where: { productId: id } });
