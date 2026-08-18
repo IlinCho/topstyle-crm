@@ -107,6 +107,54 @@ function save_uploaded_size_chart_image(array $fileInput): ?string {
     return null;
 }
 
+// ---- Abandoned checkout tracking ----
+// Captures a checkout that was started (name/email/phone entered) but never
+// finished, so the admin can see and follow up on likely-lost sales - see
+// admin/abandoned.php. Called from checkout.php right after each step is
+// saved into $_SESSION['checkout']. Requires includes/cart.php to already be
+// loaded (for cart_line_items()/cart_totals()) - checkout.php always does.
+function save_abandoned_checkout_snapshot(array $personal, string $city, int $step): void {
+    $name = trim($personal['name'] ?? '');
+    $email = trim($personal['email'] ?? '');
+    $phone = trim($personal['phone'] ?? '');
+    // Nothing worth recording yet - don't create a row for a checkout page
+    // visit where the customer hasn't typed anything identifying.
+    if ($name === '' && $email === '' && $phone === '') return;
+
+    if (empty($_SESSION['checkout']['client_key'])) {
+        $_SESSION['checkout']['client_key'] = bin2hex(random_bytes(16));
+    }
+    $clientKey = $_SESSION['checkout']['client_key'];
+
+    $lines = cart_line_items();
+    $totals = cart_totals($lines);
+    $items = array_map(function ($l) {
+        return [
+            'name' => $l['product']['name'],
+            'size' => $l['size'],
+            'color' => $l['color'],
+            'qty' => $l['qty'],
+            'priceBgn' => (float)$l['product']['price_bgn'],
+        ];
+    }, $lines);
+
+    db_query(
+        'INSERT INTO abandoned_checkout (id, client_key, name, email, phone, city, step, items_json, total_bgn)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+         ON DUPLICATE KEY UPDATE name=VALUES(name), email=VALUES(email), phone=VALUES(phone),
+             city=VALUES(city), step=VALUES(step), items_json=VALUES(items_json), total_bgn=VALUES(total_bgn)',
+        [db_id(), $clientKey, $name, $email, $phone, $city, max(1, min(3, $step)), json_encode($items), $totals['bgn']]
+    );
+}
+
+// Called once a real order is placed with the same session - the checkout is
+// no longer "abandoned", so the snapshot row is dropped.
+function delete_abandoned_checkout_snapshot(): void {
+    if (!empty($_SESSION['checkout']['client_key'])) {
+        db_query('DELETE FROM abandoned_checkout WHERE client_key = ?', [$_SESSION['checkout']['client_key']]);
+    }
+}
+
 // ---- Product badges (Bestseller / New / Limited / Most Popular) ----
 // Always set manually from the admin panel - never inferred from sales data,
 // so the storefront never shows a claim the admin didn't explicitly choose.

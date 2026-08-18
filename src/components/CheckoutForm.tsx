@@ -50,6 +50,38 @@ export default function CheckoutForm({ initialCustomer }: { initialCustomer: Ini
   // Плащане / Потвърждение), instead of showing everything on one long page.
   const [step, setStep] = useState<FormStep>(1);
 
+  // Abandoned-checkout tracking: a per-attempt id kept in localStorage (so it
+  // survives a page reload but not a brand-new visit), used to upsert/delete
+  // a snapshot the admin can see under Админ -> Изоставени поръчки. Nothing
+  // is saved until the customer has actually typed a name/email/phone (see
+  // the skip check in /api/abandoned-checkout).
+  const clientKeyRef = useRef<string>("");
+  if (!clientKeyRef.current && typeof window !== "undefined") {
+    const KEY = "topstyle_checkout_key_v1";
+    clientKeyRef.current = window.localStorage.getItem(KEY) || crypto.randomUUID();
+    window.localStorage.setItem(KEY, clientKeyRef.current);
+  }
+  useEffect(() => {
+    if (!form.name && !form.email && !form.phone) return;
+    const t = setTimeout(() => {
+      fetch("/api/abandoned-checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          clientKey: clientKeyRef.current,
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          city: form.city,
+          step,
+          lines,
+        }),
+      }).catch(() => {});
+    }, 1200);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.name, form.email, form.phone, form.city, step]);
+
   const activeIndex = placed ? 3 : step - 1; // 0-based index into STEPS for the progress bar
 
   // On mobile the step content is short, so switching steps (Назад/Продължи,
@@ -124,12 +156,16 @@ export default function CheckoutForm({ initialCustomer }: { initialCustomer: Ini
           customerId: initialCustomer?.id || null,
           lines,
           delivery: { method: deliveryMethod, officeName: officeName.trim() },
+          clientKey: clientKeyRef.current,
         }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Грешка при поръчката");
       setPlaced(data.orderNumber);
       clear();
+      try {
+        window.localStorage.removeItem("topstyle_checkout_key_v1");
+      } catch {}
     } catch (e: any) {
       setError(e.message);
     } finally {

@@ -97,6 +97,27 @@ CREATE TABLE IF NOT EXISTS customer (
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Captures a checkout that was started (name/email/phone entered) but never
+-- finished - upserted by a session-scoped client_key as the customer moves
+-- through the checkout steps (see includes/helpers.php + checkout.php), and
+-- deleted the moment a real order is placed with that same key. Lets the
+-- admin see and follow up on likely-lost sales.
+CREATE TABLE IF NOT EXISTS abandoned_checkout (
+  id VARCHAR(32) PRIMARY KEY,
+  client_key VARCHAR(64) NOT NULL UNIQUE,
+  name VARCHAR(191) NOT NULL DEFAULT '',
+  email VARCHAR(191) NOT NULL DEFAULT '',
+  phone VARCHAR(64) NOT NULL DEFAULT '',
+  city VARCHAR(191) NOT NULL DEFAULT '',
+  -- Highest checkout step reached (1 = personal info, 2 = delivery, 3 =
+  -- payment/confirmation) - a rough signal of how "hot" the lead is.
+  step INT NOT NULL DEFAULT 1,
+  items_json TEXT NOT NULL,
+  total_bgn DECIMAL(10,2) NOT NULL DEFAULT 0,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE IF NOT EXISTS `order` (
   id VARCHAR(32) PRIMARY KEY,
   order_number VARCHAR(50) NOT NULL UNIQUE,

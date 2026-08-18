@@ -17,6 +17,7 @@ $__activeNav = $activeNav ?? '';
 // naturally drops to 0 as orders get looked at, same as any other
 // notification bell.
 $__unseenOrderCount = (int)(db_one('SELECT COUNT(*) AS c FROM `order` WHERE seen_by_admin = 0')['c'] ?? 0);
+$__abandonedCount = (int)(db_one('SELECT COUNT(*) AS c FROM abandoned_checkout')['c'] ?? 0);
 ?><!DOCTYPE html>
 <html lang="bg">
 <head>
@@ -40,6 +41,12 @@ $__unseenOrderCount = (int)(db_one('SELECT COUNT(*) AS c FROM `order` WHERE seen
     </a>
     <a href="/admin/reviews.php" class="<?= $__activeNav === 'reviews' ? 'active' : '' ?>">Отзиви</a>
     <a href="/admin/stock-alerts.php" class="<?= $__activeNav === 'stock_alerts' ? 'active' : '' ?>">Известия за наличност</a>
+    <a href="/admin/abandoned.php" class="<?= $__activeNav === 'abandoned' ? 'active' : '' ?>" style="display:flex;align-items:center;gap:8px;">
+      Изоставени поръчки
+      <?php if ($__abandonedCount > 0): ?>
+        <span title="<?= $__abandonedCount ?> изоставени поръчки" style="background:#f5a623;color:#fff;border-radius:999px;font-size:11px;font-weight:700;padding:1px 7px;line-height:1.5;"><?= $__abandonedCount ?></span>
+      <?php endif; ?>
+    </a>
     <a href="/admin/logout.php">Изход</a>
   </aside>
   <main class="admin-main">

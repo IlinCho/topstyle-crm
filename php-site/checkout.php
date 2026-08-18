@@ -32,6 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form_action'])) {
         } else {
             $_SESSION['checkout']['personal'] = compact('name', 'email', 'phone');
             $_SESSION['checkout']['max_step'] = max($_SESSION['checkout']['max_step'], 2);
+            save_abandoned_checkout_snapshot(
+                $_SESSION['checkout']['personal'],
+                $_SESSION['checkout']['delivery']['city'] ?? '',
+                $_SESSION['checkout']['max_step']
+            );
             redirect_to('/checkout.php?step=2');
         }
     } elseif ($_POST['form_action'] === 'save_step2') {
@@ -51,6 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form_action'])) {
         } else {
             $_SESSION['checkout']['delivery'] = compact('method', 'address', 'city', 'office');
             $_SESSION['checkout']['max_step'] = max($_SESSION['checkout']['max_step'], 3);
+            save_abandoned_checkout_snapshot(
+                $_SESSION['checkout']['personal'] ?? ['name' => '', 'email' => '', 'phone' => ''],
+                $city,
+                $_SESSION['checkout']['max_step']
+            );
             redirect_to('/checkout.php?step=3');
         }
     } elseif ($_POST['form_action'] === 'save_step3') {
@@ -61,6 +71,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form_action'])) {
         } else {
             $_SESSION['checkout']['payment'] = ['method' => $payment];
             $_SESSION['checkout']['max_step'] = max($_SESSION['checkout']['max_step'], 4);
+            save_abandoned_checkout_snapshot(
+                $_SESSION['checkout']['personal'] ?? ['name' => '', 'email' => '', 'phone' => ''],
+                $_SESSION['checkout']['delivery']['city'] ?? '',
+                3 // clamped to 3 by save_abandoned_checkout_snapshot() - step 4 is the real order itself
+            );
             redirect_to('/checkout.php?step=4');
         }
     } elseif ($_POST['form_action'] === 'place_order') {
@@ -107,6 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form_action'])) {
                 );
             }
 
+            delete_abandoned_checkout_snapshot();
             cart_clear();
             unset($_SESSION['checkout']);
             redirect_to('/order-confirmation.php?order=' . urlencode($orderNumber));

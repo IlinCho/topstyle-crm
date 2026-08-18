@@ -148,6 +148,28 @@ model Customer {
   createdAt    DateTime @default(now())
 }
 
+// Captures a checkout the customer started (typed name/email/phone) but never
+// finished - upserted by a client-generated key as they progress through the
+// checkout steps (see CheckoutForm.tsx + /api/abandoned-checkout), and
+// deleted the moment a real Order is placed with that same key (see
+// /api/checkout). Lets the admin see and follow up on likely-lost sales
+// instead of them just disappearing when the customer closes the tab.
+model AbandonedCheckout {
+  id        String   @id @default(cuid())
+  clientKey String   @unique
+  name      String   @default("")
+  email     String   @default("")
+  phone     String   @default("")
+  city      String   @default("")
+  // Highest checkout step reached (1 = personal info, 2 = delivery, 3 =
+  // payment/confirmation) - a rough signal of how "hot" the lead is.
+  step      Int      @default(1)
+  itemsJson String   @default("[]")
+  totalBgn  Float    @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 model Order {
   id          String      @id @default(cuid())
   orderNumber String      @unique

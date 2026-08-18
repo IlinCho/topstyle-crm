@@ -5,10 +5,11 @@ import { getCustomerSession } from "@/lib/customer-auth";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { customer, lines, delivery } = body as {
+    const { customer, lines, delivery, clientKey } = body as {
       customer: { name: string; email: string; phone: string; address: string; city: string };
       lines: { productId: string; name: string; size: string; color: string; qty: number; priceBgn: number; priceEur: number }[];
       delivery?: { method: string; officeName?: string };
+      clientKey?: string;
     };
 
     if (!lines || lines.length === 0) {
@@ -95,6 +96,13 @@ export async function POST(req: NextRequest) {
           data: { stock: Math.max(0, variant.stock - l.qty) },
         });
       }
+    }
+
+    // The checkout just turned into a real order - it's no longer "abandoned",
+    // so drop the in-progress snapshot (best-effort; a missing/stale key here
+    // should never block a successful order from returning).
+    if (clientKey) {
+      await db.abandonedCheckout.deleteMany({ where: { clientKey } }).catch(() => {});
     }
 
     return NextResponse.json({ orderNumber: order.orderNumber });

@@ -330,3 +330,13 @@ export async function deleteStockAlertAction(formData: FormData) {
   await db.stockAlert.delete({ where: { id } });
   revalidatePath("/admin/stock-alerts");
 }
+
+// ---------- Abandoned checkouts ----------
+
+export async function deleteAbandonedCheckoutAction(formData: FormData) {
+  await requireAdminSession();
+  const id = String(formData.get("id") || "");
+  if (!id) return;
+  await db.abandonedCheckout.delete({ where: { id } });
+  revalidatePath("/admin/abandoned");
+}
