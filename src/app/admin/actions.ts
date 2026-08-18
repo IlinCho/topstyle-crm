@@ -161,7 +161,6 @@ export async function createProductAction(formData: FormData) {
   const description = String(formData.get("description") || "").trim();
   const imageUrls = await resolveImageUrls(formData);
   const sizeChartUrl = await resolveSizeChartUrl(formData);
-  const sizeChartNote = String(formData.get("sizeChartNote") || "").trim();
   const sizeChartTable = String(formData.get("sizeChartTable") || "").trim();
   const sku = String(formData.get("sku") || "").trim() || `SKU-${Date.now()}`;
   const badges = serializeBadges(formData.getAll("badge") as string[]);
@@ -186,7 +185,6 @@ export async function createProductAction(formData: FormData) {
       badges,
       categoryRank,
       sizeChartUrl,
-      sizeChartNote,
       sizeChartTable,
       variants: { create: variants },
       images: imageUrls.length
@@ -212,7 +210,6 @@ export async function updateProductAction(formData: FormData) {
   const description = String(formData.get("description") || "").trim();
   const imageUrls = await resolveImageUrls(formData);
   const sizeChartUrl = await resolveSizeChartUrl(formData);
-  const sizeChartNote = String(formData.get("sizeChartNote") || "").trim();
   const sizeChartTable = String(formData.get("sizeChartTable") || "").trim();
   const active = formData.get("active") === "on";
   const badges = serializeBadges(formData.getAll("badge") as string[]);
@@ -224,7 +221,7 @@ export async function updateProductAction(formData: FormData) {
 
   await db.product.update({
     where: { id },
-    data: { name, categoryId, priceEur, priceBgn, material, color, description, active, badges, categoryRank, sizeChartUrl, sizeChartNote, sizeChartTable },
+    data: { name, categoryId, priceEur, priceBgn, material, color, description, active, badges, categoryRank, sizeChartUrl, sizeChartTable },
   });
 
   await db.productVariant.deleteMany({ where: { productId: id } });

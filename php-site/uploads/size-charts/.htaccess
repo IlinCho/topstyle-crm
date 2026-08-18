@@ -1,10 +1,8 @@
-# Same defense-in-depth as uploads/products/.htaccess: even though
-# save_uploaded_size_chart_image() in includes/helpers.php only accepts
-# files that pass getimagesize() (a real image header check, not just
-# extension), this blocks anything in here from ever being executed as a
-# script if a validation gap is ever found.
-<FilesMatch "\.(php|php3|php4|php5|phtml|pl|py|cgi|sh)$">
+# Defense-in-depth: this folder only ever holds admin-uploaded size-chart
+# images, so block script execution here even if a malicious file somehow
+# got an image-like extension past the upload validation in helpers.php.
+<FilesMatch "\.(php|phtml|php3|php4|php5|php7|pht|phar)$">
   Require all denied
-  Deny from all
 </FilesMatch>
 Options -ExecCGI
+AddHandler default-handler .php

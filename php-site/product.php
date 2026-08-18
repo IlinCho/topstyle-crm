@@ -109,14 +109,10 @@ $__mainImage = $__images[0]['url'] ?? '/assets/placeholder.jpg';
         </div>
         <?php
         $__sizeTableRows = !empty($__product['size_chart_table']) ? parse_size_chart_csv($__product['size_chart_table']) : [];
-        $__hasNote = !empty($__product['size_chart_note']);
         $__hasTable = count($__sizeTableRows) > 0;
         $__hasImage = !empty($__product['size_chart_url']);
         ?>
         <div class="size-guide-box" id="size-guide-box" style="display:none;">
-          <?php if ($__hasNote): ?>
-            <p style="margin:0 0 10px;white-space:pre-line;"><?= e($__product['size_chart_note']) ?></p>
-          <?php endif; ?>
           <?php if ($__hasTable): ?>
             <table class="size-guide-table">
               <thead>
@@ -130,11 +126,11 @@ $__mainImage = $__images[0]['url'] ?? '/assets/placeholder.jpg';
             </table>
           <?php endif; ?>
           <?php if ($__hasImage): ?>
-            <?php if (!$__hasNote && !$__hasTable): ?>
+            <?php if (!$__hasTable): ?>
               <p style="margin:0 0 8px;font-weight:700;">Таблица за размери</p>
             <?php endif; ?>
             <img src="<?= e($__product['size_chart_url']) ?>" alt="Таблица за размери" class="size-guide-chart">
-          <?php elseif (!$__hasNote && !$__hasTable): ?>
+          <?php elseif (!$__hasTable): ?>
             <p style="margin:0 0 6px;font-weight:700;">Съвет за избор на размер</p>
             <p style="margin:0;color:var(--muted);">
               Кроят е стандартен (regular fit). Ако сте между два размера, препоръчваме

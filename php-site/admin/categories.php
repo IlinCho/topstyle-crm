@@ -21,8 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } elseif (isset($_POST['delete_id'])) {
             db_query('DELETE FROM category WHERE id = ?', [$_POST['delete_id']]);
-        } elseif (isset($_POST['update_image_id'])) {
-            db_query('UPDATE category SET image_url = ? WHERE id = ?', [trim($_POST['image_url'] ?? ''), $_POST['update_image_id']]);
         }
     } catch (PDOException $e) {
         // Most likely a foreign-key restriction (products or subcategories
@@ -70,26 +68,14 @@ $__flat = flatten_category_tree($__tree);
 </div>
 
 <div class="card-box">
-  <p class="muted" style="margin-top:0;">
-    Снимката тук се показва само за категориите на началната страница (Мъжки
-    тениски, Мъжки якета, Бански) — ако полето е празно, ползва се снимката на
-    първия продукт в категорията вместо това.
-  </p>
   <table class="admin-table">
-    <thead><tr><th>Име</th><th>Slug</th><th>Позиция</th><th>Снимка (начало)</th><th></th></tr></thead>
+    <thead><tr><th>Име</th><th>Slug</th><th>Позиция</th><th></th></tr></thead>
     <tbody>
       <?php foreach ($__flat as $__c): ?>
         <tr>
           <td><?= str_repeat('— ', $__c['depth']) . e($__c['name']) ?></td>
           <td class="muted"><?= e($__c['slug']) ?></td>
           <td><?= (int)$__c['position'] ?></td>
-          <td>
-            <form method="POST" action="/admin/categories.php" style="display:flex;gap:6px;">
-              <input type="hidden" name="update_image_id" value="<?= e($__c['id']) ?>">
-              <input type="text" name="image_url" value="<?= e($__c['image_url'] ?? '') ?>" placeholder="URL на снимка" style="padding:6px;border:1px solid var(--line);border-radius:4px;width:200px;font-size:12px;">
-              <button type="submit" class="btn btn--ghost btn--sm">Запази</button>
-            </form>
-          </td>
           <td>
             <form method="POST" action="/admin/categories.php" onsubmit="return confirm('Изтриване на категорията?');" style="display:inline;">
               <input type="hidden" name="delete_id" value="<?= e($__c['id']) ?>">

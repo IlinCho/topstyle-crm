@@ -33,7 +33,6 @@ export default function AddToCart({
   priceEur,
   variants,
   sizeChartUrl,
-  sizeChartNote,
   sizeChartTable,
 }: {
   productId: string;
@@ -44,7 +43,6 @@ export default function AddToCart({
   priceEur: number;
   variants: Variant[];
   sizeChartUrl?: string;
-  sizeChartNote?: string;
   sizeChartTable?: string;
 }) {
   const { add } = useCart();
@@ -72,7 +70,6 @@ export default function AddToCart({
   const inStock = !size || selectedStock > 0;
 
   const sizeChartRows = sizeChartTable ? parseSizeChartCsv(sizeChartTable) : [];
-  const hasChartNote = !!sizeChartNote;
   const hasChartTable = sizeChartRows.length > 0;
   const hasChartImage = !!sizeChartUrl;
 
@@ -261,9 +258,6 @@ export default function AddToCart({
 
       {showSizeGuide && (
         <div className="size-guide-box">
-          {hasChartNote && (
-            <p style={{ margin: "0 0 10px", whiteSpace: "pre-line" }}>{sizeChartNote}</p>
-          )}
           {hasChartTable && (
             <table className="size-guide-table">
               <thead>
@@ -286,10 +280,10 @@ export default function AddToCart({
           )}
           {hasChartImage ? (
             <>
-              {!hasChartNote && !hasChartTable && <p style={{ margin: "0 0 8px", fontWeight: 700 }}>Таблица за размери</p>}
+              {!hasChartTable && <p style={{ margin: "0 0 8px", fontWeight: 700 }}>Таблица за размери</p>}
               <img src={sizeChartUrl} alt="Таблица за размери" className="size-guide-chart" />
             </>
-          ) : !hasChartNote && !hasChartTable ? (
+          ) : !hasChartTable ? (
             <>
               <p style={{ margin: "0 0 6px", fontWeight: 700 }}>Съвет за избор на размер</p>
               <p style={{ margin: 0, color: "var(--muted)" }}>
@@ -395,4 +389,3 @@ export default function AddToCart({
     </div>
   );
 }
-

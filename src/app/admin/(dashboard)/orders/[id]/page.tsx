@@ -15,16 +15,9 @@ const DELIVERY_LABELS: Record<string, string> = {
 export default async function AdminOrderDetailPage({ params }: { params: { id: string } }) {
   const order = await db.order.findUnique({
     where: { id: params.id },
-    include: { items: { include: { product: { select: { sku: true } } } }, customer: true },
+    include: { items: true, customer: true },
   });
   if (!order) notFound();
-
-  // Opening the order's detail page is what clears it off the sidebar bell -
-  // same as any other notification list. Only writes when actually needed,
-  // so viewing an already-seen order doesn't hit the DB on every reload.
-  if (!order.seenByAdmin) {
-    await db.order.update({ where: { id: order.id }, data: { seenByAdmin: true } });
-  }
 
   return (
     <>
@@ -72,12 +65,11 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
       <div className="card-box">
         <table className="admin-table">
           <thead>
-            <tr><th>Код</th><th>Продукт</th><th>Размер</th><th>Цвят</th><th>Бр.</th><th>Цена</th></tr>
+            <tr><th>Продукт</th><th>Размер</th><th>Цвят</th><th>Бр.</th><th>Цена</th></tr>
           </thead>
           <tbody>
             {order.items.map((i) => (
               <tr key={i.id}>
-                <td className="muted">{i.product?.sku || "—"}</td>
                 <td>{i.productName}</td>
                 <td>{i.size}</td>
                 <td>{i.color}</td>
@@ -99,4 +91,3 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
     </>
   );
 }
-

@@ -60,7 +60,6 @@ export default function ProductForm({
     description?: string;
     images?: string[];
     sizeChartUrl?: string;
-    sizeChartNote?: string;
     sizeChartTable?: string;
     active?: boolean;
     badges?: string[];
@@ -273,7 +272,7 @@ export default function ProductForm({
               <option value="">Избери...</option>
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>
-                  {c.depth ? "  ".repeat(c.depth) + "↳ " : ""}
+                  {c.depth ? "  ".repeat(c.depth) + "↳ " : ""}
                   {c.name}
                 </option>
               ))}
@@ -436,7 +435,7 @@ export default function ProductForm({
           />
         </div>
         <div className="field" style={{ marginTop: 12 }}>
-          <label>Таблица с мерки (по избор) — CSV формат</label>
+          <label>Указания за размерите (таблица) — CSV формат</label>
           <textarea
             name="sizeChartTable"
             defaultValue={initial?.sizeChartTable}
@@ -444,23 +443,10 @@ export default function ProductForm({
             rows={6}
           />
           <p className="muted" style={{ fontSize: 12, marginTop: 4 }}>
-            Първи ред = заглавия на колоните, всеки следващ ред = стойности, разделени със запетая
-            (както при копиране от Excel/Google Sheets). Показва се като подредена таблица. Може
-            да копираш директно от Excel.
-          </p>
-        </div>
-        <div className="field" style={{ marginTop: 12 }}>
-          <label>Текст с указания за размера (по избор)</label>
-          <textarea
-            name="sizeChartNote"
-            defaultValue={initial?.sizeChartNote}
-            placeholder="напр. Този модел пасва по-плътно — препоръчваме да вземете един размер по-голям."
-            rows={3}
-          />
-          <p className="muted" style={{ fontSize: 12, marginTop: 4 }}>
-            Показва се над таблицата за размери, при клик върху "Как да избера размер?".
-            За качествени бележки (напр. "пасва малко"), не за самите мерки — за тях ползвай
-            таблицата по-горе. Различен е за всеки продукт.
+            Това е единственото текстово поле за размерите — снимката отгоре е отделна и по избор.
+            Първи ред = заглавия на колоните, всеки следващ ред = стойности. <strong>Задължително
+            разделени със запетая</strong> (не с интервал/табулация — иначе таблицата не се разчита правилно).
+            Копирано от Excel/Google Sheets в клетки, разделени със запетая, работи директно.
           </p>
         </div>
       </div>
