@@ -141,6 +141,13 @@ CREATE TABLE IF NOT EXISTS `order` (
   office_name VARCHAR(255) NOT NULL DEFAULT '',
   status VARCHAR(50) NOT NULL DEFAULT 'pending',
   seen_by_admin TINYINT(1) NOT NULL DEFAULT 0,
+  -- Set once, at order-creation time, by matching the order's contact email/
+  -- phone against the legacy_customer table (imported from the old PrestaShop
+  -- store) - lets the admin tell at a glance whether an order is from a
+  -- returning pre-migration customer or a genuinely new one. Never
+  -- recomputed automatically afterwards; see admin/legacy-customers.php's
+  -- "Преизчисли" action for backfilling orders placed before an import.
+  is_legacy TINYINT(1) NOT NULL DEFAULT 0,
   total_bgn DECIMAL(10,2) NOT NULL,
   total_eur DECIMAL(10,2) NOT NULL,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -172,6 +179,26 @@ CREATE TABLE IF NOT EXISTS stock_alert (
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE,
   INDEX idx_stock_alert_lookup (product_id, size, color)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- One-time-imported reference list of customers who already bought from the
+-- old topstyle.bg (PrestaShop) store, exported by the admin from the old
+-- store's admin panel and pasted in as CSV on Admin -> Стари клиенти. Used
+-- only as a lookup at order-creation time (see order.is_legacy above) - not
+-- linked to customer/order by foreign key, since it's matched by normalized
+-- email/phone text, not by id (the old store's ids mean nothing here).
+CREATE TABLE IF NOT EXISTS legacy_customer (
+  id VARCHAR(32) PRIMARY KEY,
+  -- Normalized lower-cased/trimmed email, or '' if only a phone was known.
+  email VARCHAR(191) NOT NULL DEFAULT '',
+  -- Normalized to the last 9 digits (matches Bulgarian mobile numbers
+  -- regardless of +359/0/00359 prefix variations), or '' if only an email
+  -- was known.
+  phone VARCHAR(20) NOT NULL DEFAULT '',
+  name VARCHAR(191) NOT NULL DEFAULT '',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_legacy_customer_email (email),
+  INDEX idx_legacy_customer_phone (phone)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS login_attempt (

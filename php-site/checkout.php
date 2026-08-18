@@ -94,15 +94,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form_action'])) {
             $orderId = db_id();
             $orderNumber = strtoupper(substr($orderId, 0, 8));
 
+            // Matched once, at creation time, against the admin-imported list
+            // of old PrestaShop customers (Admin -> Стари клиенти).
+            $__isLegacy = check_is_legacy($personal['email'], $personal['phone']) ? 1 : 0;
+
             db_query(
                 'INSERT INTO `order`
-                    (id, order_number, customer_id, guest_name, guest_email, guest_phone, address, city, delivery_method, office_name, status, total_bgn, total_eur)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                    (id, order_number, customer_id, guest_name, guest_email, guest_phone, address, city, delivery_method, office_name, status, is_legacy, total_bgn, total_eur)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                 [
                     $orderId, $orderNumber, $__customer ? $__customer['id'] : null,
                     $personal['name'], $personal['email'], $personal['phone'],
                     $delivery['address'], $delivery['city'], $delivery['method'], $delivery['office'],
-                    'pending', $totals['bgn'], $totals['eur'],
+                    'pending', $__isLegacy, $totals['bgn'], $totals['eur'],
                 ]
             );
 

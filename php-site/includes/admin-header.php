@@ -41,6 +41,7 @@ $__abandonedCount = (int)(db_one('SELECT COUNT(*) AS c FROM abandoned_checkout')
     </a>
     <a href="/admin/reviews.php" class="<?= $__activeNav === 'reviews' ? 'active' : '' ?>">Отзиви</a>
     <a href="/admin/stock-alerts.php" class="<?= $__activeNav === 'stock_alerts' ? 'active' : '' ?>">Известия за наличност</a>
+    <a href="/admin/legacy-customers.php" class="<?= $__activeNav === 'legacy_customers' ? 'active' : '' ?>">Стари клиенти</a>
     <a href="/admin/abandoned.php" class="<?= $__activeNav === 'abandoned' ? 'active' : '' ?>" style="display:flex;align-items:center;gap:8px;">
       Изоставени поръчки
       <?php if ($__abandonedCount > 0): ?>

@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export default async function AdminOrdersPage() {
   const orders = await db.order.findMany({
     orderBy: { createdAt: "desc" },
-    include: { items: true },
+    include: { items: true, customer: true },
   });
 
   return (
@@ -21,7 +21,7 @@ export default async function AdminOrdersPage() {
         <table className="admin-table">
           <thead>
             <tr>
-              <th>№</th><th>Дата</th><th>Клиент</th><th>Тип</th><th>Град</th><th>Артикули</th><th>Сума</th><th>Статус</th>
+              <th>№</th><th>Дата</th><th>Клиент</th><th>История</th><th>Акаунт</th><th>Тип</th><th>Град</th><th>Артикули</th><th>Сума</th><th>Статус</th>
             </tr>
           </thead>
           <tbody>
@@ -30,6 +30,20 @@ export default async function AdminOrdersPage() {
                 <td><Link href={`/admin/orders/${o.id}`}>{o.orderNumber}</Link></td>
                 <td className="muted">{new Date(o.createdAt).toLocaleDateString("bg-BG")}</td>
                 <td>{o.guestName}</td>
+                <td>
+                  {o.isLegacy ? (
+                    <span className="pill pill--info">🕐 Стар</span>
+                  ) : (
+                    <span className="pill pill--ok">✨ Нов</span>
+                  )}
+                </td>
+                <td>
+                  {o.customer?.passwordHash ? (
+                    <span className="pill pill--ok">Регистриран</span>
+                  ) : (
+                    <span className="pill pill--muted">Гост</span>
+                  )}
+                </td>
                 <td>
                   {isQuickOrder(o.deliveryMethod) ? (
                     <span className="pill pill--warn">⚡ бърза</span>
@@ -44,7 +58,7 @@ export default async function AdminOrdersPage() {
               </tr>
             ))}
             {orders.length === 0 && (
-              <tr><td colSpan={8} className="muted">Все още няма поръчки.</td></tr>
+              <tr><td colSpan={10} className="muted">Все още няма поръчки.</td></tr>
             )}
           </tbody>
         </table>

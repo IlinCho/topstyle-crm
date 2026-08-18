@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { checkIsLegacy } from "@/lib/legacy-customers";
 
 // "Бърза поръчка" - a one-tap order straight from the product page: just
 // name + phone, no address/checkout wizard. The store calls the customer
@@ -54,6 +55,10 @@ export async function POST(req: NextRequest) {
     const totalBgn = product.priceBgn * safeQty;
     const totalEur = product.priceEur * safeQty;
 
+    // Quick orders only ever collect a phone (no email field in that form),
+    // so matching against the old-customer list relies on phone alone here.
+    const isLegacy = await checkIsLegacy("", cleanPhone);
+
     const order = await db.order.create({
       data: {
         orderNumber,
@@ -64,6 +69,7 @@ export async function POST(req: NextRequest) {
         city: "",
         deliveryMethod: "quick_order",
         status: "pending",
+        isLegacy,
         totalBgn,
         totalEur,
         items: {

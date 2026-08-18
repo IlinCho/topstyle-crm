@@ -8,6 +8,7 @@ import { createSession, clearSession, verifyAdminCredentials, requireAdminSessio
 import { slugifyBasic } from "@/lib/format";
 import { serializeBadges } from "@/lib/badges";
 import { clientIp, isRateLimited, recordFailedAttempt, clearAttempts } from "@/lib/rate-limit";
+import { normalizeEmail, normalizePhone, checkIsLegacy } from "@/lib/legacy-customers";
 
 export async function loginAction(formData: FormData) {
   const email = String(formData.get("email") || "").trim().toLowerCase();
@@ -342,4 +343,65 @@ export async function deleteAbandonedCheckoutAction(formData: FormData) {
   if (!id) return;
   await db.abandonedCheckout.delete({ where: { id } });
   revalidatePath("/admin/abandoned");
+}
+
+// ---------- Legacy customers (old PrestaShop store) ----------
+
+// Parses the admin-pasted CSV (one line per old customer: email, phone, name
+// - phone and name optional, but at least one of email/phone required per
+// row) and bulk-inserts it into LegacyCustomer. Deliberately tolerant of
+// missing trailing columns/blank lines, since this is a one-time paste from
+// a spreadsheet export, not a strict machine-generated file.
+export async function importLegacyCustomersAction(formData: FormData) {
+  await requireAdminSession();
+  const raw = String(formData.get("legacyCsv") || "");
+  const lines = raw
+    .split("\n")
+    .map((l) => l.trim())
+    .filter((l) => l.length > 0);
+
+  const rows = lines
+    .map((line) => {
+      const [emailRaw, phoneRaw, ...nameParts] = line.split(",");
+      const email = normalizeEmail(emailRaw || "");
+      const phone = normalizePhone(phoneRaw || "");
+      const name = nameParts.join(",").trim();
+      return { email, phone, name };
+    })
+    .filter((r) => r.email || r.phone);
+
+  if (rows.length > 0) {
+    await db.legacyCustomer.createMany({ data: rows });
+  }
+
+  revalidatePath("/admin/legacy-customers");
+}
+
+export async function deleteAllLegacyCustomersAction() {
+  await requireAdminSession();
+  await db.legacyCustomer.deleteMany({});
+  revalidatePath("/admin/legacy-customers");
+}
+
+// One-off backfill for orders placed before the legacy list existed (or
+// before it had this particular customer in it yet) - re-checks every order
+// still marked isLegacy=false against the current LegacyCustomer table and
+// flips the ones that now match. Safe to re-run any time after importing
+// more old customers.
+export async function recalcLegacyOrdersAction() {
+  await requireAdminSession();
+  const orders = await db.order.findMany({
+    where: { isLegacy: false },
+    select: { id: true, guestEmail: true, guestPhone: true },
+  });
+
+  for (const o of orders) {
+    const matches = await checkIsLegacy(o.guestEmail, o.guestPhone);
+    if (matches) {
+      await db.order.update({ where: { id: o.id }, data: { isLegacy: true } });
+    }
+  }
+
+  revalidatePath("/admin/legacy-customers");
+  revalidatePath("/admin/orders");
 }

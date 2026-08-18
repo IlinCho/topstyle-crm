@@ -29,7 +29,17 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
           ) : (
             <span className="pill pill--muted" style={{ marginLeft: 8 }}>обикновена</span>
           )}{" "}
-          <span className={statusPillClass(order.status)} style={{ marginLeft: 4 }}>{statusLabel(order.status)}</span>
+          <span className={statusPillClass(order.status)} style={{ marginLeft: 4 }}>{statusLabel(order.status)}</span>{" "}
+          {order.isLegacy ? (
+            <span className="pill pill--info" style={{ marginLeft: 4 }}>🕐 Стар клиент</span>
+          ) : (
+            <span className="pill pill--ok" style={{ marginLeft: 4 }}>✨ Нов клиент</span>
+          )}{" "}
+          {order.customer?.passwordHash ? (
+            <span className="pill pill--ok" style={{ marginLeft: 4 }}>Регистриран</span>
+          ) : (
+            <span className="pill pill--muted" style={{ marginLeft: 4 }}>Гост</span>
+          )}
         </h1>
       </div>
 

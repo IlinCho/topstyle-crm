@@ -195,11 +195,39 @@ model Order {
   officeName  String      @default("") // e.g. selected Econt office, if applicable
   status      String      @default("pending") // pending, confirmed, shipped, delivered, cancelled
   seenByAdmin Boolean     @default(false) // powers the admin sidebar's order notification bell
+  // Set once, at order-creation time, by matching the order's contact email/
+  // phone against the LegacyCustomer table (imported from the old PrestaShop
+  // store) - lets the admin tell at a glance whether an order is from a
+  // returning pre-migration customer ("Стар клиент") or a genuinely new one
+  // ("Нов клиент"). Never recomputed automatically afterwards; see the
+  // "Преизчисли" admin action for backfilling orders placed before an import.
+  isLegacy    Boolean     @default(false)
   totalBgn    Float
   totalEur    Float
   items       OrderItem[]
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
+}
+
+// One-time-imported reference list of customers who already bought from the
+// old topstyle.bg (PrestaShop) store, exported by the admin from the old
+// store's admin panel and pasted in as CSV on Admin -> Стари клиенти. Used
+// only as a lookup at order-creation time (see Order.isLegacy above) - not
+// linked to Customer/Order by foreign key, since it's matched by normalized
+// email/phone text, not by id (the old store's ids mean nothing here).
+model LegacyCustomer {
+  id        String   @id @default(cuid())
+  // Normalized lower-cased/trimmed email, or "" if only a phone was known.
+  email     String   @default("")
+  // Normalized to the last 9 digits (matches Bulgarian mobile numbers
+  // regardless of +359/0/00359 prefix variations), or "" if only an email
+  // was known.
+  phone     String   @default("")
+  name      String   @default("")
+  createdAt DateTime @default(now())
+
+  @@index([email])
+  @@index([phone])
 }
 
 model OrderItem {

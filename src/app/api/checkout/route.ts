@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { getCustomerSession } from "@/lib/customer-auth";
+import { checkIsLegacy } from "@/lib/legacy-customers";
 
 export async function POST(req: NextRequest) {
   try {
@@ -57,6 +58,10 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    // Matched once, at creation time, against the admin-imported list of old
+    // PrestaShop customers (Admin -> Стари клиенти) - see src/lib/legacy-customers.ts.
+    const isLegacy = await checkIsLegacy(customer.email || "", customer.phone);
+
     const order = await db.order.create({
       data: {
         orderNumber,
@@ -64,6 +69,7 @@ export async function POST(req: NextRequest) {
         guestName: customer.name,
         guestEmail: customer.email || "",
         guestPhone: customer.phone,
+        isLegacy,
         address: customer.address,
         city: customer.city,
         deliveryMethod: delivery.method,

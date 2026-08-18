@@ -119,6 +119,42 @@ function parse_size_chart_csv(string $raw): array {
     return array_map(fn($line) => array_map('trim', explode(',', $line)), $lines);
 }
 
+// ---- Legacy customers (old PrestaShop store) ----
+
+// Normalizes an email for matching against legacy_customer rows - just
+// lowercase + trim, since that's the only variance real customers produce.
+function normalize_email(string $email): string {
+    return mb_strtolower(trim($email), 'UTF-8');
+}
+
+// Normalizes a phone number for matching by keeping only digits and taking
+// the last 9 - Bulgarian mobile numbers are 9 digits after the leading
+// 0/+359/00359, so "0888123456", "+359888123456" and "00359888123456" all
+// collapse to the same "888123456" tail regardless of prefix style.
+function normalize_phone(string $phone): string {
+    $digits = preg_replace('/\D/', '', $phone);
+    return substr($digits, -9);
+}
+
+// Checks whether an email/phone pair matches any row imported from the old
+// PrestaShop store (Admin -> Стари клиенти). Either field alone is enough to
+// match - a customer might have used a different email at checkout but the
+// same phone number, or vice versa.
+function check_is_legacy(string $email, string $phone): bool {
+    $normEmail = normalize_email($email);
+    $normPhone = normalize_phone($phone);
+    if ($normEmail === '' && $normPhone === '') return false;
+
+    if ($normEmail !== '' && $normPhone !== '') {
+        $row = db_one('SELECT id FROM legacy_customer WHERE email = ? OR phone = ? LIMIT 1', [$normEmail, $normPhone]);
+    } elseif ($normEmail !== '') {
+        $row = db_one('SELECT id FROM legacy_customer WHERE email = ? LIMIT 1', [$normEmail]);
+    } else {
+        $row = db_one('SELECT id FROM legacy_customer WHERE phone = ? LIMIT 1', [$normPhone]);
+    }
+    return $row !== null;
+}
+
 // ---- Abandoned checkout tracking ----
 // Captures a checkout that was started (name/email/phone entered) but never
 // finished, so the admin can see and follow up on likely-lost sales - see
