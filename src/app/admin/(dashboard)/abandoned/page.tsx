@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { formatBgn } from "@/lib/format";
-import { deleteAbandonedCheckoutAction } from "../actions";
+import { deleteAbandonedCheckoutAction } from "../../actions";
 
 const STEP_LABELS: Record<number, string> = { 1: "Лични данни", 2: "Доставка", 3: "Плащане" };
 
