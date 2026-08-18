@@ -45,6 +45,12 @@ CREATE TABLE IF NOT EXISTS product (
   -- the size chart image (if any) inside the same toggle. Different per
   -- product; empty = show nothing extra beyond the image/fallback text.
   size_chart_note TEXT NOT NULL DEFAULT '',
+  -- Structured measurement table, entered by the admin as plain CSV text
+  -- (first line = column headers, then one row per size) - parsed and
+  -- rendered as a real HTML <table> on the product page instead of admins
+  -- pasting unstructured measurement text that renders as an unreadable
+  -- wall of numbers.
+  size_chart_table TEXT NOT NULL DEFAULT '',
   category_id VARCHAR(32) NOT NULL,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

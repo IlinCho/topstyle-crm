@@ -10,6 +10,20 @@ import { getCompactStockHint } from "@/lib/scarcity";
 
 type Variant = { size: string; color: string; stock: number };
 
+// Parses an admin-entered CSV size table into a 2D array for rendering as a
+// real <table> - first line is treated as column headers, every other line
+// as a data row, cells split on commas and trimmed. Deliberately no CSV
+// library/quoting support: the data is short numeric measurement rows (e.g.
+// "S, 37, 38"), so a plain split() is enough. Blank lines are skipped so a
+// trailing newline doesn't produce an empty row.
+function parseSizeChartCsv(raw: string): string[][] {
+  return raw
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0)
+    .map((line) => line.split(",").map((cell) => cell.trim()));
+}
+
 export default function AddToCart({
   productId,
   slug,
@@ -20,6 +34,7 @@ export default function AddToCart({
   variants,
   sizeChartUrl,
   sizeChartNote,
+  sizeChartTable,
 }: {
   productId: string;
   slug: string;
@@ -30,6 +45,7 @@ export default function AddToCart({
   variants: Variant[];
   sizeChartUrl?: string;
   sizeChartNote?: string;
+  sizeChartTable?: string;
 }) {
   const { add } = useCart();
   const router = useRouter();
@@ -54,6 +70,11 @@ export default function AddToCart({
   const selectedVariant = variants.find((v) => v.size === size);
   const selectedStock = selectedVariant?.stock ?? 0;
   const inStock = !size || selectedStock > 0;
+
+  const sizeChartRows = sizeChartTable ? parseSizeChartCsv(sizeChartTable) : [];
+  const hasChartNote = !!sizeChartNote;
+  const hasChartTable = sizeChartRows.length > 0;
+  const hasChartImage = !!sizeChartUrl;
 
   function selectSize(s: string) {
     // Sold-out sizes stay selectable on purpose - a customer who picks their
@@ -240,15 +261,35 @@ export default function AddToCart({
 
       {showSizeGuide && (
         <div className="size-guide-box">
-          {sizeChartNote && (
-            <p style={{ margin: sizeChartUrl ? "0 0 10px" : 0, whiteSpace: "pre-line" }}>{sizeChartNote}</p>
+          {hasChartNote && (
+            <p style={{ margin: "0 0 10px", whiteSpace: "pre-line" }}>{sizeChartNote}</p>
           )}
-          {sizeChartUrl ? (
+          {hasChartTable && (
+            <table className="size-guide-table">
+              <thead>
+                <tr>
+                  {sizeChartRows[0].map((h, i) => (
+                    <th key={i}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {sizeChartRows.slice(1).map((row, ri) => (
+                  <tr key={ri}>
+                    {row.map((cell, ci) => (
+                      <td key={ci}>{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+          {hasChartImage ? (
             <>
-              {!sizeChartNote && <p style={{ margin: "0 0 8px", fontWeight: 700 }}>Таблица за размери</p>}
+              {!hasChartNote && !hasChartTable && <p style={{ margin: "0 0 8px", fontWeight: 700 }}>Таблица за размери</p>}
               <img src={sizeChartUrl} alt="Таблица за размери" className="size-guide-chart" />
             </>
-          ) : !sizeChartNote ? (
+          ) : !hasChartNote && !hasChartTable ? (
             <>
               <p style={{ margin: "0 0 6px", fontWeight: 700 }}>Съвет за избор на размер</p>
               <p style={{ margin: 0, color: "var(--muted)" }}>

@@ -61,6 +61,7 @@ export default function ProductForm({
     images?: string[];
     sizeChartUrl?: string;
     sizeChartNote?: string;
+    sizeChartTable?: string;
     active?: boolean;
     badges?: string[];
     categoryRank?: number | null;
@@ -435,6 +436,20 @@ export default function ProductForm({
           />
         </div>
         <div className="field" style={{ marginTop: 12 }}>
+          <label>Таблица с мерки (по избор) — CSV формат</label>
+          <textarea
+            name="sizeChartTable"
+            defaultValue={initial?.sizeChartTable}
+            placeholder={"Размер, Талия (см), Дължина (см)\nS, 37, 38\nM, 38, 39\nL, 40, 39\nXL, 42, 40\nXXL, 44, 41"}
+            rows={6}
+          />
+          <p className="muted" style={{ fontSize: 12, marginTop: 4 }}>
+            Първи ред = заглавия на колоните, всеки следващ ред = стойности, разделени със запетая
+            (както при копиране от Excel/Google Sheets). Показва се като подредена таблица. Може
+            да копираш директно от Excel.
+          </p>
+        </div>
+        <div className="field" style={{ marginTop: 12 }}>
           <label>Текст с указания за размера (по избор)</label>
           <textarea
             name="sizeChartNote"
@@ -443,8 +458,9 @@ export default function ProductForm({
             rows={3}
           />
           <p className="muted" style={{ fontSize: 12, marginTop: 4 }}>
-            Показва се над таблицата за размери (ако има качена снимка), при клик върху
-            "Как да избера размер?". Различен е за всеки продукт.
+            Показва се над таблицата за размери, при клик върху "Как да избера размер?".
+            За качествени бележки (напр. "пасва малко"), не за самите мерки — за тях ползвай
+            таблицата по-горе. Различен е за всеки продукт.
           </p>
         </div>
       </div>

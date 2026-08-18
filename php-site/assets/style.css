@@ -497,6 +497,30 @@ a { color: inherit; text-decoration: none; }
   height: auto;
   border-radius: 4px;
 }
+.size-guide-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 10px;
+  font-size: 12.5px;
+}
+.size-guide-table th,
+.size-guide-table td {
+  padding: 6px 10px;
+  text-align: center;
+  border: 1px solid var(--line);
+}
+.size-guide-table th {
+  background: var(--surface);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: .02em;
+}
+.size-guide-table td:first-child,
+.size-guide-table th:first-child {
+  text-align: left;
+  font-weight: 600;
+}
 
 .urgency-line {
   color: var(--danger);

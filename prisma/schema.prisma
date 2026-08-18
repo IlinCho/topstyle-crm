@@ -60,6 +60,12 @@ model Product {
   // chart image (if any) inside the same toggle. Different per product;
   // empty = show nothing extra beyond the image/fallback text.
   sizeChartNote String         @default("")
+  // Structured measurement table, entered by the admin as plain CSV text
+  // (first line = column headers, e.g. "Размер,Талия,Дължина" then one row
+  // per size) - parsed and rendered as a real HTML <table> on the product
+  // page, instead of admins pasting unstructured measurement text into
+  // sizeChartNote where it renders as an unreadable wall of numbers.
+  sizeChartTable String        @default("")
   categoryId   String
   category     Category        @relation(fields: [categoryId], references: [id])
   images       ProductImage[]

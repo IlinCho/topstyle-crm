@@ -107,6 +107,18 @@ function save_uploaded_size_chart_image(array $fileInput): ?string {
     return null;
 }
 
+// Parses an admin-entered CSV size table into a 2D array for rendering as a
+// real HTML <table> - first line is treated as the header row, every other
+// line as a data row, cells split on commas and trimmed. Deliberately no CSV
+// library/quoting support: the data is short numeric measurement rows (e.g.
+// "S, 37, 38"), so a plain explode() is enough and keeps this dependency-free
+// on shared hosting. Blank lines are skipped so trailing newlines don't
+// produce an empty row.
+function parse_size_chart_csv(string $raw): array {
+    $lines = array_values(array_filter(array_map('trim', explode("\n", $raw)), fn($l) => $l !== ''));
+    return array_map(fn($line) => array_map('trim', explode(',', $line)), $lines);
+}
+
 // ---- Abandoned checkout tracking ----
 // Captures a checkout that was started (name/email/phone entered) but never
 // finished, so the admin can see and follow up on likely-lost sales - see

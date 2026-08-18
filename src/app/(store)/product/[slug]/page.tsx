@@ -80,6 +80,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
             variants={product.variants}
             sizeChartUrl={product.sizeChartUrl}
             sizeChartNote={product.sizeChartNote}
+            sizeChartTable={product.sizeChartTable}
           />
         </div>
       </div>
