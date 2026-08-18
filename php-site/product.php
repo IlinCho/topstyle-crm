@@ -108,10 +108,15 @@ $__mainImage = $__images[0]['url'] ?? '/assets/placeholder.jpg';
           <button type="button" class="size-guide-link" onclick="tsToggleSizeGuide()">Как да избера размер?</button>
         </div>
         <div class="size-guide-box" id="size-guide-box" style="display:none;">
+          <?php if (!empty($__product['size_chart_note'])): ?>
+            <p style="margin:<?= !empty($__product['size_chart_url']) ? '0 0 10px' : '0' ?>;white-space:pre-line;"><?= e($__product['size_chart_note']) ?></p>
+          <?php endif; ?>
           <?php if (!empty($__product['size_chart_url'])): ?>
-            <p style="margin:0 0 8px;font-weight:700;">Таблица за размери</p>
+            <?php if (empty($__product['size_chart_note'])): ?>
+              <p style="margin:0 0 8px;font-weight:700;">Таблица за размери</p>
+            <?php endif; ?>
             <img src="<?= e($__product['size_chart_url']) ?>" alt="Таблица за размери" class="size-guide-chart">
-          <?php else: ?>
+          <?php elseif (empty($__product['size_chart_note'])): ?>
             <p style="margin:0 0 6px;font-weight:700;">Съвет за избор на размер</p>
             <p style="margin:0;color:var(--muted);">
               Кроят е стандартен (regular fit). Ако сте между два размера, препоръчваме

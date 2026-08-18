@@ -41,6 +41,10 @@ CREATE TABLE IF NOT EXISTS product (
   -- "Как да избера размер?" on the product page. Empty = fall back to the
   -- generic sizing advice text.
   size_chart_url VARCHAR(500) NOT NULL DEFAULT '',
+  -- Free-text sizing guidance the admin can write per product, shown above
+  -- the size chart image (if any) inside the same toggle. Different per
+  -- product; empty = show nothing extra beyond the image/fallback text.
+  size_chart_note TEXT NOT NULL DEFAULT '',
   category_id VARCHAR(32) NOT NULL,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

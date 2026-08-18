@@ -60,6 +60,7 @@ export default function ProductForm({
     description?: string;
     images?: string[];
     sizeChartUrl?: string;
+    sizeChartNote?: string;
     active?: boolean;
     badges?: string[];
     categoryRank?: number | null;
@@ -432,6 +433,19 @@ export default function ProductForm({
             style={{ flex: 1, minWidth: 160, fontSize: 12.5 }}
             onChange={(e) => updateSizeChartFile(e.target.files?.[0] || null)}
           />
+        </div>
+        <div className="field" style={{ marginTop: 12 }}>
+          <label>Текст с указания за размера (по избор)</label>
+          <textarea
+            name="sizeChartNote"
+            defaultValue={initial?.sizeChartNote}
+            placeholder="напр. Този модел пасва по-плътно — препоръчваме да вземете един размер по-голям."
+            rows={3}
+          />
+          <p className="muted" style={{ fontSize: 12, marginTop: 4 }}>
+            Показва се над таблицата за размери (ако има качена снимка), при клик върху
+            "Как да избера размер?". Различен е за всеки продукт.
+          </p>
         </div>
       </div>
 

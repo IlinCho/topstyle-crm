@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // so a resave without touching this section doesn't clear it.
     $__sizeChartUploaded = save_uploaded_size_chart_image($_FILES['size_chart_file'] ?? []);
     $sizeChartUrl = $__sizeChartUploaded ?? trim($_POST['size_chart_url'] ?? '');
+    $sizeChartNote = trim($_POST['size_chart_note'] ?? '');
 
     if ($name === '' || $sku === '' || $categoryId === '' || $priceBgn <= 0 || $priceEur <= 0) {
         $__error = 'Моля, попълни име, SKU, категория и валидни цени.';
@@ -36,16 +37,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             if ($__existing) {
                 db_query(
-                    'UPDATE product SET name=?, sku=?, slug=?, description=?, material=?, color=?, price_eur=?, price_bgn=?, active=?, category_id=?, category_rank=?, badges=?, size_chart_url=? WHERE id=?',
-                    [$name, $sku, $slug, $description, $material, $color, $priceEur, $priceBgn, $active, $categoryId, $categoryRank, $badges, $sizeChartUrl, $__existing['id']]
+                    'UPDATE product SET name=?, sku=?, slug=?, description=?, material=?, color=?, price_eur=?, price_bgn=?, active=?, category_id=?, category_rank=?, badges=?, size_chart_url=?, size_chart_note=? WHERE id=?',
+                    [$name, $sku, $slug, $description, $material, $color, $priceEur, $priceBgn, $active, $categoryId, $categoryRank, $badges, $sizeChartUrl, $sizeChartNote, $__existing['id']]
                 );
                 $__productId = $__existing['id'];
             } else {
                 $__productId = db_id();
                 db_query(
-                    'INSERT INTO product (id, sku, name, slug, description, material, color, price_eur, price_bgn, active, category_rank, badges, size_chart_url, category_id)
-                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                    [$__productId, $sku, $name, $slug, $description, $material, $color, $priceEur, $priceBgn, $active, $categoryRank, $badges, $sizeChartUrl, $categoryId]
+                    'INSERT INTO product (id, sku, name, slug, description, material, color, price_eur, price_bgn, active, category_rank, badges, size_chart_url, size_chart_note, category_id)
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                    [$__productId, $sku, $name, $slug, $description, $material, $color, $priceEur, $priceBgn, $active, $categoryRank, $badges, $sizeChartUrl, $sizeChartNote, $categoryId]
                 );
             }
 
@@ -261,6 +262,14 @@ if (!$__variantRows) {
              oninput="tsSizeChartUrlChange(this)">
       <input type="file" name="size_chart_file" accept="image/*" style="flex:1;min-width:160px;font-size:12.5px;"
              onchange="tsPreviewSizeChartFile(this)">
+    </div>
+    <div class="field" style="margin-top:12px;">
+      <label>Текст с указания за размера (по избор)</label>
+      <textarea name="size_chart_note" rows="3" placeholder="напр. Този модел пасва по-плътно — препоръчваме да вземете един размер по-голям."><?= e($__existing['size_chart_note'] ?? '') ?></textarea>
+      <p class="muted" style="font-size:12px;margin-top:4px;">
+        Показва се над таблицата за размери (ако има качена снимка), при клик върху
+        "Как да избера размер?". Различен е за всеки продукт.
+      </p>
     </div>
   </div>
 

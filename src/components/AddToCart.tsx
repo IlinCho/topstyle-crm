@@ -19,6 +19,7 @@ export default function AddToCart({
   priceEur,
   variants,
   sizeChartUrl,
+  sizeChartNote,
 }: {
   productId: string;
   slug: string;
@@ -28,6 +29,7 @@ export default function AddToCart({
   priceEur: number;
   variants: Variant[];
   sizeChartUrl?: string;
+  sizeChartNote?: string;
 }) {
   const { add } = useCart();
   const router = useRouter();
@@ -238,12 +240,15 @@ export default function AddToCart({
 
       {showSizeGuide && (
         <div className="size-guide-box">
+          {sizeChartNote && (
+            <p style={{ margin: sizeChartUrl ? "0 0 10px" : 0, whiteSpace: "pre-line" }}>{sizeChartNote}</p>
+          )}
           {sizeChartUrl ? (
             <>
-              <p style={{ margin: "0 0 8px", fontWeight: 700 }}>Таблица за размери</p>
+              {!sizeChartNote && <p style={{ margin: "0 0 8px", fontWeight: 700 }}>Таблица за размери</p>}
               <img src={sizeChartUrl} alt="Таблица за размери" className="size-guide-chart" />
             </>
-          ) : (
+          ) : !sizeChartNote ? (
             <>
               <p style={{ margin: "0 0 6px", fontWeight: 700 }}>Съвет за избор на размер</p>
               <p style={{ margin: 0, color: "var(--muted)" }}>
@@ -252,7 +257,7 @@ export default function AddToCart({
                 преди поръчка на телефона в контактите.
               </p>
             </>
-          )}
+          ) : null}
         </div>
       )}
 

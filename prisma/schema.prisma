@@ -55,6 +55,11 @@ model Product {
   // click "Как да избера размер?" on the product page. Empty = fall back
   // to the generic sizing advice text.
   sizeChartUrl String          @default("")
+  // Free-text sizing guidance the admin can write per product (e.g. "този
+  // модел пасва по-плътно, вземете размер по-голям") - shown above the size
+  // chart image (if any) inside the same toggle. Different per product;
+  // empty = show nothing extra beyond the image/fallback text.
+  sizeChartNote String         @default("")
   categoryId   String
   category     Category        @relation(fields: [categoryId], references: [id])
   images       ProductImage[]

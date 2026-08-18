@@ -73,6 +73,7 @@ export default async function EditProductPage({
           description: product.description,
           images: product.images.map((i) => i.url),
           sizeChartUrl: product.sizeChartUrl,
+          sizeChartNote: product.sizeChartNote,
           active: product.active,
           badges: parseBadges(product.badges),
           categoryRank: product.categoryRank,
