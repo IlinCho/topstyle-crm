@@ -155,6 +155,33 @@ function check_is_legacy(string $email, string $phone): bool {
     return $row !== null;
 }
 
+// ---- Repeat customers (2+ orders on the NEW site) ----
+// Different signal from check_is_legacy() above: that one is imported from
+// the old PrestaShop store, this one is computed live from the order table
+// itself and just means "we've seen this email/phone on more than one order
+// here". Builds a normalized email/phone -> order-count index in one query,
+// so admin/orders.php can flag every row without a query per row.
+function build_repeat_index(): array {
+    $rows = db_all('SELECT guest_email, guest_phone FROM `order`', []);
+    $emailCounts = [];
+    $phoneCounts = [];
+    foreach ($rows as $row) {
+        $e = normalize_email($row['guest_email'] ?? '');
+        $p = normalize_phone($row['guest_phone'] ?? '');
+        if ($e !== '') $emailCounts[$e] = ($emailCounts[$e] ?? 0) + 1;
+        if ($p !== '') $phoneCounts[$p] = ($phoneCounts[$p] ?? 0) + 1;
+    }
+    return ['email' => $emailCounts, 'phone' => $phoneCounts];
+}
+
+function is_repeat_in_index(array $index, string $email, string $phone): bool {
+    $e = normalize_email($email);
+    $p = normalize_phone($phone);
+    if ($e !== '' && ($index['email'][$e] ?? 0) > 1) return true;
+    if ($p !== '' && ($index['phone'][$p] ?? 0) > 1) return true;
+    return false;
+}
+
 // ---- Abandoned checkout tracking ----
 // Captures a checkout that was started (name/email/phone entered) but never
 // finished, so the admin can see and follow up on likely-lost sales - see

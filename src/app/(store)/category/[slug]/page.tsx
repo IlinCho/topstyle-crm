@@ -7,7 +7,25 @@ import { applyCategoryRankPins } from "@/lib/product-order";
 
 export const dynamic = "force-dynamic";
 
-export default async function CategoryPage({ params }: { params: { slug: string } }) {
+type SearchParams = {
+  material?: string | string[];
+  color?: string | string[];
+  priceMin?: string;
+  priceMax?: string;
+};
+
+function toArray(v?: string | string[]): string[] {
+  if (!v) return [];
+  return Array.isArray(v) ? v : [v];
+}
+
+export default async function CategoryPage({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams: SearchParams;
+}) {
   const category = await db.category.findUnique({ where: { slug: params.slug } });
   if (!category) notFound();
 
@@ -31,7 +49,31 @@ export default async function CategoryPage({ params }: { params: { slug: string 
     include: { images: true, variants: true, reviews: true },
     orderBy: { createdAt: "desc" },
   });
-  const products = applyCategoryRankPins(naturalOrder);
+  const allProducts = applyCategoryRankPins(naturalOrder);
+
+  // Filter option lists come from the category's full (unfiltered) product
+  // set, so picking one filter never makes the others' checkboxes disappear.
+  const materials = [...new Set(allProducts.map((p) => p.material).filter((v) => v))].sort();
+  const colors = [...new Set(allProducts.map((p) => p.color).filter((v) => v))].sort();
+
+  const selectedMaterials = toArray(searchParams.material);
+  const selectedColors = toArray(searchParams.color);
+  const priceMin = searchParams.priceMin ? Number(searchParams.priceMin) : null;
+  const priceMax = searchParams.priceMax ? Number(searchParams.priceMax) : null;
+
+  const products = allProducts.filter((p) => {
+    if (selectedMaterials.length > 0 && !selectedMaterials.includes(p.material)) return false;
+    if (selectedColors.length > 0 && !selectedColors.includes(p.color)) return false;
+    if (priceMin !== null && !Number.isNaN(priceMin) && p.priceBgn < priceMin) return false;
+    if (priceMax !== null && !Number.isNaN(priceMax) && p.priceBgn > priceMax) return false;
+    return true;
+  });
+
+  const activeFilterCount =
+    selectedMaterials.length +
+    selectedColors.length +
+    (priceMin !== null && !Number.isNaN(priceMin) ? 1 : 0) +
+    (priceMax !== null && !Number.isNaN(priceMax) ? 1 : 0);
 
   return (
     <div className="container">
@@ -69,8 +111,56 @@ export default async function CategoryPage({ params }: { params: { slug: string 
         </div>
       )}
 
+      {(materials.length > 0 || colors.length > 0) && (
+        <details className="filter-panel" open={activeFilterCount > 0}>
+          <summary>
+            Филтри
+            {activeFilterCount > 0 && <span className="filter-panel__badge">{activeFilterCount}</span>}
+          </summary>
+          <form className="filter-panel__body" method="get">
+            {materials.length > 0 && (
+              <div>
+                <p className="filter-section__title">Материя</p>
+                {materials.map((m) => (
+                  <label key={m} className="filter-checkbox-row">
+                    <input type="checkbox" name="material" value={m} defaultChecked={selectedMaterials.includes(m)} />
+                    {m}
+                  </label>
+                ))}
+              </div>
+            )}
+
+            {colors.length > 0 && (
+              <div>
+                <p className="filter-section__title">Цвят</p>
+                {colors.map((c) => (
+                  <label key={c} className="filter-checkbox-row">
+                    <input type="checkbox" name="color" value={c} defaultChecked={selectedColors.includes(c)} />
+                    {c}
+                  </label>
+                ))}
+              </div>
+            )}
+
+            <div>
+              <p className="filter-section__title">Цена (лв.)</p>
+              <div className="filter-price-row">
+                <input type="number" name="priceMin" placeholder="От" min={0} defaultValue={searchParams.priceMin || ""} />
+                <span>—</span>
+                <input type="number" name="priceMax" placeholder="До" min={0} defaultValue={searchParams.priceMax || ""} />
+              </div>
+            </div>
+
+            <div className="filter-actions">
+              <button type="submit" className="btn">Приложи</button>
+              <Link href={`/category/${category.slug}`} className="filter-actions__clear">Изчисти филтрите</Link>
+            </div>
+          </form>
+        </details>
+      )}
+
       {products.length === 0 ? (
-        <p className="muted">Все още няма продукти в тази категория.</p>
+        <p className="muted">Няма продукти по зададените филтри.</p>
       ) : (
         <div className="grid">
           {products.map((p) => (

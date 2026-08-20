@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { getCustomerSession } from "@/lib/customer-auth";
 import { buildCategoryTree } from "@/lib/categories";
 import CartPill from "./CartPill";
+import MobileNav from "./MobileNav";
 
 export default async function Header() {
   const categories = await db.category.findMany({ orderBy: { position: "asc" } });
@@ -13,6 +14,13 @@ export default async function Header() {
   return (
     <header className="site-header">
       <div className="container site-header__top">
+        <MobileNav
+          tree={tree.map((c) => ({
+            slug: c.slug,
+            name: c.name,
+            children: c.children.map((sub) => ({ slug: sub.slug, name: sub.name })),
+          }))}
+        />
         <Link href="/" className="logo">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/topstyle-logo-wordmark.png" alt="TopStyle.bg" className="logo__img" />

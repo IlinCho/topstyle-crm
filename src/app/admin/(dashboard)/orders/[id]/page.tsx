@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { formatBgn, formatEur } from "@/lib/format";
 import { updateOrderStatusAction } from "../../../actions";
 import { STATUS_LABELS, statusLabel, statusPillClass, isQuickOrder } from "@/lib/order-status";
+import { buildRepeatIndex, isRepeatInIndex } from "@/lib/repeat-customer";
 
 const STATUSES = ["pending", "confirmed", "shipped", "delivered", "cancelled"];
 
@@ -18,6 +19,8 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
     include: { items: true, customer: true },
   });
   if (!order) notFound();
+  const repeatIndex = await buildRepeatIndex();
+  const isRepeat = isRepeatInIndex(repeatIndex, order.guestEmail, order.guestPhone);
 
   return (
     <>
@@ -39,6 +42,9 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
             <span className="pill pill--ok" style={{ marginLeft: 4 }}>Регистриран</span>
           ) : (
             <span className="pill pill--muted" style={{ marginLeft: 4 }}>Гост</span>
+          )}{" "}
+          {isRepeat && (
+            <span className="pill pill--info" style={{ marginLeft: 4 }}>🔁 Повторен клиент</span>
           )}
         </h1>
       </div>

@@ -23,6 +23,8 @@ $__viewOrder = $__viewId !== '' ? db_one(
 
 if ($__viewOrder) {
     $__items = db_all('SELECT * FROM order_item WHERE order_id = ?', [$__viewOrder['id']]);
+    $__repeatIndex = build_repeat_index();
+    $__isRepeat = is_repeat_in_index($__repeatIndex, $__viewOrder['guest_email'], $__viewOrder['guest_phone']);
     ?>
     <div class="admin-topbar">
       <h1 class="admin-h1">
@@ -36,6 +38,9 @@ if ($__viewOrder) {
           <span class="pill pill--ok" style="margin-left:4px;">Регистриран</span>
         <?php else: ?>
           <span class="pill pill--muted" style="margin-left:4px;">Гост</span>
+        <?php endif; ?>
+        <?php if ($__isRepeat): ?>
+          <span class="pill pill--info" style="margin-left:4px;">🔁 Повторен клиент</span>
         <?php endif; ?>
       </h1>
       <a href="/admin/orders.php" class="btn btn--ghost">Назад към всички поръчки</a>
@@ -87,6 +92,7 @@ if ($__viewOrder) {
     $__orders = db_all(
         'SELECT o.*, c.password_hash AS customer_password_hash FROM `order` o LEFT JOIN customer c ON o.customer_id = c.id ORDER BY o.created_at DESC'
     );
+    $__repeatIndex = build_repeat_index();
     ?>
     <div class="admin-topbar">
       <h1 class="admin-h1">Поръчки</h1>
@@ -96,7 +102,7 @@ if ($__viewOrder) {
         <p class="muted">Все още няма поръчки.</p>
       <?php else: ?>
         <table class="admin-table">
-          <thead><tr><th>Номер</th><th>Клиент</th><th>История</th><th>Акаунт</th><th>Статус</th><th>Сума</th><th>Дата</th><th></th></tr></thead>
+          <thead><tr><th>Номер</th><th>Клиент</th><th>История</th><th>Повторен</th><th>Акаунт</th><th>Статус</th><th>Сума</th><th>Дата</th><th></th></tr></thead>
           <tbody>
             <?php foreach ($__orders as $__o): ?>
               <tr>
@@ -107,6 +113,13 @@ if ($__viewOrder) {
                     <span class="pill pill--info">🕐 Стар</span>
                   <?php else: ?>
                     <span class="pill pill--ok">✨ Нов</span>
+                  <?php endif; ?>
+                </td>
+                <td>
+                  <?php if (is_repeat_in_index($__repeatIndex, $__o['guest_email'], $__o['guest_phone'])): ?>
+                    <span class="pill pill--info">🔁 Повторен</span>
+                  <?php else: ?>
+                    <span class="muted">—</span>
                   <?php endif; ?>
                 </td>
                 <td>

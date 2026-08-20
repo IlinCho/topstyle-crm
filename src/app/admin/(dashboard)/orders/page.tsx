@@ -2,6 +2,7 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { formatBgn } from "@/lib/format";
 import { statusLabel, statusPillClass, isQuickOrder } from "@/lib/order-status";
+import { buildRepeatIndex, isRepeatInIndex } from "@/lib/repeat-customer";
 
 export const dynamic = "force-dynamic";
 
@@ -10,6 +11,7 @@ export default async function AdminOrdersPage() {
     orderBy: { createdAt: "desc" },
     include: { items: true, customer: true },
   });
+  const repeatIndex = await buildRepeatIndex();
 
   return (
     <>
@@ -21,7 +23,7 @@ export default async function AdminOrdersPage() {
         <table className="admin-table">
           <thead>
             <tr>
-              <th>№</th><th>Дата</th><th>Клиент</th><th>История</th><th>Акаунт</th><th>Тип</th><th>Град</th><th>Артикули</th><th>Сума</th><th>Статус</th>
+              <th>№</th><th>Дата</th><th>Клиент</th><th>История</th><th>Повторен</th><th>Акаунт</th><th>Тип</th><th>Град</th><th>Артикули</th><th>Сума</th><th>Статус</th>
             </tr>
           </thead>
           <tbody>
@@ -35,6 +37,13 @@ export default async function AdminOrdersPage() {
                     <span className="pill pill--info">🕐 Стар</span>
                   ) : (
                     <span className="pill pill--ok">✨ Нов</span>
+                  )}
+                </td>
+                <td>
+                  {isRepeatInIndex(repeatIndex, o.guestEmail, o.guestPhone) ? (
+                    <span className="pill pill--info">🔁 Повторен</span>
+                  ) : (
+                    <span className="muted">—</span>
                   )}
                 </td>
                 <td>
@@ -58,7 +67,7 @@ export default async function AdminOrdersPage() {
               </tr>
             ))}
             {orders.length === 0 && (
-              <tr><td colSpan={10} className="muted">Все още няма поръчки.</td></tr>
+              <tr><td colSpan={11} className="muted">Все още няма поръчки.</td></tr>
             )}
           </tbody>
         </table>

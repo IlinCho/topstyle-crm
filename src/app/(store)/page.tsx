@@ -2,11 +2,37 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import ProductCard from "@/components/ProductCard";
 import { TRUST_CONFIG } from "@/lib/trust-config";
+import { categoryAndDescendantIds } from "@/lib/categories";
+import { applyCategoryRankPins } from "@/lib/product-order";
 
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const categories = await db.category.findMany({ orderBy: { position: "asc" } });
+  // Homepage tiles show exactly the first 3 top-level categories ("Топ
+  // категории") - matches the original site's compact 3-tile row and the
+  // .category-tiles grid (repeat(3, 1fr)) in globals.css.
+  const topCategories = categories.filter((c) => !c.parentId).slice(0, 3);
+
+  // For each top category, pull its best products (subcategories included,
+  // admin categoryRank pins applied - same merchandising logic as the
+  // category page itself) to show as a "Топ продукти" preview row, and to
+  // fall back to a real product photo for the tile image when the admin
+  // hasn't uploaded one for the category yet.
+  const topCategorySections = await Promise.all(
+    topCategories.map(async (c) => {
+      const categoryIds = categoryAndDescendantIds(c, categories);
+      const naturalOrder = await db.product.findMany({
+        where: { categoryId: { in: categoryIds }, active: true },
+        include: { images: true, variants: true, reviews: true },
+        orderBy: { createdAt: "desc" },
+      });
+      const products = applyCategoryRankPins(naturalOrder).slice(0, 4);
+      const tileImage = c.imageUrl || products[0]?.images[0]?.url || "";
+      return { category: c, products, tileImage };
+    })
+  );
+
   const newest = await db.product.findMany({
     where: { active: true },
     include: { images: true, variants: true, reviews: true },
@@ -41,7 +67,45 @@ export default async function HomePage() {
       </div>
 
       <div className="container">
-        <div className="chip-row">
+        {topCategories.length > 0 && (
+          <div className="category-tiles">
+            {topCategorySections.map(({ category: c, tileImage }) => (
+              <Link key={c.slug} href={`/category/${c.slug}`} className="category-tile">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={tileImage || "https://placehold.co/600x450/eeeeee/999999?text=TopStyle"}
+                  alt={c.name}
+                  className="category-tile__img"
+                />
+                <div className="category-tile__overlay">
+                  <span className="category-tile__label">Категория</span>
+                  <span className="category-tile__name">{c.name}</span>
+                  <span className="category-tile__cta">Разгледай →</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+
+        {topCategorySections.map(({ category: c, products }) =>
+          products.length > 0 ? (
+            <div className="top-products-section" key={c.id}>
+              <div className="flex-between">
+                <h2 className="section-title">{c.name}</h2>
+                <Link href={`/category/${c.slug}`} className="muted" style={{ fontSize: 13 }}>
+                  Виж всички →
+                </Link>
+              </div>
+              <div className="grid">
+                {products.map((p) => (
+                  <ProductCard key={p.id} product={p} />
+                ))}
+              </div>
+            </div>
+          ) : null
+        )}
+
+        <div className="chip-row" style={{ marginTop: 44 }}>
           {categories.map((c) => (
             <Link key={c.slug} href={`/category/${c.slug}`} className="chip">
               {c.name}

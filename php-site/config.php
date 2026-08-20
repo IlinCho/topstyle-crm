@@ -25,3 +25,8 @@ define('STORE_PHONE', '0877 968 927');
 define('SAME_DAY_CUTOFF_TIME', '16:00');
 define('CUSTOMERS_SERVED_TEXT', 'Над 25 000 доволни клиента');
 define('RETURN_WINDOW_DAYS', 14);
+
+// Footer social links - leave empty ('') to hide the icon row entirely
+// rather than linking to a profile that doesn't exist yet.
+define('FACEBOOK_URL', '');
+define('INSTAGRAM_URL', '');
