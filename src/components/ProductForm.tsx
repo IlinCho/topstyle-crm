@@ -8,17 +8,32 @@ type Variant = { size: string; color: string; stock: number };
 
 // Pre-filled for a brand-new product so the admin only has to type stock
 // counts, not every size label by hand - they can still delete rows they
-// don't carry. Jeans/trousers use EU waist numbers instead of letter sizes,
-// so the category dropdown swaps between these two sets automatically (see
-// handleCategoryChange below) - both lists are kept the same length (9) so
-// swapping is a simple in-place value rewrite, no rows added/removed.
+// don't carry. Which preset is used depends on the category name (see
+// resolveDefaultSizes below), and the category dropdown swaps between them
+// automatically (see handleCategoryChange below) whenever the admin picks a
+// different category, as long as nothing's been typed in yet.
 const DEFAULT_SIZES_LETTER = ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL", "6XL"];
-const DEFAULT_SIZES_NUMERIC = ["44", "46", "48", "50", "52", "54", "56", "58", "60"];
+// Тениски (plain tees): S - 2XL. "2XL" is written "XXL" here to match the
+// size-label convention used everywhere else in the admin/storefront.
+const DEFAULT_SIZES_TEE = ["S", "M", "L", "XL", "XXL"];
+// Тениски с яка (polo/collar shirts): M - 3XL.
+const DEFAULT_SIZES_COLLAR = ["M", "L", "XL", "XXL", "3XL"];
+// Дънки / панталони: EU waist numbers, 42 - 56.
+const DEFAULT_SIZES_NUMERIC = ["42", "44", "46", "48", "50", "52", "54", "56"];
 
-function isPantsCategoryName(name?: string) {
-  if (!name) return false;
+const DEFAULT_SIZE_PRESETS = [DEFAULT_SIZES_LETTER, DEFAULT_SIZES_TEE, DEFAULT_SIZES_COLLAR, DEFAULT_SIZES_NUMERIC];
+
+// Order matters: "яка" (collar) is checked before the generic "тениск" match
+// since "Тениски с яка" contains both substrings and the more specific rule
+// should win. Falls back to the generic letter range for everything else
+// (shirts, jackets, accessories, etc.) that isn't one of these three cases.
+function resolveDefaultSizes(name?: string): string[] {
+  if (!name) return DEFAULT_SIZES_LETTER;
   const n = name.toLowerCase();
-  return n.includes("дънк") || n.includes("панталон");
+  if (n.includes("яка")) return DEFAULT_SIZES_COLLAR;
+  if (n.includes("дънк") || n.includes("панталон")) return DEFAULT_SIZES_NUMERIC;
+  if (n.includes("тениск")) return DEFAULT_SIZES_TEE;
+  return DEFAULT_SIZES_LETTER;
 }
 
 function buildDefaultVariants(sizes: string[]): Variant[] {
@@ -26,11 +41,15 @@ function buildDefaultVariants(sizes: string[]): Variant[] {
 }
 
 // Only safe to auto-swap sizes if nothing's been touched yet (all sizes
-// still match one of the two known presets, no stock typed in) - otherwise
+// still match one of the known presets, no stock typed in) - otherwise
 // we'd silently wipe out real data the admin already entered.
 function matchesDefaultPreset(v: Variant[], sizes: string[]) {
   if (v.length !== sizes.length) return false;
   return v.every((row, i) => row.size === sizes[i] && row.stock === 0 && row.color === "");
+}
+
+function matchesAnyDefaultPreset(v: Variant[]) {
+  return DEFAULT_SIZE_PRESETS.some((preset) => matchesDefaultPreset(v, preset));
 }
 
 export default function ProductForm({
@@ -71,18 +90,18 @@ export default function ProductForm({
   const [variants, setVariants] = useState<Variant[]>(
     initial?.variants?.length
       ? initial.variants
-      : buildDefaultVariants(isPantsCategoryName(initialCategoryName) ? DEFAULT_SIZES_NUMERIC : DEFAULT_SIZES_LETTER)
+      : buildDefaultVariants(resolveDefaultSizes(initialCategoryName))
   );
 
-  // Swaps the size column between letters and EU pants numbers when the
-  // admin picks a category - only for a brand-new product, and only while
-  // the rows are still untouched defaults, so it never clobbers real data.
+  // Swaps the size column to match the newly-picked category's template -
+  // only for a brand-new product, and only while the rows are still
+  // untouched defaults, so it never clobbers real data.
   function handleCategoryChange(categoryId: string) {
     if (initial?.id) return;
     const name = categories.find((c) => c.id === categoryId)?.name;
-    const targetSizes = isPantsCategoryName(name) ? DEFAULT_SIZES_NUMERIC : DEFAULT_SIZES_LETTER;
+    const targetSizes = resolveDefaultSizes(name);
     setVariants((v) => {
-      if (matchesDefaultPreset(v, DEFAULT_SIZES_LETTER) || matchesDefaultPreset(v, DEFAULT_SIZES_NUMERIC)) {
+      if (matchesAnyDefaultPreset(v)) {
         return buildDefaultVariants(targetSizes);
       }
       return v;

@@ -407,41 +407,64 @@ function tsClosePreview() {
   document.getElementById('product-preview-modal').style.display = 'none';
 }
 
-// Swaps the size column between letters and EU pants numbers when the admin
-// picks a category - only for a brand-new product, and only while the rows
-// are still untouched defaults, so it never clobbers real data. Both lists
-// are the same length (9) so this is a simple in-place value rewrite, no
-// rows added/removed. Mirrors handleCategoryChange in ProductForm.tsx.
+// Swaps the size column to match the newly-picked category's template -
+// only for a brand-new product, and only while the rows are still untouched
+// defaults, so it never clobbers real data. Mirrors resolveDefaultSizes /
+// handleCategoryChange in ProductForm.tsx. The row count on this page is
+// always 9 (the S-6XL default loop in the PHP above), which is >= every
+// preset's own length, so rows beyond a shorter preset are just cleared
+// rather than needing to be added/removed from the DOM.
 var TS_DEFAULT_SIZES_LETTER = ['S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL', '6XL'];
-var TS_DEFAULT_SIZES_NUMERIC = ['44', '46', '48', '50', '52', '54', '56', '58', '60'];
+// Тениски (plain tees): S - 2XL ("XXL" here, matching the label convention
+// used everywhere else).
+var TS_DEFAULT_SIZES_TEE = ['S', 'M', 'L', 'XL', 'XXL'];
+// Тениски с яка (polo/collar shirts): M - 3XL.
+var TS_DEFAULT_SIZES_COLLAR = ['M', 'L', 'XL', 'XXL', '3XL'];
+// Дънки / панталони: EU waist numbers, 42 - 56.
+var TS_DEFAULT_SIZES_NUMERIC = ['42', '44', '46', '48', '50', '52', '54', '56'];
+var TS_DEFAULT_SIZE_PRESETS = [TS_DEFAULT_SIZES_LETTER, TS_DEFAULT_SIZES_TEE, TS_DEFAULT_SIZES_COLLAR, TS_DEFAULT_SIZES_NUMERIC];
 var TS_IS_EXISTING_PRODUCT = <?= $__existing ? 'true' : 'false' ?>;
 
-function tsIsPantsCategoryText(text) {
+// Order matters: "яка" (collar) is checked before the generic "тениск" match
+// since "Тениски с яка" contains both substrings and the more specific rule
+// should win. Falls back to the generic letter range for everything else.
+function tsResolveDefaultSizes(text) {
   var t = (text || '').toLowerCase();
-  return t.indexOf('дънк') !== -1 || t.indexOf('панталон') !== -1;
+  if (t.indexOf('яка') !== -1) return TS_DEFAULT_SIZES_COLLAR;
+  if (t.indexOf('дънк') !== -1 || t.indexOf('панталон') !== -1) return TS_DEFAULT_SIZES_NUMERIC;
+  if (t.indexOf('тениск') !== -1) return TS_DEFAULT_SIZES_TEE;
+  return TS_DEFAULT_SIZES_LETTER;
 }
+// A row "matches" a preset if its first N values equal the preset (N =
+// preset length) AND every row after that is blank - presets are different
+// lengths now, so this is what makes repeated swaps between them keep
+// recognizing the rows as still-untouched defaults.
 function tsRowsMatchPreset(sizeInputs, stockInputs, sizes) {
-  if (sizeInputs.length !== sizes.length) return false;
-  for (var i = 0; i < sizes.length; i++) {
-    if (sizeInputs[i].value.trim() !== sizes[i]) return false;
+  for (var i = 0; i < sizeInputs.length; i++) {
+    var expected = i < sizes.length ? sizes[i] : '';
+    if (sizeInputs[i].value.trim() !== expected) return false;
     if (stockInputs[i] && stockInputs[i].value.trim() !== '') return false;
   }
   return true;
+}
+function tsRowsMatchAnyDefaultPreset(sizeInputs, stockInputs) {
+  for (var i = 0; i < TS_DEFAULT_SIZE_PRESETS.length; i++) {
+    if (tsRowsMatchPreset(sizeInputs, stockInputs, TS_DEFAULT_SIZE_PRESETS[i])) return true;
+  }
+  return false;
 }
 function tsHandleCategoryChange() {
   if (TS_IS_EXISTING_PRODUCT) return;
   var select = document.getElementById('pf-category');
   var opt = select.options[select.selectedIndex];
-  var targetSizes = tsIsPantsCategoryText(opt ? opt.text : '') ? TS_DEFAULT_SIZES_NUMERIC : TS_DEFAULT_SIZES_LETTER;
+  var targetSizes = tsResolveDefaultSizes(opt ? opt.text : '');
 
   var sizeInputs = document.querySelectorAll('input[name="variant_size[]"]');
   var stockInputs = document.querySelectorAll('input[name="variant_stock[]"]');
-  var isDefault = tsRowsMatchPreset(sizeInputs, stockInputs, TS_DEFAULT_SIZES_LETTER)
-    || tsRowsMatchPreset(sizeInputs, stockInputs, TS_DEFAULT_SIZES_NUMERIC);
-  if (!isDefault) return;
+  if (!tsRowsMatchAnyDefaultPreset(sizeInputs, stockInputs)) return;
 
-  for (var i = 0; i < sizeInputs.length && i < targetSizes.length; i++) {
-    sizeInputs[i].value = targetSizes[i];
+  for (var i = 0; i < sizeInputs.length; i++) {
+    sizeInputs[i].value = i < targetSizes.length ? targetSizes[i] : '';
   }
 }
 </script>
