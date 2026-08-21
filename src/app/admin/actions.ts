@@ -215,14 +215,29 @@ export async function updateProductAction(formData: FormData) {
   const active = formData.get("active") === "on";
   const badges = serializeBadges(formData.getAll("badge") as string[]);
   const categoryRank = parseCategoryRank(formData);
+  const skuInput = String(formData.get("sku") || "").trim();
 
   if (!id || !name || !categoryId) return;
 
   const variants = parseVariantsFromForm(formData, color);
 
+  const updateData: Record<string, unknown> = {
+    name, categoryId, priceEur, priceBgn, material, color, description, active, badges, categoryRank, sizeChartUrl, sizeChartTable,
+  };
+  // Only touch the SKU if the admin actually typed something, and only if it
+  // doesn't collide with a *different* product (sku is unique) - silently
+  // skipping a colliding value is simpler than surfacing a form error here,
+  // and leaves the product's existing SKU untouched rather than crashing.
+  if (skuInput) {
+    const skuOwner = await db.product.findUnique({ where: { sku: skuInput }, select: { id: true } });
+    if (!skuOwner || skuOwner.id === id) {
+      updateData.sku = skuInput;
+    }
+  }
+
   await db.product.update({
     where: { id },
-    data: { name, categoryId, priceEur, priceBgn, material, color, description, active, badges, categoryRank, sizeChartUrl, sizeChartTable },
+    data: updateData,
   });
 
   await db.productVariant.deleteMany({ where: { productId: id } });

@@ -313,12 +313,13 @@ export default function ProductForm({
             <label>Материя (състав)</label>
             <input name="material" defaultValue={initial?.material} list="material-options" />
           </div>
-          {!initial?.id && (
-            <div className="field">
-              <label>SKU / артикулен номер (предложен автоматично, следващият пореден)</label>
-              <input name="sku" defaultValue={initial?.sku ?? ""} placeholder="автоматично, ако е празно" />
-            </div>
-          )}
+          <div className="field">
+            <label>
+              SKU / артикулен номер
+              {!initial?.id && " (предложен автоматично, следващият пореден)"}
+            </label>
+            <input name="sku" defaultValue={initial?.sku ?? ""} placeholder="автоматично, ако е празно" />
+          </div>
           <div className="field">
             <label>Позиция в категорията (1-8, по избор)</label>
             <input
