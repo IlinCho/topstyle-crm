@@ -90,6 +90,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// SKU value to show in the field: whatever the admin just typed (if this is
+// a re-render after a validation error), else the existing product's SKU
+// when editing, else - for a brand-new product - the next sequential
+// article number (highest purely-numeric SKU in the catalog + 1). Non-numeric
+// SKUs (legacy "SKU-<timestamp>" / "PS-<id>" fallbacks) are ignored so they
+// can't skew the sequence.
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $__skuValue = $sku;
+} elseif ($__existing) {
+    $__skuValue = $__existing['sku'];
+} else {
+    $__maxSkuRow = db_one("SELECT MAX(CAST(sku AS UNSIGNED)) AS m FROM product WHERE sku REGEXP '^[0-9]+$'");
+    $__skuValue = ($__maxSkuRow && $__maxSkuRow['m'] !== null) ? (string)((int)$__maxSkuRow['m'] + 1) : '1';
+}
+
 $__categories = db_all('SELECT * FROM category ORDER BY position ASC, name ASC');
 $__categoryFlat = flatten_category_tree(build_category_tree($__categories));
 $__existingBadges = $__existing ? parse_badges($__existing['badges'] ?? '') : [];
@@ -165,8 +180,8 @@ if (!$__variantRows) {
         <input type="text" id="pf-name" name="name" value="<?= e($__existing['name'] ?? '') ?>" required>
       </div>
       <div class="field">
-        <label>SKU</label>
-        <input type="text" name="sku" value="<?= e($__existing['sku'] ?? '') ?>" required>
+        <label>SKU<?= $__existing ? '' : ' (предложен автоматично, следващият пореден)' ?></label>
+        <input type="text" name="sku" value="<?= e($__skuValue) ?>" required>
       </div>
       <div class="field">
         <label>Slug (по избор — генерира се от името)</label>

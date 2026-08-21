@@ -315,8 +315,8 @@ export default function ProductForm({
           </div>
           {!initial?.id && (
             <div className="field">
-              <label>SKU / артикулен номер (по избор)</label>
-              <input name="sku" placeholder="автоматично, ако е празно" />
+              <label>SKU / артикулен номер (предложен автоматично, следващият пореден)</label>
+              <input name="sku" defaultValue={initial?.sku ?? ""} placeholder="автоматично, ако е празно" />
             </div>
           )}
           <div className="field">
