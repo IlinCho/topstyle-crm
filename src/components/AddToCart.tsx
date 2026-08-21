@@ -7,6 +7,7 @@ import TrustStrip from "./TrustStrip";
 import ScarcityBadge from "./ScarcityBadge";
 import { TRUST_CONFIG } from "@/lib/trust-config";
 import { getCompactStockHint } from "@/lib/scarcity";
+import { formatEur } from "@/lib/format";
 
 type Variant = { size: string; color: string; stock: number };
 
@@ -380,7 +381,7 @@ export default function AddToCart({
       {/* Sticky mobile CTA - only visible on small screens via CSS */}
       <div className="sticky-cta">
         <div className="sticky-cta__price">
-          {priceBgn ? `${priceBgn.toFixed(2)} лв.` : ""}
+          {priceEur ? formatEur(priceEur) : ""}
         </div>
         <button className="btn" disabled={!inStock} onClick={handleAdd} style={{ flex: 1 }}>
           {size && !inStock ? "Изчерпан размер" : "Добави в количката"}

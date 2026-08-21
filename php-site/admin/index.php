@@ -6,7 +6,7 @@ require __DIR__ . '/../includes/admin-header.php';
 $__productCount = (int)(db_one('SELECT COUNT(*) AS c FROM product')['c'] ?? 0);
 $__orderCount = (int)(db_one('SELECT COUNT(*) AS c FROM `order`')['c'] ?? 0);
 $__customerCount = (int)(db_one("SELECT COUNT(*) AS c FROM customer WHERE password_hash != ''")['c'] ?? 0);
-$__revenue = (float)(db_one('SELECT COALESCE(SUM(total_bgn),0) AS s FROM `order`')['s'] ?? 0);
+$__revenue = (float)(db_one('SELECT COALESCE(SUM(total_eur),0) AS s FROM `order`')['s'] ?? 0);
 $__pendingAlerts = (int)(db_one('SELECT COUNT(*) AS c FROM stock_alert WHERE notified = 0')['c'] ?? 0);
 $__recentOrders = db_all('SELECT * FROM `order` ORDER BY created_at DESC LIMIT 8');
 ?>
@@ -18,7 +18,7 @@ $__recentOrders = db_all('SELECT * FROM `order` ORDER BY created_at DESC LIMIT 8
   <div class="stat-box"><div class="stat-box__label">Продукти</div><div class="stat-box__value"><?= $__productCount ?></div></div>
   <div class="stat-box"><div class="stat-box__label">Поръчки</div><div class="stat-box__value"><?= $__orderCount ?></div></div>
   <div class="stat-box"><div class="stat-box__label">Регистрирани клиенти</div><div class="stat-box__value"><?= $__customerCount ?></div></div>
-  <div class="stat-box"><div class="stat-box__label">Оборот (лв.)</div><div class="stat-box__value"><?= number_format($__revenue, 0) ?></div></div>
+  <div class="stat-box"><div class="stat-box__label">Оборот (€)</div><div class="stat-box__value"><?= number_format($__revenue, 0) ?></div></div>
 </div>
 
 <?php if ($__pendingAlerts > 0): ?>
@@ -40,7 +40,7 @@ $__recentOrders = db_all('SELECT * FROM `order` ORDER BY created_at DESC LIMIT 8
             <td><a href="/admin/orders.php?id=<?= e($__o['id']) ?>">№<?= e($__o['order_number']) ?></a></td>
             <td><?= e($__o['guest_name']) ?></td>
             <td><span class="pill pill--ok"><?= e($__o['status']) ?></span></td>
-            <td><?= format_bgn($__o['total_bgn']) ?></td>
+            <td><?= format_eur($__o['total_eur']) ?></td>
             <td><?= e(date('d.m.Y', strtotime($__o['created_at']))) ?></td>
           </tr>
         <?php endforeach; ?>

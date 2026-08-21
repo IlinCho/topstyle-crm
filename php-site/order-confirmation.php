@@ -30,12 +30,12 @@ $__items = db_all('SELECT * FROM order_item WHERE order_id = ?', [$__order['id']
             <td><?= e($__it['product_name']) ?></td>
             <td><?= e($__it['size']) ?></td>
             <td><?= (int)$__it['qty'] ?></td>
-            <td><?= format_bgn($__it['price_bgn'] * $__it['qty']) ?></td>
+            <td><?= format_eur($__it['price_eur'] * $__it['qty']) ?></td>
           </tr>
         <?php endforeach; ?>
       </tbody>
     </table>
-    <p class="mt-24"><strong>Общо: <?= format_bgn($__order['total_bgn']) ?> / <?= format_eur($__order['total_eur']) ?></strong></p>
+    <p class="mt-24"><strong>Общо: <?= format_eur($__order['total_eur']) ?></strong></p>
 
     <ul class="trust-strip mt-24">
       <li><span class="trust-strip__check">&#10003;</span> Преглед и тест</li>

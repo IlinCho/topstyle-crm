@@ -51,7 +51,7 @@ $__stepLabels = [1 => 'Лични данни', 2 => 'Доставка', 3 => 'П
                 <?php endforeach; ?>
               <?php endif; ?>
             </td>
-            <td style="font-weight:700;"><?= format_bgn($__r['total_bgn']) ?></td>
+            <td style="font-weight:700;"><?= format_eur($__r['total_bgn'] / 1.95583) ?></td>
             <td>
               <form method="POST" action="/admin/abandoned.php">
                 <input type="hidden" name="delete_id" value="<?= e($__r['id']) ?>">

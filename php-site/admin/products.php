@@ -25,14 +25,15 @@ $__products = db_all(
 
 <div class="card-box">
   <table class="admin-table">
-    <thead><tr><th></th><th>Име</th><th>Категория</th><th>Цена</th><th>Позиция</th><th>Активен</th><th></th></tr></thead>
+    <thead><tr><th></th><th>SKU</th><th>Име</th><th>Категория</th><th>Цена</th><th>Позиция</th><th>Активен</th><th></th></tr></thead>
     <tbody>
       <?php foreach ($__products as $__p): $__img = db_one('SELECT * FROM product_image WHERE product_id = ? ORDER BY position ASC LIMIT 1', [$__p['id']]); ?>
         <tr>
           <td><img src="<?= e($__img ? $__img['url'] : '/assets/placeholder.jpg') ?>" alt=""></td>
+          <td class="muted"><?= e($__p['sku']) ?></td>
           <td><?= e($__p['name']) ?></td>
           <td class="muted"><?= e($__p['category_name'] ?? '—') ?></td>
-          <td><?= format_bgn($__p['price_bgn']) ?></td>
+          <td><?= format_eur($__p['price_eur']) ?></td>
           <td><?= $__p['category_rank'] !== null ? (int)$__p['category_rank'] : '—' ?></td>
           <td><?= $__p['active'] ? '<span class="pill pill--ok">да</span>' : '<span class="pill pill--warn">не</span>' ?></td>
           <td>

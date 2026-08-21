@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { useCart } from "@/components/CartProvider";
-import { formatBgn, formatEur } from "@/lib/format";
+import { formatEur } from "@/lib/format";
 import TrustStrip from "@/components/TrustStrip";
 import ScarcityBadge from "@/components/ScarcityBadge";
 import { useLiveStock } from "@/lib/useLiveStock";
 
 export default function CartPage() {
-  const { lines, remove, setQty, totalBgn, totalEur } = useCart();
+  const { lines, remove, setQty, totalEur } = useCart();
   const { getStock, loaded } = useLiveStock(lines.map((l) => l.productId));
 
   // Block checkout if the cart holds a size/color that's genuinely sold out
@@ -63,7 +63,7 @@ export default function CartPage() {
                 </p>
               )}
             </div>
-            <div style={{ fontWeight: 700 }}>{formatBgn(l.priceBgn * l.qty)}</div>
+            <div style={{ fontWeight: 700 }}>{formatEur(l.priceEur * l.qty)}</div>
           </div>
         );
       })}
@@ -71,8 +71,7 @@ export default function CartPage() {
       <div className="cart-totals">
         <table>
           <tbody>
-            <tr><td>Общо (EUR)</td><td>{formatEur(totalEur)}</td></tr>
-            <tr><td>Общо (BGN)</td><td>{formatBgn(totalBgn)}</td></tr>
+            <tr><td>Общо</td><td>{formatEur(totalEur)}</td></tr>
           </tbody>
         </table>
       </div>

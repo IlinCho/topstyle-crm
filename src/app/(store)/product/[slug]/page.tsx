@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { db } from "@/lib/db";
-import { formatBgn, formatEur } from "@/lib/format";
+import { formatEur } from "@/lib/format";
 import AddToCart from "@/components/AddToCart";
 import RatingStars from "@/components/RatingStars";
 import ProductGallery from "@/components/ProductGallery";
@@ -55,7 +55,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
           )}
 
           <div className="pdp__price">
-            {formatEur(product.priceEur)} <small>{formatBgn(product.priceBgn)}</small>
+            {formatEur(product.priceEur)}
           </div>
 
           <div className="pdp__meta">

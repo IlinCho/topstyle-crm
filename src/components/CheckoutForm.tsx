@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/components/CartProvider";
-import { formatBgn, formatEur } from "@/lib/format";
+import { formatEur } from "@/lib/format";
 import TrustStrip from "@/components/TrustStrip";
 import { useLiveStock } from "@/lib/useLiveStock";
 import { isCriticalStock } from "@/lib/scarcity";
@@ -27,7 +27,7 @@ type InitialCustomer = { id: string; name: string; email: string; phone: string 
 type FormStep = 1 | 2 | 3;
 
 export default function CheckoutForm({ initialCustomer }: { initialCustomer: InitialCustomer }) {
-  const { lines, totalBgn, totalEur, clear } = useCart();
+  const { lines, totalEur, clear } = useCart();
   // Checkout stays quiet about stock by default (Priority 4 of the scarcity
   // rules) - this is only used to flag a line that's genuinely critical
   // (1 or 0 left) right before the customer confirms.
@@ -323,15 +323,14 @@ export default function CheckoutForm({ initialCustomer }: { initialCustomer: Ini
                     </div>
                   )}
                 </div>
-                <span style={{ fontWeight: 600, fontSize: 13 }}>{formatBgn(l.priceBgn * l.qty)}</span>
+                <span style={{ fontWeight: 600, fontSize: 13 }}>{formatEur(l.priceEur * l.qty)}</span>
               </div>
             );
           })}
           <div className="cart-totals">
             <table>
               <tbody>
-                <tr><td>Общо (EUR)</td><td>{formatEur(totalEur)}</td></tr>
-                <tr><td>Общо (BGN)</td><td>{formatBgn(totalBgn)}</td></tr>
+                <tr><td>Общо</td><td>{formatEur(totalEur)}</td></tr>
               </tbody>
             </table>
           </div>

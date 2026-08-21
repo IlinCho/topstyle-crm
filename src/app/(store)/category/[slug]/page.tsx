@@ -64,8 +64,8 @@ export default async function CategoryPage({
   const products = allProducts.filter((p) => {
     if (selectedMaterials.length > 0 && !selectedMaterials.includes(p.material)) return false;
     if (selectedColors.length > 0 && !selectedColors.includes(p.color)) return false;
-    if (priceMin !== null && !Number.isNaN(priceMin) && p.priceBgn < priceMin) return false;
-    if (priceMax !== null && !Number.isNaN(priceMax) && p.priceBgn > priceMax) return false;
+    if (priceMin !== null && !Number.isNaN(priceMin) && p.priceEur < priceMin) return false;
+    if (priceMax !== null && !Number.isNaN(priceMax) && p.priceEur > priceMax) return false;
     return true;
   });
 
@@ -143,7 +143,7 @@ export default async function CategoryPage({
             )}
 
             <div>
-              <p className="filter-section__title">Цена (лв.)</p>
+              <p className="filter-section__title">Цена (€)</p>
               <div className="filter-price-row">
                 <input type="number" name="priceMin" placeholder="От" min={0} defaultValue={searchParams.priceMin || ""} />
                 <span>—</span>

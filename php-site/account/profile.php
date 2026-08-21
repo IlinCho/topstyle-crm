@@ -76,7 +76,7 @@ require __DIR__ . '/../includes/header.php';
               <td>№<?= e($__o['order_number']) ?></td>
               <td><?= e(date('d.m.Y', strtotime($__o['created_at']))) ?></td>
               <td><span class="pill pill--ok"><?= e($__o['status']) ?></span></td>
-              <td><?= format_bgn($__o['total_bgn']) ?></td>
+              <td><?= format_eur($__o['total_eur']) ?></td>
             </tr>
           <?php endforeach; ?>
         </tbody>

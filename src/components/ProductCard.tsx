@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { formatBgn, formatEur } from "@/lib/format";
+import { formatEur } from "@/lib/format";
 import RatingStars from "./RatingStars";
 import { BADGE_DEFS, parseBadges } from "@/lib/badges";
 
@@ -53,7 +53,7 @@ export default function ProductCard({ product }: { product: CardProduct }) {
         </div>
         <p className="card__name">{product.name}</p>
         <div className="card__price">
-          {formatEur(product.priceEur)} <small>{formatBgn(product.priceBgn)}</small>
+          {formatEur(product.priceEur)}
         </div>
         {sizes.length > 0 && (
           <div className="card__sizes">

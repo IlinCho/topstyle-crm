@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
-import { formatBgn } from "@/lib/format";
+import { formatEur } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
@@ -43,7 +43,7 @@ export default async function AdminProductsPage({
         <table className="admin-table">
           <thead>
             <tr>
-              <th></th><th>Име</th><th>Категория</th><th>Позиция</th><th>Цена</th><th>Наличност</th><th>Статус</th><th></th>
+              <th></th><th>SKU</th><th>Име</th><th>Категория</th><th>Позиция</th><th>Цена</th><th>Наличност</th><th>Статус</th><th></th>
             </tr>
           </thead>
           <tbody>
@@ -55,13 +55,13 @@ export default async function AdminProductsPage({
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={p.images[0]?.url} alt={p.name} />
                   </td>
+                  <td className="muted">{p.sku}</td>
                   <td>
                     <div style={{ fontWeight: 600 }}>{p.name}</div>
-                    <div className="muted" style={{ fontSize: 12 }}>{p.sku}</div>
                   </td>
                   <td>{p.category.name}</td>
                   <td>{p.categoryRank ? <span className="pill pill--ok">#{p.categoryRank}</span> : <span className="muted">—</span>}</td>
-                  <td>{formatBgn(p.priceBgn)}</td>
+                  <td>{formatEur(p.priceEur)}</td>
                   <td>{stock}</td>
                   <td>
                     <span className={`pill ${p.active ? "pill--ok" : "pill--warn"}`}>
@@ -77,7 +77,7 @@ export default async function AdminProductsPage({
               );
             })}
             {products.length === 0 && (
-              <tr><td colSpan={8} className="muted">Няма намерени продукти.</td></tr>
+              <tr><td colSpan={9} className="muted">Няма намерени продукти.</td></tr>
             )}
           </tbody>
         </table>

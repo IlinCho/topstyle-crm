@@ -80,12 +80,12 @@ if ($__viewOrder) {
               <td><?= e($__it['product_name']) ?></td>
               <td><?= e($__it['size']) ?></td>
               <td><?= (int)$__it['qty'] ?></td>
-              <td><?= format_bgn($__it['price_bgn'] * $__it['qty']) ?></td>
+              <td><?= format_eur($__it['price_eur'] * $__it['qty']) ?></td>
             </tr>
           <?php endforeach; ?>
         </tbody>
       </table>
-      <p class="mt-24"><strong>Общо: <?= format_bgn($__viewOrder['total_bgn']) ?> / <?= format_eur($__viewOrder['total_eur']) ?></strong></p>
+      <p class="mt-24"><strong>Общо: <?= format_eur($__viewOrder['total_eur']) ?></strong></p>
     </div>
     <?php
 } else {
@@ -130,7 +130,7 @@ if ($__viewOrder) {
                   <?php endif; ?>
                 </td>
                 <td><span class="pill pill--ok"><?= e($__o['status']) ?></span></td>
-                <td><?= format_bgn($__o['total_bgn']) ?></td>
+                <td><?= format_eur($__o['total_eur']) ?></td>
                 <td><?= e(date('d.m.Y', strtotime($__o['created_at']))) ?></td>
                 <td><a href="/admin/orders.php?id=<?= e($__o['id']) ?>" class="btn btn--ghost btn--sm">Детайли</a></td>
               </tr>

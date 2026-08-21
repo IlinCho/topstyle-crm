@@ -22,8 +22,7 @@ $__cardVariants = db_all('SELECT * FROM product_variant WHERE product_id = ? ORD
     <?php endif; ?>
     <p class="card__name"><?= e($__p['name']) ?></p>
     <p class="card__price">
-      <?= format_bgn($__p['price_bgn']) ?>
-      <small><?= format_eur($__p['price_eur']) ?></small>
+      <?= format_eur($__p['price_eur']) ?>
     </p>
     <?php if ($__cardVariants): ?>
       <div class="card__sizes">

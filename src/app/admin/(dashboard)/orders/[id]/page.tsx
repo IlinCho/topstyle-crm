@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
-import { formatBgn, formatEur } from "@/lib/format";
+import { formatEur } from "@/lib/format";
 import { updateOrderStatusAction } from "../../../actions";
 import { STATUS_LABELS, statusLabel, statusPillClass, isQuickOrder } from "@/lib/order-status";
 import { buildRepeatIndex, isRepeatInIndex } from "@/lib/repeat-customer";
@@ -90,7 +90,7 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
                 <td>{i.size}</td>
                 <td>{i.color}</td>
                 <td>{i.qty}</td>
-                <td>{formatBgn(i.priceBgn * i.qty)}</td>
+                <td>{formatEur(i.priceEur * i.qty)}</td>
               </tr>
             ))}
           </tbody>
@@ -98,8 +98,7 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
         <div className="cart-totals">
           <table>
             <tbody>
-              <tr><td>Общо (EUR)</td><td>{formatEur(order.totalEur)}</td></tr>
-              <tr><td>Общо (BGN)</td><td>{formatBgn(order.totalBgn)}</td></tr>
+              <tr><td>Общо</td><td>{formatEur(order.totalEur)}</td></tr>
             </tbody>
           </table>
         </div>

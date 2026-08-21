@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { getCurrentCustomer } from "@/lib/customer-auth";
 import { db } from "@/lib/db";
-import { formatBgn } from "@/lib/format";
+import { formatEur } from "@/lib/format";
 import { logoutAction } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -56,7 +56,7 @@ export default async function AccountPage() {
                   <td>{o.orderNumber}</td>
                   <td>{new Date(o.createdAt).toLocaleDateString("bg-BG")}</td>
                   <td>{STATUS_LABELS[o.status] || o.status}</td>
-                  <td>{formatBgn(o.totalBgn)}</td>
+                  <td>{formatEur(o.totalEur)}</td>
                 </tr>
               ))}
             </tbody>

@@ -74,8 +74,7 @@ $__mainImage = $__images[0]['url'] ?? '/assets/placeholder.jpg';
       <p class="pdp__trust-line"><?= e(CUSTOMERS_SERVED_TEXT) ?></p>
 
       <p class="pdp__price">
-        <?= format_bgn($__product['price_bgn']) ?>
-        <small><?= format_eur($__product['price_eur']) ?></small>
+        <?= format_eur($__product['price_eur']) ?>
       </p>
 
       <p class="pdp__meta">

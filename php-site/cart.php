@@ -54,7 +54,7 @@ foreach ($__lines as $__l) {
             </label>
           </div>
           <div style="text-align:right;">
-            <p style="margin:0 0 8px;font-weight:700;"><?= format_bgn($__l['product']['price_bgn'] * $__l['qty']) ?></p>
+            <p style="margin:0 0 8px;font-weight:700;"><?= format_eur($__l['product']['price_eur'] * $__l['qty']) ?></p>
             <button type="submit" name="remove_key" value="<?= e($__l['key']) ?>" class="btn btn--ghost btn--sm">Премахни</button>
           </div>
         </div>
@@ -66,8 +66,7 @@ foreach ($__lines as $__l) {
 
     <div class="cart-totals">
       <table>
-        <tr><td>Междинна сума</td><td><?= format_bgn($__totals['bgn']) ?></td></tr>
-        <tr><td>Общо</td><td><?= format_bgn($__totals['bgn']) ?> / <?= format_eur($__totals['eur']) ?></td></tr>
+        <tr><td>Общо</td><td><?= format_eur($__totals['eur']) ?></td></tr>
       </table>
     </div>
 

@@ -80,8 +80,8 @@ $__priceMax = (isset($_GET['price_max']) && $_GET['price_max'] !== '') ? (float)
 $__products = array_values(array_filter($__allProducts, function ($p) use ($__selMaterials, $__selColors, $__priceMin, $__priceMax) {
     if ($__selMaterials && !in_array($p['material'], $__selMaterials, true)) return false;
     if ($__selColors && !in_array($p['color'], $__selColors, true)) return false;
-    if ($__priceMin !== null && (float)$p['price_bgn'] < $__priceMin) return false;
-    if ($__priceMax !== null && (float)$p['price_bgn'] > $__priceMax) return false;
+    if ($__priceMin !== null && (float)$p['price_eur'] < $__priceMin) return false;
+    if ($__priceMax !== null && (float)$p['price_eur'] > $__priceMax) return false;
     return true;
 }));
 
@@ -141,7 +141,7 @@ $__filterActionQs = 'slug=' . urlencode($__category['slug']) . ($__activeChild ?
         <?php endif; ?>
 
         <div>
-          <p class="filter-section__title">Цена (лв.)</p>
+          <p class="filter-section__title">Цена (€)</p>
           <div class="filter-price-row">
             <input type="number" name="price_min" placeholder="От" min="0" value="<?= e($_GET['price_min'] ?? '') ?>">
             <span>—</span>

@@ -296,12 +296,12 @@ $__maxStep = $_SESSION['checkout']['max_step'];
                 <span class="pill pill--warn">Малко наличност</span>
               <?php endif; ?>
             </div>
-            <div><?= format_bgn($__l['product']['price_bgn'] * $__l['qty']) ?></div>
+            <div><?= format_eur($__l['product']['price_eur'] * $__l['qty']) ?></div>
           </div>
         <?php endforeach; ?>
         <div class="cart-totals" style="margin-top:16px;justify-content:space-between;">
           <strong>Общо:</strong>
-          <strong><?= format_bgn($__totals['bgn']) ?> / <?= format_eur($__totals['eur']) ?></strong>
+          <strong><?= format_eur($__totals['eur']) ?></strong>
         </div>
       </div>
     </div>

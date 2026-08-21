@@ -1,5 +1,8 @@
 import { db } from "@/lib/db";
-import { formatBgn } from "@/lib/format";
+import { formatEur } from "@/lib/format";
+
+// AbandonedCheckout only stores the BGN snapshot; convert via the fixed peg for display.
+const EUR_TO_BGN = 1.95583;
 import { deleteAbandonedCheckoutAction } from "../../actions";
 
 const STEP_LABELS: Record<number, string> = { 1: "Лични данни", 2: "Доставка", 3: "Плащане" };
@@ -60,7 +63,7 @@ export default async function AbandonedCheckoutsPage() {
                         ))
                       )}
                     </td>
-                    <td style={{ fontWeight: 700 }}>{formatBgn(r.totalBgn)}</td>
+                    <td style={{ fontWeight: 700 }}>{formatEur(r.totalBgn / EUR_TO_BGN)}</td>
                     <td>
                       <form action={deleteAbandonedCheckoutAction}>
                         <input type="hidden" name="id" value={r.id} />

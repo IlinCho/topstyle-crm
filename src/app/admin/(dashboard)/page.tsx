@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
-import { formatBgn } from "@/lib/format";
+import { formatEur } from "@/lib/format";
 import { statusLabel, statusPillClass, isQuickOrder } from "@/lib/order-status";
 
 export const dynamic = "force-dynamic";
@@ -68,7 +68,7 @@ export default async function AdminDashboard() {
                   )}
                 </td>
                 <td>{o.items.length}</td>
-                <td>{formatBgn(o.totalBgn)}</td>
+                <td>{formatEur(o.totalEur)}</td>
                 <td><span className={statusPillClass(o.status)}>{statusLabel(o.status)}</span></td>
               </tr>
             ))}
