@@ -49,15 +49,17 @@ export default async function AdminProductsPage({
     db.product.findMany({
       where,
       include: { images: true, variants: true, category: true },
-      // Newest-added first, same rule whether or not a category filter is
-      // applied (the `where` clause narrows the set, this `orderBy` controls
-      // the order within it either way). Products imported in one migration
-      // batch (createMany) can share the exact same createdAt timestamp down
-      // to the microsecond - id (a cuid, which starts with a timestamp
-      // component) as a tie-breaker keeps the order deterministic and still
-      // "most recent first" even among same-timestamp rows, instead of
-      // silently falling back to whatever order Postgres happens to return.
-      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+      // Active products first, newest-added first within that - same rule
+      // whether or not a category filter is applied (the `where` clause
+      // narrows the set, this `orderBy` controls the order within it either
+      // way). Hidden/inactive products sink to the bottom instead of being
+      // interleaved with active ones, since they're rarely what the admin is
+      // looking for. Products imported in one migration batch (createMany)
+      // can share the exact same createdAt timestamp down to the
+      // microsecond - id (a cuid, which starts with a timestamp component)
+      // as a final tie-breaker keeps the order deterministic and still
+      // "most recent first" even among same-timestamp rows.
+      orderBy: [{ active: "desc" }, { createdAt: "desc" }, { id: "desc" }],
       skip,
       take: PAGE_SIZE,
     }),
