@@ -410,13 +410,20 @@ export async function recalcLegacyOrdersAction() {
     select: { id: true, guestEmail: true, guestPhone: true },
   });
 
+  let updated = 0;
   for (const o of orders) {
     const matches = await checkIsLegacy(o.guestEmail, o.guestPhone);
     if (matches) {
       await db.order.update({ where: { id: o.id }, data: { isLegacy: true } });
+      updated++;
     }
   }
 
   revalidatePath("/admin/legacy-customers");
   revalidatePath("/admin/orders");
+  revalidatePath("/admin");
+  // Redirect with the result so the page can show a confirmation - without
+  // this, a recalc that (correctly) finds 0 new matches looks identical to
+  // the button doing nothing at all.
+  redirect(`/admin/legacy-customers?recalced=${updated}&scanned=${orders.length}`);
 }

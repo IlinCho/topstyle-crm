@@ -2,17 +2,20 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { formatEur } from "@/lib/format";
 import { statusLabel, statusPillClass, isQuickOrder } from "@/lib/order-status";
+import { buildRepeatIndex, isRepeatInIndex } from "@/lib/repeat-customer";
+import { getCustomerStatus, customerStatusLabel, customerStatusIcon, customerStatusPillClass } from "@/lib/customer-status";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {
-  const [productCount, categoryCount, orderCount, quickOrderCount, lowStockCount, recentOrders] = await Promise.all([
+  const [productCount, categoryCount, orderCount, quickOrderCount, lowStockCount, recentOrders, repeatIndex] = await Promise.all([
     db.product.count(),
     db.category.count(),
     db.order.count(),
     db.order.count({ where: { deliveryMethod: "quick_order" } }),
     db.productVariant.count({ where: { stock: { gt: 0, lte: 3 } } }),
-    db.order.findMany({ orderBy: { createdAt: "desc" }, take: 8, include: { items: true } }),
+    db.order.findMany({ orderBy: { createdAt: "desc" }, take: 8, include: { items: true, customer: true } }),
+    buildRepeatIndex(),
   ]);
 
   return (
@@ -52,14 +55,25 @@ export default async function AdminDashboard() {
         <table className="admin-table">
           <thead>
             <tr>
-              <th>№</th><th>Клиент</th><th>Тип</th><th>Артикули</th><th>Сума</th><th>Статус</th>
+              <th>№</th><th>Клиент</th><th>Статус клиент</th><th>Тип</th><th>Артикули</th><th>Сума</th><th>Статус</th>
             </tr>
           </thead>
           <tbody>
-            {recentOrders.map((o) => (
+            {recentOrders.map((o) => {
+              const custStatus = getCustomerStatus({
+                isLegacy: o.isLegacy,
+                isRepeat: isRepeatInIndex(repeatIndex, o.guestEmail, o.guestPhone),
+                hasAccount: !!o.customer?.passwordHash,
+              });
+              return (
               <tr key={o.id}>
                 <td><Link href={`/admin/orders/${o.id}`}>{o.orderNumber}</Link></td>
                 <td>{o.guestName}</td>
+                <td>
+                  <span className={customerStatusPillClass(custStatus)}>
+                    {customerStatusIcon(custStatus)}{customerStatusLabel(custStatus)}
+                  </span>
+                </td>
                 <td>
                   {isQuickOrder(o.deliveryMethod) ? (
                     <span className="pill pill--warn">⚡ бърза</span>
@@ -71,9 +85,10 @@ export default async function AdminDashboard() {
                 <td>{formatEur(o.totalEur)}</td>
                 <td><span className={statusPillClass(o.status)}>{statusLabel(o.status)}</span></td>
               </tr>
-            ))}
+              );
+            })}
             {recentOrders.length === 0 && (
-              <tr><td colSpan={6} className="muted">Все още няма поръчки.</td></tr>
+              <tr><td colSpan={7} className="muted">Все още няма поръчки.</td></tr>
             )}
           </tbody>
         </table>

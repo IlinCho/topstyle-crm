@@ -205,6 +205,22 @@ function is_repeat_in_index(array $index, string $email, string $phone): bool {
     return false;
 }
 
+// Single, prioritized "customer status" for an order - collapses the 3
+// separate signals (registered account, PrestaShop-migration legacy match,
+// repeat-in-new-system match) into ONE label for compact display (the main
+// admin dashboard's recent-orders table). The full breakdown as 3 separate
+// columns still lives on admin/orders.php - this is just a summary.
+// Returns ['key' => 'registered'|'old'|'new', 'label' => ..., 'icon' => ..., 'pillClass' => ...].
+function get_customer_status(bool $isLegacy, bool $isRepeat, bool $hasAccount): array {
+    if ($hasAccount) {
+        return ['key' => 'registered', 'label' => 'Регистриран', 'icon' => '', 'pillClass' => 'pill pill--ok'];
+    }
+    if ($isLegacy || $isRepeat) {
+        return ['key' => 'old', 'label' => 'Стар клиент', 'icon' => '🕐 ', 'pillClass' => 'pill pill--info'];
+    }
+    return ['key' => 'new', 'label' => 'Нов клиент', 'icon' => '✨ ', 'pillClass' => 'pill pill--ok'];
+}
+
 // ---- Abandoned checkout tracking ----
 // Captures a checkout that was started (name/email/phone entered) but never
 // finished, so the admin can see and follow up on likely-lost sales - see

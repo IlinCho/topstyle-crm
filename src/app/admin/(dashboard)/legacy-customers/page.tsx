@@ -3,7 +3,11 @@ import { importLegacyCustomersAction, deleteAllLegacyCustomersAction, recalcLega
 
 export const dynamic = "force-dynamic";
 
-export default async function LegacyCustomersPage() {
+export default async function LegacyCustomersPage({
+  searchParams,
+}: {
+  searchParams: { recalced?: string; scanned?: string };
+}) {
   const count = await db.legacyCustomer.count();
   const legacyOrderCount = await db.order.count({ where: { isLegacy: true } });
 
@@ -12,6 +16,15 @@ export default async function LegacyCustomersPage() {
       <div className="admin-topbar">
         <h1 className="admin-h1">Стари клиенти</h1>
       </div>
+
+      {searchParams.recalced !== undefined && (
+        <div className="card-box" style={{ background: "#e7f6ec", borderColor: "#bfe6cb" }}>
+          Готово — прегледани {searchParams.scanned} поръчки, {searchParams.recalced} от тях бяха маркирани като „Стар клиент".
+          {searchParams.recalced === "0" && (
+            <span> (0 означава, че нито една от прегледаните поръчки не съвпадна с текущия списък със стари клиенти — възможно е вече всички съвпадения да са били отбелязани, или поръчките да са от изцяло нови клиенти.)</span>
+          )}
+        </div>
+      )}
 
       <div className="card-box">
         <p style={{ marginTop: 0 }}>
