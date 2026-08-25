@@ -43,8 +43,13 @@ $__where = $__whereParts ? ('WHERE ' . implode(' AND ', $__whereParts)) : '';
 $__total = (int)(db_one("SELECT COUNT(*) AS c FROM product p $__where", $__params)['c'] ?? 0);
 $__totalPages = max(1, (int)ceil($__total / PAGE_SIZE));
 
+// Newest-added first, same rule whether or not a category filter is applied
+// (the WHERE clause narrows the set, this ORDER BY controls the order within
+// it either way). Products imported in one migration batch can share the
+// exact same created_at timestamp - id as a tie-breaker keeps the order
+// deterministic and still "most recent first" among same-timestamp rows.
 $__products = db_all(
-    "SELECT p.*, c.name AS category_name FROM product p LEFT JOIN category c ON c.id = p.category_id $__where ORDER BY p.created_at DESC LIMIT " . PAGE_SIZE . " OFFSET $__skip",
+    "SELECT p.*, c.name AS category_name FROM product p LEFT JOIN category c ON c.id = p.category_id $__where ORDER BY p.created_at DESC, p.id DESC LIMIT " . PAGE_SIZE . " OFFSET $__skip",
     $__params
 );
 ?>

@@ -49,7 +49,15 @@ export default async function AdminProductsPage({
     db.product.findMany({
       where,
       include: { images: true, variants: true, category: true },
-      orderBy: { createdAt: "desc" },
+      // Newest-added first, same rule whether or not a category filter is
+      // applied (the `where` clause narrows the set, this `orderBy` controls
+      // the order within it either way). Products imported in one migration
+      // batch (createMany) can share the exact same createdAt timestamp down
+      // to the microsecond - id (a cuid, which starts with a timestamp
+      // component) as a tie-breaker keeps the order deterministic and still
+      // "most recent first" even among same-timestamp rows, instead of
+      // silently falling back to whatever order Postgres happens to return.
+      orderBy: [{ createdAt: "desc" }, { id: "desc" }],
       skip,
       take: PAGE_SIZE,
     }),
