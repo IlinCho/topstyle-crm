@@ -31,6 +31,7 @@ $__abandonedCount = (int)(db_one('SELECT COUNT(*) AS c FROM abandoned_checkout')
   <aside class="admin-sidebar">
     <div class="admin-sidebar__brand"><?= e(STORE_NAME) ?> — CRM</div>
     <a href="/admin/index.php" class="<?= $__activeNav === 'dashboard' ? 'active' : '' ?>">Табло</a>
+    <a href="/admin/homepage.php" class="<?= $__activeNav === 'homepage' ? 'active' : '' ?>">Начална страница</a>
     <a href="/admin/categories.php" class="<?= $__activeNav === 'categories' ? 'active' : '' ?>">Категории</a>
     <a href="/admin/products.php" class="<?= $__activeNav === 'products' ? 'active' : '' ?>">Продукти</a>
     <a href="/admin/orders.php" class="<?= $__activeNav === 'orders' ? 'active' : '' ?>" style="display:flex;align-items:center;gap:8px;">
@@ -49,6 +50,7 @@ $__abandonedCount = (int)(db_one('SELECT COUNT(*) AS c FROM abandoned_checkout')
         <span title="<?= $__abandonedCount ?> изоставени поръчки" style="background:#f5a623;color:#fff;border-radius:999px;font-size:11px;font-weight:700;padding:1px 7px;line-height:1.5;"><?= $__abandonedCount ?></span>
       <?php endif; ?>
     </a>
+    <a href="/admin/change-password.php" class="<?= $__activeNav === 'change_password' ? 'active' : '' ?>">Смени парола</a>
     <a href="/admin/logout.php">Изход</a>
   </aside>
   <main class="admin-main">

@@ -3,7 +3,7 @@ $activeNav = 'stock_alerts';
 $pageTitle = 'Известия за наличност';
 require __DIR__ . '/../includes/admin-header.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && verify_csrf_token($_POST['csrf_token'] ?? '')) {
     if (isset($_POST['mark_notified_id'])) {
         db_query('UPDATE stock_alert SET notified = 1 WHERE id = ?', [$_POST['mark_notified_id']]);
     } elseif (isset($_POST['delete_id'])) {
@@ -47,11 +47,13 @@ $__alerts = db_all(
             <td style="white-space:nowrap;">
               <?php if (!$__a['notified']): ?>
                 <form method="POST" action="/admin/stock-alerts.php" style="display:inline;">
+                  <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
                   <input type="hidden" name="mark_notified_id" value="<?= e($__a['id']) ?>">
                   <button type="submit" class="btn btn--sm">Маркирай известен</button>
                 </form>
               <?php endif; ?>
               <form method="POST" action="/admin/stock-alerts.php" onsubmit="return confirm('Изтриване?');" style="display:inline;">
+                <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
                 <input type="hidden" name="delete_id" value="<?= e($__a['id']) ?>">
                 <button type="submit" class="btn btn--danger btn--sm">Изтрий</button>
               </form>

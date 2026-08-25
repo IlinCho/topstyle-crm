@@ -64,10 +64,10 @@ $__products = array_slice(filter_in_stock($__newestCandidates), 0, 8);
     <div class="category-tiles">
       <?php foreach ($__topCategorySections as $__sec): $__c = $__sec['category']; ?>
         <a href="/category.php?slug=<?= urlencode($__c['slug']) ?>" class="category-tile">
-          <img src="<?= e($__sec['tile_image'] ?: 'https://placehold.co/600x450/eeeeee/999999?text=TopStyle') ?>" alt="<?= e($__c['name']) ?>" class="category-tile__img">
+          <img src="<?= e($__sec['tile_image'] ?: 'https://placehold.co/600x450/eeeeee/999999?text=TopStyle') ?>" alt="<?= e($__c['home_tile_title'] ?: $__c['name']) ?>" class="category-tile__img">
           <div class="category-tile__overlay">
             <span class="category-tile__label">Категория</span>
-            <span class="category-tile__name"><?= e($__c['name']) ?></span>
+            <span class="category-tile__name"><?= e($__c['home_tile_title'] ?: $__c['name']) ?></span>
             <span class="category-tile__cta">Разгледай →</span>
           </div>
         </a>

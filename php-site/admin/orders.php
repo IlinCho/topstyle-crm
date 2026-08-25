@@ -6,7 +6,7 @@ require __DIR__ . '/../includes/admin-header.php';
 $__validStatuses = ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'];
 $__error = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status']) && verify_csrf_token($_POST['csrf_token'] ?? '')) {
     $orderId = trim($_POST['order_id'] ?? '');
     $status = trim($_POST['status'] ?? '');
     if ($orderId !== '' && in_array($status, $__validStatuses, true)) {
@@ -56,6 +56,7 @@ if ($__viewOrder) {
       <p><strong>Дата:</strong> <?= e(date('d.m.Y H:i', strtotime($__viewOrder['created_at']))) ?></p>
 
       <form method="POST" action="/admin/orders.php?id=<?= e($__viewOrder['id']) ?>" style="margin-top:12px;">
+        <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
         <input type="hidden" name="update_status" value="1">
         <input type="hidden" name="order_id" value="<?= e($__viewOrder['id']) ?>">
         <div class="field" style="max-width:240px;">

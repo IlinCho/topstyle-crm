@@ -59,3 +59,24 @@ function verify_admin_credentials(string $email, string $password): ?array {
     if (!password_verify($password, $admin['password_hash'])) return null;
     return $admin;
 }
+
+// CSRF protection for admin state-changing forms (delete product, wipe
+// legacy customer list, change order status, etc.). One token per admin
+// session rather than per-form - simple, no extra storage, and sufficient
+// since a stolen/guessed token would already require having compromised the
+// httpOnly session cookie. Every admin POST form must render csrf_token()
+// into a hidden field and every handler must call verify_csrf_token() before
+// doing anything, or a malicious page on another site could trick a logged-in
+// admin's browser into silently submitting a destructive request.
+function csrf_token(): string {
+    start_admin_session();
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf_token'];
+}
+
+function verify_csrf_token(string $token): bool {
+    start_admin_session();
+    return !empty($_SESSION['csrf_token']) && $token !== '' && hash_equals($_SESSION['csrf_token'], $token);
+}

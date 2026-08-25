@@ -29,6 +29,7 @@ export default async function AdminDashboardLayout({ children }: { children: Rea
       <aside className="admin-sidebar">
         <div className="admin-sidebar__brand">TopStyle Admin</div>
         <Link href="/admin">Табло</Link>
+        <Link href="/admin/homepage">Начална страница</Link>
         <Link href="/admin/products">Продукти</Link>
         <Link href="/admin/categories">Категории</Link>
         <Link href="/admin/orders" style={{ display: "flex", alignItems: "center", gap: 8 }}>

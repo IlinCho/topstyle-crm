@@ -73,21 +73,24 @@ export default async function HomePage() {
       <div className="container">
         {topCategories.length > 0 && (
           <div className="category-tiles">
-            {topCategorySections.map(({ category: c, tileImage }) => (
-              <Link key={c.slug} href={`/category/${c.slug}`} className="category-tile">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={tileImage || "https://placehold.co/600x450/eeeeee/999999?text=TopStyle"}
-                  alt={c.name}
-                  className="category-tile__img"
-                />
-                <div className="category-tile__overlay">
-                  <span className="category-tile__label">Категория</span>
-                  <span className="category-tile__name">{c.name}</span>
-                  <span className="category-tile__cta">Разгледай →</span>
-                </div>
-              </Link>
-            ))}
+            {topCategorySections.map(({ category: c, tileImage }) => {
+              const tileTitle = c.homeTileTitle || c.name;
+              return (
+                <Link key={c.slug} href={`/category/${c.slug}`} className="category-tile">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={tileImage || "https://placehold.co/600x450/eeeeee/999999?text=TopStyle"}
+                    alt={tileTitle}
+                    className="category-tile__img"
+                  />
+                  <div className="category-tile__overlay">
+                    <span className="category-tile__label">Категория</span>
+                    <span className="category-tile__name">{tileTitle}</span>
+                    <span className="category-tile__cta">Разгледай →</span>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         )}
 

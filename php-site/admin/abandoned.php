@@ -3,7 +3,7 @@ $activeNav = 'abandoned';
 $pageTitle = 'Изоставени поръчки';
 require __DIR__ . '/../includes/admin-header.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id']) && verify_csrf_token($_POST['csrf_token'] ?? '')) {
     db_query('DELETE FROM abandoned_checkout WHERE id = ?', [$_POST['delete_id']]);
     redirect_to('/admin/abandoned.php');
 }
@@ -54,6 +54,7 @@ $__stepLabels = [1 => 'Лични данни', 2 => 'Доставка', 3 => 'П
             <td style="font-weight:700;"><?= format_eur($__r['total_bgn'] / 1.95583) ?></td>
             <td>
               <form method="POST" action="/admin/abandoned.php">
+                <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
                 <input type="hidden" name="delete_id" value="<?= e($__r['id']) ?>">
                 <button class="btn btn--ghost btn--sm" type="submit">Изтрий</button>
               </form>

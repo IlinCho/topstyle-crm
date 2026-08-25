@@ -787,14 +787,13 @@ main:not(.admin-main) .btn--danger { background: var(--danger); border-color: va
   display: block;
   border-radius: var(--radius);
   overflow: hidden;
-  aspect-ratio: 4/3;
+  /* Always square, on every screen size, regardless of what shape photo the
+     admin uploads (Admin -> Начална страница) - object-fit: cover on
+     .category-tile__img below does the actual cropping at display time, so
+     there's nothing for the admin to manually crop before uploading. */
+  aspect-ratio: 1/1;
   background: var(--bg-soft);
 }
-/* Original site shows the 3 top categories as a compact row of portrait
-   thumbnails on mobile, not stacked full-width - a taller ratio here (vs.
-   the 4/3 desktop tiles) keeps a standing model's whole body/head visible
-   in a narrower holder instead of an overly-wide crop. */
-@media (max-width: 800px) { .category-tile { aspect-ratio: 3/4; } }
 .category-tile__img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; display: block; transition: transform .25s ease; }
 .category-tile:hover .category-tile__img { transform: scale(1.04); }
 .category-tile__overlay {

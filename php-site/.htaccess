@@ -1,0 +1,46 @@
+# ---------------------------------------------------------------------------
+# Root .htaccess for the Jump.bg (Apache/LiteSpeed shared hosting) deployment.
+# Next.js/Vercel doesn't use this file at all - it's specific to the PHP site.
+# ---------------------------------------------------------------------------
+
+# Force HTTPS. Leave this OFF (commented) until a real SSL certificate is
+# active on the live domain - turning it on before that would redirect every
+# visitor into a broken "no certificate" page. Uncomment once HTTPS works.
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Security headers - defense in depth. No Content-Security-Policy here on
+# purpose: a real CSP needs careful testing against every inline <script>
+# already used across these pages (product-form.php, the mobile nav, etc.)
+# and is easy to break something with by accident - left for a dedicated pass
+# rather than shipping an untested one.
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), camera=(), microphone=()"
+</IfModule>
+
+# Never allow browsing a folder's raw file listing (e.g. /uploads/products/
+# with no product.php index) - visitors should only ever reach files through
+# the site's own pages/links.
+Options -Indexes
+
+# schema.sql (full DB structure + the seeded default admin password hash),
+# README.md, and this .htaccess/config.php itself must never be servable as
+# plain files, in case they end up deployed alongside the PHP files in the
+# same web-root (easy mistake when uploading the whole php-site/ folder via
+# FTP/cPanel File Manager).
+<FilesMatch "\.(sql|md|log|env|bak|backup|old|orig|swp)$">
+  Require all denied
+</FilesMatch>
+<FilesMatch "^config\.php\.">
+  Require all denied
+</FilesMatch>
+<Files "config.php">
+  Require all denied
+</Files>
+<Files ".htaccess">
+  Require all denied
+</Files>

@@ -12,12 +12,16 @@ function build_products_href(array $params): string {
 
 $__error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
+    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+        $__error = 'Невалидна сесия — презареди страницата и опитай отново.';
+    } else {
     try {
         db_query('DELETE FROM product WHERE id = ?', [$_POST['delete_id']]);
     } catch (PDOException $e) {
         $__error = 'Продуктът не може да бъде изтрит — вероятно е част от съществуваща поръчка.';
     }
     if ($__error === '') redirect_to('/admin/products.php');
+    }
 }
 
 $__categories = db_all('SELECT * FROM category ORDER BY position ASC');
@@ -89,6 +93,7 @@ $__products = db_all(
           <td>
             <a href="/admin/product-form.php?id=<?= e($__p['id']) ?>" class="btn btn--ghost btn--sm">Редактирай</a>
             <form method="POST" action="/admin/products.php" onsubmit="return confirm('Изтриване на продукта?');" style="display:inline;">
+              <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
               <input type="hidden" name="delete_id" value="<?= e($__p['id']) ?>">
               <button type="submit" class="btn btn--danger btn--sm">Изтрий</button>
             </form>

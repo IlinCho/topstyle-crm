@@ -3,7 +3,7 @@ $activeNav = 'reviews';
 $pageTitle = 'Отзиви';
 require __DIR__ . '/../includes/admin-header.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id']) && verify_csrf_token($_POST['csrf_token'] ?? '')) {
     db_query('DELETE FROM review WHERE id = ?', [$_POST['delete_id']]);
     redirect_to('/admin/reviews.php');
 }
@@ -34,6 +34,7 @@ $__reviews = db_all(
             <td><?= e(date('d.m.Y', strtotime($__r['created_at']))) ?></td>
             <td>
               <form method="POST" action="/admin/reviews.php" onsubmit="return confirm('Изтриване на отзива?');" style="display:inline;">
+                <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
                 <input type="hidden" name="delete_id" value="<?= e($__r['id']) ?>">
                 <button type="submit" class="btn btn--danger btn--sm">Изтрий</button>
               </form>

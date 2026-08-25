@@ -5,7 +5,9 @@ require __DIR__ . '/../includes/admin-header.php';
 
 $__error = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !verify_csrf_token($_POST['csrf_token'] ?? '')) {
+    $__error = 'Невалидна сесия — презареди страницата и опитай отново.';
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         if (isset($_POST['create'])) {
             $name = trim($_POST['name'] ?? '');
@@ -43,6 +45,7 @@ $__flat = flatten_category_tree($__tree);
 <div class="card-box">
   <h3 style="margin-top:0;">Нова категория</h3>
   <form method="POST" action="/admin/categories.php">
+    <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
     <input type="hidden" name="create" value="1">
     <div class="form-grid">
       <div class="field">
@@ -78,6 +81,7 @@ $__flat = flatten_category_tree($__tree);
           <td><?= (int)$__c['position'] ?></td>
           <td>
             <form method="POST" action="/admin/categories.php" onsubmit="return confirm('Изтриване на категорията?');" style="display:inline;">
+              <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
               <input type="hidden" name="delete_id" value="<?= e($__c['id']) ?>">
               <button type="submit" class="btn btn--danger btn--sm">Изтрий</button>
             </form>

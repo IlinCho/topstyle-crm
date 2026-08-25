@@ -3,7 +3,9 @@ $activeNav = 'legacy_customers';
 $pageTitle = 'Стари клиенти';
 require __DIR__ . '/../includes/admin-header.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !verify_csrf_token($_POST['csrf_token'] ?? '')) {
+    redirect_to('/admin/legacy-customers.php?csrf_error=1');
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['import_csv'])) {
         $raw = (string)($_POST['legacy_csv'] ?? '');
         $lines = array_values(array_filter(array_map('trim', explode("\n", $raw)), fn($l) => $l !== ''));
@@ -51,6 +53,9 @@ $__legacyOrderCount = (int)(db_one('SELECT COUNT(*) AS c FROM `order` WHERE is_l
 <?php if (isset($_GET['deleted'])): ?>
   <div class="card-box" style="background:#e7f6ec;border-color:#bfe6cb;">Списъкът е изтрит.</div>
 <?php endif; ?>
+<?php if (isset($_GET['csrf_error'])): ?>
+  <p class="error-text">Невалидна сесия — презареди страницата и опитай отново.</p>
+<?php endif; ?>
 
 <div class="card-box">
   <p style="margin-top:0;">
@@ -73,6 +78,7 @@ $__legacyOrderCount = (int)(db_one('SELECT COUNT(*) AS c FROM `order` WHERE is_l
     Телефонът и името са по избор, но поне едно от имейл/телефон трябва да е попълнено на всеки ред.
   </p>
   <form method="POST" action="/admin/legacy-customers.php">
+    <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
     <input type="hidden" name="import_csv" value="1">
     <div class="field">
       <textarea name="legacy_csv" rows="10" placeholder="ivan@example.com, 0888123456, Иван Иванов&#10;maria@example.com, , Мария Петрова&#10;, 0899112233, Георги Georgiev"></textarea>
@@ -89,6 +95,7 @@ $__legacyOrderCount = (int)(db_one('SELECT COUNT(*) AS c FROM `order` WHERE is_l
     текущия списък и да отбележиш съвпаденията като „Стар клиент".
   </p>
   <form method="POST" action="/admin/legacy-customers.php">
+    <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
     <input type="hidden" name="recalc" value="1">
     <button type="submit" class="btn btn--ghost btn--sm">Преизчисли поръчките</button>
   </form>
@@ -101,6 +108,7 @@ $__legacyOrderCount = (int)(db_one('SELECT COUNT(*) AS c FROM `order` WHERE is_l
     Изтрива целия списък със стари клиенти (не пипа поръчки или клиенти — само справочния списък по-горе).
   </p>
   <form method="POST" action="/admin/legacy-customers.php">
+    <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
     <input type="hidden" name="delete_all" value="1">
     <button type="submit" class="btn btn--danger btn--sm">Изтрий целия списък</button>
   </form>

@@ -9,7 +9,10 @@ require __DIR__ . '/../includes/admin-header.php';
 
 $__error = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !verify_csrf_token($_POST['csrf_token'] ?? '')) {
+    $__error = 'Невалидна сесия — презареди страницата и опитай отново (файловете в тази форма ще трябва да се прикачат наново).';
+    $sku = trim($_POST['sku'] ?? ''); // keep the SKU field's re-render below working even on this early-exit path
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
     $sku = trim($_POST['sku'] ?? '');
     $slug = trim($_POST['slug'] ?? '') ?: slugify_basic($name);
@@ -172,6 +175,7 @@ if (!$__variantRows) {
 </div>
 
 <form method="POST" action="/admin/product-form.php<?= $__existing ? '?id=' . urlencode($__existing['id']) : '' ?>" enctype="multipart/form-data">
+  <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
   <div class="card-box">
     <h3 style="margin-top:0;">Основна информация</h3>
     <div class="form-grid">

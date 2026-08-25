@@ -130,6 +130,38 @@ function save_uploaded_size_chart_image(array $fileInput): ?string {
     return null;
 }
 
+// Single-file uploader for a homepage category tile image (Admin -> Начална
+// страница) - same validation rules as the other upload helpers above (real
+// image content via getimagesize(), 8MB cap, random filename). The tile
+// itself is always displayed square via CSS (aspect-ratio: 1/1 + object-fit:
+// cover on .category-tile), so there's no cropping to do here - any photo
+// shape works.
+function save_uploaded_category_tile_image(array $fileInput): ?string {
+    if (($fileInput['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) return null;
+    $size = (int)($fileInput['size'] ?? 0);
+    $maxBytes = 8 * 1024 * 1024;
+    if ($size <= 0 || $size > $maxBytes) return null;
+
+    $tmpPath = $fileInput['tmp_name'] ?? '';
+    $info = @getimagesize($tmpPath);
+    if (!$info) return null;
+
+    $ext = image_type_to_extension($info[2], false);
+    $ext = $ext === 'jpeg' ? 'jpg' : $ext;
+    $allowedExt = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+    if (!in_array($ext, $allowedExt, true)) return null;
+
+    $uploadDir = __DIR__ . '/../uploads/category-tiles/';
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
+    $filename = bin2hex(random_bytes(8)) . '.' . $ext;
+    if (move_uploaded_file($tmpPath, $uploadDir . $filename)) {
+        return '/uploads/category-tiles/' . $filename;
+    }
+    return null;
+}
+
 // Parses an admin-entered CSV size table into a 2D array for rendering as a
 // real HTML <table> - first line is treated as the header row, every other
 // line as a data row, cells split on commas and trimmed. Deliberately no CSV

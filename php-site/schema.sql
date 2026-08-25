@@ -15,6 +15,12 @@ CREATE TABLE IF NOT EXISTS category (
   -- Homepage tile image (the 3 top-level "Топ категории" under the hero).
   -- Empty = falls back to the category's first product image at render time.
   image_url VARCHAR(500) NOT NULL DEFAULT '',
+  -- Optional override for the text shown on the homepage tile (Admin ->
+  -- Начална страница) - lets the admin show different marketing copy on the
+  -- tile (e.g. "Мъжки ветровки") without renaming the actual category (which
+  -- would also change its menu label, URL slug basis, and page title
+  -- everywhere else). Empty = falls back to `name`.
+  home_tile_title VARCHAR(191) NOT NULL DEFAULT '',
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (parent_id) REFERENCES category(id) ON DELETE RESTRICT

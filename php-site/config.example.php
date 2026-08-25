@@ -1,12 +1,11 @@
 <?php
 // ---------------------------------------------------------------------------
-// Fill these in with the values from cPanel -> MySQL Databases (Jump.bg) and
-// upload this file as-is next to the rest of the site. Never share this file
-// publicly - it holds real credentials.
-//
-// This exact file is listed in .gitignore, so once you replace the
-// placeholders below with real values, git will never pick up or commit the
-// change (see config.example.php for the tracked template/reference copy).
+// TEMPLATE - copy this file to config.php and fill in the real values there.
+// config.php is gitignored (see .gitignore) precisely so that once it holds
+// real Jump.bg database credentials and a real SESSION_SECRET, an ordinary
+// commit/push in GitHub Desktop can never accidentally include them. This
+// file (config.example.php) stays in git as the reference template - it
+// must never contain anything but placeholders.
 // ---------------------------------------------------------------------------
 
 define('DB_HOST', 'localhost');           // almost always 'localhost' on cPanel

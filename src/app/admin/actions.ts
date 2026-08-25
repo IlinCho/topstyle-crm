@@ -64,6 +64,35 @@ export async function updateCategoryImageAction(formData: FormData) {
   revalidatePath("/");
 }
 
+// Powers Admin -> Начална страница (the 3 homepage "Топ категории" tiles).
+// The tile is always rendered square via CSS (aspect-ratio: 1/1 + object-fit:
+// cover on .category-tile in globals.css), so any uploaded photo shape works
+// with no manual cropping. homeTileTitle is a separate override from the
+// category's real `name` - lets the admin show different tile copy (e.g.
+// "Мъжки ветровки") without renaming the actual category, which would also
+// change its menu label and URL slug basis everywhere else.
+export async function updateHomeTileAction(formData: FormData) {
+  await requireAdminSession();
+  const id = String(formData.get("categoryId") || "");
+  if (!id) return;
+  const homeTileTitle = String(formData.get("homeTileTitle") || "").trim();
+  const file = formData.get("tileImage") as File | null;
+
+  const data: { homeTileTitle: string; imageUrl?: string } = { homeTileTitle };
+  if (file && file.size > 0) {
+    const blob = await put(`category-tiles/${Date.now()}-${file.name}`, file, {
+      access: "public",
+      addRandomSuffix: true,
+    });
+    data.imageUrl = blob.url;
+  }
+
+  await db.category.update({ where: { id }, data });
+  revalidatePath("/admin/homepage");
+  revalidatePath("/");
+  redirect("/admin/homepage?saved=1");
+}
+
 export async function deleteCategoryAction(formData: FormData) {
   await requireAdminSession();
   const id = String(formData.get("id") || "");

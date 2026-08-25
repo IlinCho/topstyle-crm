@@ -1,0 +1,8 @@
+# Defense-in-depth: this folder only ever holds admin-uploaded homepage tile
+# photos, so block script execution here even if a malicious file somehow
+# got an image-like extension past the upload validation in helpers.php.
+<FilesMatch "\.(php|phtml|php3|php4|php5|php7|pht|phar)$">
+  Require all denied
+</FilesMatch>
+Options -ExecCGI
+AddHandler default-handler .php

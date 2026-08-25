@@ -20,6 +20,12 @@ model Category {
   // hero). Empty string = falls back to the category's first product image
   // at render time, so a tile never shows visibly broken.
   imageUrl  String     @default("")
+  // Optional override for the text shown on the homepage tile (Admin ->
+  // Начална страница) - lets the admin show different marketing copy on the
+  // tile (e.g. "Мъжки ветровки") without renaming the actual category (which
+  // would also change its menu label, URL slug basis, and page title
+  // everywhere else). Empty = falls back to `name`.
+  homeTileTitle String  @default("")
   products  Product[]
   // Self-relation for one level of subcategories (e.g. "Мъжки тениски" ->
   // "Тениски с яка"). parentId null = top-level category.

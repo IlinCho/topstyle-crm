@@ -46,6 +46,14 @@ scripts/prestashop-import/Data/
 # git isn't the deployment mechanism for that folder).
 php-site/uploads/products/
 
+# Real Jump.bg DB credentials + SESSION_SECRET go here once php-site is
+# actually deployed - never meant to be committed. See config.example.php
+# for the tracked placeholder template. NOTE: this file is currently already
+# tracked in git with only placeholder content, so this .gitignore rule alone
+# won't stop future edits from being picked up - it still needs one
+# `git rm --cached php-site/config.php` before real credentials go in.
+php-site/config.php
+
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
