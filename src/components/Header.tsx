@@ -33,20 +33,31 @@ export default async function Header() {
         </div>
       </div>
       <nav className="container nav">
-        {tree.map((c) => (
-          <div key={c.slug} className="nav__item">
-            <Link href={`/category/${c.slug}`}>{c.name}</Link>
-            {c.children.length > 0 && (
-              <div className="nav__dropdown">
-                {c.children.map((sub) => (
-                  <Link key={sub.slug} href={`/category/${sub.slug}`}>
-                    {sub.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
+        <div className="nav__categories">
+          {tree.map((c) => (
+            <div key={c.slug} className="nav__item">
+              <Link href={`/category/${c.slug}`}>{c.name}</Link>
+              {c.children.length > 0 && (
+                <div className="nav__dropdown">
+                  {c.children.map((sub) => (
+                    <Link key={sub.slug} href={`/category/${sub.slug}`}>
+                      {sub.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        <form action="/search" method="get" className="nav__search">
+          <input type="text" name="q" placeholder="Търси по име или код..." />
+          <button type="submit" aria-label="Търси">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+        </form>
       </nav>
     </header>
   );

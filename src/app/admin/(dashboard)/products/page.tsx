@@ -4,39 +4,78 @@ import { formatEur } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
+// There are 1200+ products in the catalog - a hardcoded take:200 with no
+// pagination meant everything past the first 200 (by newest-created) was
+// simply unreachable from this page, no matter what you searched for. Real
+// pagination fixes that. Search also used to only match the product NAME,
+// which is useless for finding a specific product by its code (SKU) - now
+// matches either.
+const PAGE_SIZE = 100;
+
+function buildHref(base: Record<string, string>) {
+  const params = new URLSearchParams();
+  for (const [k, v] of Object.entries(base)) {
+    if (v) params.set(k, v);
+  }
+  const qs = params.toString();
+  return `/admin/products${qs ? `?${qs}` : ""}`;
+}
+
 export default async function AdminProductsPage({
   searchParams,
 }: {
-  searchParams: { q?: string; category?: string };
+  searchParams: { q?: string; category?: string; page?: string };
 }) {
+  const q = (searchParams.q || "").trim();
+  const category = searchParams.category || "";
+  const page = Math.max(1, parseInt(searchParams.page || "1", 10) || 1);
+  const skip = (page - 1) * PAGE_SIZE;
+
   const categories = await db.category.findMany({ orderBy: { position: "asc" } });
 
-  const products = await db.product.findMany({
-    where: {
-      ...(searchParams.q ? { name: { contains: searchParams.q } } : {}),
-      ...(searchParams.category ? { categoryId: searchParams.category } : {}),
-    },
-    include: { images: true, variants: true, category: true },
-    orderBy: { createdAt: "desc" },
-    take: 200,
-  });
+  const where = {
+    ...(q
+      ? {
+          OR: [
+            { name: { contains: q, mode: "insensitive" as const } },
+            { sku: { contains: q, mode: "insensitive" as const } },
+          ],
+        }
+      : {}),
+    ...(category ? { categoryId: category } : {}),
+  };
+
+  const [products, total] = await Promise.all([
+    db.product.findMany({
+      where,
+      include: { images: true, variants: true, category: true },
+      orderBy: { createdAt: "desc" },
+      skip,
+      take: PAGE_SIZE,
+    }),
+    db.product.count({ where }),
+  ]);
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
   return (
     <>
       <div className="admin-topbar">
-        <h1 className="admin-h1">Продукти ({products.length})</h1>
+        <h1 className="admin-h1">Продукти ({total})</h1>
         <Link href="/admin/products/new" className="btn btn--sm">+ Нов продукт</Link>
       </div>
 
       <form className="card-box" style={{ display: "flex", gap: 12 }}>
-        <input name="q" placeholder="Търси по име..." defaultValue={searchParams.q} style={{ flex: 1, padding: 9, border: "1px solid #d7d7d7", borderRadius: 4 }} />
-        <select name="category" defaultValue={searchParams.category || ""} style={{ padding: 9, border: "1px solid #d7d7d7", borderRadius: 4 }}>
+        <input name="q" placeholder="Търси по име или код (SKU)..." defaultValue={q} style={{ flex: 1, padding: 9, border: "1px solid #d7d7d7", borderRadius: 4 }} />
+        <select name="category" defaultValue={category} style={{ padding: 9, border: "1px solid #d7d7d7", borderRadius: 4 }}>
           <option value="">Всички категории</option>
           {categories.map((c) => (
             <option key={c.id} value={c.id}>{c.name}</option>
           ))}
         </select>
         <button className="btn btn--sm" type="submit">Филтрирай</button>
+        {(q || category) && (
+          <Link href="/admin/products" className="btn btn--ghost btn--sm">Изчисти</Link>
+        )}
       </form>
 
       <div className="card-box">
@@ -81,6 +120,28 @@ export default async function AdminProductsPage({
             )}
           </tbody>
         </table>
+
+        {totalPages > 1 && (
+          <div style={{ display: "flex", gap: 8, justifyContent: "center", marginTop: 14 }}>
+            <Link
+              href={buildHref({ q, category, page: String(Math.max(1, page - 1)) })}
+              className="btn btn--ghost btn--sm"
+              style={page <= 1 ? { pointerEvents: "none", opacity: 0.4 } : undefined}
+            >
+              ← Предишна
+            </Link>
+            <span className="muted" style={{ alignSelf: "center", fontSize: 13 }}>
+              Страница {page} от {totalPages}
+            </span>
+            <Link
+              href={buildHref({ q, category, page: String(Math.min(totalPages, page + 1)) })}
+              className="btn btn--ghost btn--sm"
+              style={page >= totalPages ? { pointerEvents: "none", opacity: 0.4 } : undefined}
+            >
+              Следваща →
+            </Link>
+          </div>
+        )}
       </div>
     </>
   );

@@ -76,18 +76,29 @@ $__pageTitle = isset($pageTitle) && $pageTitle !== '' ? $pageTitle . ' — ' . S
     </nav>
   </div>
   <nav class="container nav">
-    <?php foreach ($__categoryTree as $__cat): ?>
-      <div class="nav__item">
-        <a href="/category.php?slug=<?= urlencode($__cat['slug']) ?>"><?= e($__cat['name']) ?></a>
-        <?php if (!empty($__cat['children'])): ?>
-          <div class="nav__dropdown">
-            <?php foreach ($__cat['children'] as $__child): ?>
-              <a href="/category.php?slug=<?= urlencode($__child['slug']) ?>"><?= e($__child['name']) ?></a>
-            <?php endforeach; ?>
-          </div>
-        <?php endif; ?>
-      </div>
-    <?php endforeach; ?>
+    <div class="nav__categories">
+      <?php foreach ($__categoryTree as $__cat): ?>
+        <div class="nav__item">
+          <a href="/category.php?slug=<?= urlencode($__cat['slug']) ?>"><?= e($__cat['name']) ?></a>
+          <?php if (!empty($__cat['children'])): ?>
+            <div class="nav__dropdown">
+              <?php foreach ($__cat['children'] as $__child): ?>
+                <a href="/category.php?slug=<?= urlencode($__child['slug']) ?>"><?= e($__child['name']) ?></a>
+              <?php endforeach; ?>
+            </div>
+          <?php endif; ?>
+        </div>
+      <?php endforeach; ?>
+    </div>
+    <form action="/search.php" method="get" class="nav__search">
+      <input type="text" name="q" placeholder="Търси по име или код...">
+      <button type="submit" aria-label="Търси">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+    </form>
   </nav>
 </header>
 <script>
