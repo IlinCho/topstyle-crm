@@ -4,6 +4,7 @@ import ProductCard from "@/components/ProductCard";
 import { TRUST_CONFIG } from "@/lib/trust-config";
 import { categoryAndDescendantIds } from "@/lib/categories";
 import { applyCategoryRankPins } from "@/lib/product-order";
+import { isInStock } from "@/lib/scarcity";
 
 export const dynamic = "force-dynamic";
 
@@ -27,18 +28,21 @@ export default async function HomePage() {
         include: { images: true, variants: true, reviews: true },
         orderBy: { createdAt: "desc" },
       });
-      const products = applyCategoryRankPins(naturalOrder).slice(0, 4);
+      const products = applyCategoryRankPins(naturalOrder.filter((p) => isInStock(p.variants))).slice(0, 4);
       const tileImage = c.imageUrl || products[0]?.images[0]?.url || "";
       return { category: c, products, tileImage };
     })
   );
 
-  const newest = await db.product.findMany({
+  // Fetch a buffer beyond the 8 we'll actually show, since some of the
+  // newest-first results may be sold out and get filtered below.
+  const newestCandidates = await db.product.findMany({
     where: { active: true },
     include: { images: true, variants: true, reviews: true },
     orderBy: { createdAt: "desc" },
-    take: 8,
+    take: 40,
   });
+  const newest = newestCandidates.filter((p) => isInStock(p.variants)).slice(0, 8);
 
   const authorityLine = [TRUST_CONFIG.yearsInBusinessText, TRUST_CONFIG.customersServedText]
     .filter(Boolean)

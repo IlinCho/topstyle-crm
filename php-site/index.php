@@ -24,7 +24,7 @@ foreach ($__topCategories as $__c) {
         "SELECT * FROM product WHERE category_id IN ($__placeholders) AND active = 1 ORDER BY created_at DESC",
         $__categoryIds
     );
-    $__catProducts = array_slice(apply_category_rank_pins($__naturalOrder), 0, 4);
+    $__catProducts = array_slice(apply_category_rank_pins(filter_in_stock($__naturalOrder)), 0, 4);
     $__tileImage = $__c['image_url'] ?: '';
     if (!$__tileImage && $__catProducts) {
         $__firstImg = db_one('SELECT * FROM product_image WHERE product_id = ? ORDER BY position ASC LIMIT 1', [$__catProducts[0]['id']]);
@@ -33,9 +33,12 @@ foreach ($__topCategories as $__c) {
     $__topCategorySections[] = ['category' => $__c, 'products' => $__catProducts, 'tile_image' => $__tileImage];
 }
 
-$__products = db_all(
-    'SELECT * FROM product WHERE active = 1 ORDER BY created_at DESC LIMIT 8'
+// Fetch a buffer beyond the 8 we'll actually show, since some of the
+// newest-first results may be sold out and get filtered below.
+$__newestCandidates = db_all(
+    'SELECT * FROM product WHERE active = 1 ORDER BY created_at DESC LIMIT 40'
 );
+$__products = array_slice(filter_in_stock($__newestCandidates), 0, 8);
 ?>
 <section class="hero">
   <div class="hero__split">

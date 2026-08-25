@@ -63,7 +63,7 @@ $__natural = db_all(
     "SELECT * FROM product WHERE active = 1 AND category_id IN ($__placeholders) ORDER BY created_at DESC",
     $__categoryIds
 );
-$__allProducts = apply_category_rank_pins($__natural);
+$__allProducts = apply_category_rank_pins(filter_in_stock($__natural));
 
 // Filter option lists come from the category's full (unfiltered) product
 // set, so picking one filter never makes the others' checkboxes disappear.

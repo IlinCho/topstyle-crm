@@ -40,3 +40,13 @@ export function getCompactStockHint(stock: number): string | null {
   if (stock <= 9) return "малко";
   return null;
 }
+
+// Category/homepage browse listings hide fully sold-out products, matching
+// the old PrestaShop storefront's default behavior (which auto-hides
+// out-of-stock active products from category pages). The individual product
+// page and search results stay unfiltered - someone with a direct link or
+// searching by name/SKU should still be able to find and view it, marked
+// "Изчерпан", same as before.
+export function isInStock(variants: { stock: number }[]): boolean {
+  return variants.reduce((sum, v) => sum + v.stock, 0) > 0;
+}

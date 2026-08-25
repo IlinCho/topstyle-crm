@@ -34,6 +34,19 @@ yarn-error.log*
 # Vercel
 .vercel
 
+# PrestaShop migration source data (raw CSV exports + downloaded product
+# photos) - large local-only working files, never meant for the repo. The
+# migration scripts already write their results straight into the live
+# Neon DB and into ready-to-run mysql-*.sql files (which DO get committed).
+scripts/prestashop-import/Data/
+
+# Real product photos copied locally for the PHP/MySQL side by
+# import-images.mjs - these get uploaded directly to the Jump.bg server via
+# FTP/cPanel when php-site is deployed, not through git (too large, and
+# git isn't the deployment mechanism for that folder).
+php-site/uploads/products/
+
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+.env*

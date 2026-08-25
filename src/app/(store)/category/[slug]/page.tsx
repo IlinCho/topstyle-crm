@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import ProductCard from "@/components/ProductCard";
 import { categoryAndDescendantIds } from "@/lib/categories";
 import { applyCategoryRankPins } from "@/lib/product-order";
+import { isInStock } from "@/lib/scarcity";
 
 export const dynamic = "force-dynamic";
 
@@ -49,7 +50,7 @@ export default async function CategoryPage({
     include: { images: true, variants: true, reviews: true },
     orderBy: { createdAt: "desc" },
   });
-  const allProducts = applyCategoryRankPins(naturalOrder);
+  const allProducts = applyCategoryRankPins(naturalOrder.filter((p) => isInStock(p.variants)));
 
   // Filter option lists come from the category's full (unfiltered) product
   // set, so picking one filter never makes the others' checkboxes disappear.

@@ -33,6 +33,29 @@ function redirect_to(string $path): void {
     exit;
 }
 
+// Category/homepage browse listings hide fully sold-out products, matching
+// the old PrestaShop storefront's default behavior (which auto-hides
+// out-of-stock active products from category pages). The individual product
+// page and search results stay unfiltered - someone with a direct link or
+// searching by name/SKU should still be able to find and view it, marked
+// "Изчерпан", same as before. Takes an array of product rows (each needing
+// just an 'id') and returns only the ones with at least 1 unit in stock
+// across their variants.
+function filter_in_stock(array $products): array {
+    if (!$products) return [];
+    $ids = array_column($products, 'id');
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
+    $rows = db_all(
+        "SELECT product_id, SUM(stock) AS total_stock FROM product_variant WHERE product_id IN ($placeholders) GROUP BY product_id",
+        $ids
+    );
+    $stockByProduct = [];
+    foreach ($rows as $r) {
+        $stockByProduct[$r['product_id']] = (int)$r['total_stock'];
+    }
+    return array_values(array_filter($products, fn($p) => ($stockByProduct[$p['id']] ?? 0) > 0));
+}
+
 // Handles admin file uploads for product photos (a $_FILES[...] sub-array
 // from a name="image_files[]" multi-file input). Shared hosting has normal
 // persistent disk, so this is just plain move_uploaded_file() - no external
