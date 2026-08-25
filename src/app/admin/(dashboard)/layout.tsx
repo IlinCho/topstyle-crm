@@ -51,6 +51,7 @@ export default async function AdminDashboardLayout({ children }: { children: Rea
           )}
         </Link>
         <Link href="/admin/stock-alerts">Известия за наличност</Link>
+        <Link href="/admin/customers">Клиенти</Link>
         <Link href="/admin/legacy-customers">Стари клиенти</Link>
         <Link href="/admin/abandoned" style={{ display: "flex", alignItems: "center", gap: 8 }}>
           Изоставени поръчки
