@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CookieConsent from "@/components/CookieConsent";
 
 // Header reads categories from the database on every request - never
 // prerender this layout (or any page under it) at build time.
@@ -11,6 +12,7 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
       <Header />
       <main>{children}</main>
       <Footer />
+      <CookieConsent />
     </div>
   );
 }

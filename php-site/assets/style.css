@@ -879,3 +879,28 @@ table.admin-table img { width: 40px; height: 50px; object-fit: cover; border-rad
 .muted { color: var(--muted); }
 .flex-between { display: flex; justify-content: space-between; align-items: center; }
 .mt-24 { margin-top: 24px; }
+
+/* ---------- Cookie consent banner ---------- */
+.cookie-consent {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  background: var(--ink);
+  color: #fff;
+  box-shadow: 0 -4px 20px rgba(0,0,0,.18);
+}
+.cookie-consent__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 0;
+}
+.cookie-consent__inner p { margin: 0; font-size: 13px; line-height: 1.5; }
+.cookie-consent .btn { flex-shrink: 0; background: #fff; color: var(--ink); border-color: #fff; }
+@media (max-width: 640px) {
+  .cookie-consent__inner { flex-direction: column; align-items: stretch; gap: 12px; }
+  .cookie-consent .btn { width: 100%; }
+}

@@ -54,5 +54,33 @@
       <p class="muted mt-24">&copy; <?= date('Y') ?> <?= e(STORE_NAME) ?>. Всички права запазени.</p>
     </div>
   </footer>
+
+  <!-- Simple GDPR-style cookie notice - the site currently only uses cookies
+       for things strictly necessary to work (cart contents, login sessions),
+       no analytics/tracking yet, so a single "Приемам" is enough. Choice is
+       remembered in localStorage (mirrors CookieConsent.tsx on the Next.js
+       side) so returning visitors don't see it again. -->
+  <div class="cookie-consent" id="ts-cookie-consent" style="display:none;">
+    <div class="container cookie-consent__inner">
+      <p>
+        Този сайт използва бисквитки, необходими за пазаруването (количка, вход в акаунт).
+        С продължаване на разглеждането се съгласявате с тяхната употреба.
+      </p>
+      <button type="button" class="btn btn--sm" onclick="tsAcceptCookies()">Приемам</button>
+    </div>
+  </div>
+  <script>
+  (function () {
+    try {
+      if (!localStorage.getItem('ts_cookie_consent')) {
+        document.getElementById('ts-cookie-consent').style.display = 'block';
+      }
+    } catch (e) { /* localStorage unavailable - just skip the banner */ }
+  })();
+  function tsAcceptCookies() {
+    try { localStorage.setItem('ts_cookie_consent', '1'); } catch (e) {}
+    document.getElementById('ts-cookie-consent').style.display = 'none';
+  }
+  </script>
 </body>
 </html>
