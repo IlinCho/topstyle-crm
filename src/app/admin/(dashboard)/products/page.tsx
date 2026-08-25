@@ -5,11 +5,10 @@ import { formatEur } from "@/lib/format";
 export const dynamic = "force-dynamic";
 
 // There are 1200+ products in the catalog - a hardcoded take:200 with no
-// pagination meant everything past the first 200 (by newest-created) was
-// simply unreachable from this page, no matter what you searched for. Real
-// pagination fixes that. Search also used to only match the product NAME,
-// which is useless for finding a specific product by its code (SKU) - now
-// matches either.
+// pagination meant everything past the first 200 was simply unreachable from
+// this page, no matter what you searched for. Real pagination fixes that.
+// Search also used to only match the product NAME, which is useless for
+// finding a specific product by its code (SKU) - now matches either.
 const PAGE_SIZE = 100;
 
 function buildHref(base: Record<string, string>) {
@@ -45,27 +44,34 @@ export default async function AdminProductsPage({
     ...(category ? { categoryId: category } : {}),
   };
 
-  const [products, total] = await Promise.all([
-    db.product.findMany({
-      where,
-      include: { images: true, variants: true, category: true },
-      // Active products first, newest-added first within that - same rule
-      // whether or not a category filter is applied (the `where` clause
-      // narrows the set, this `orderBy` controls the order within it either
-      // way). Hidden/inactive products sink to the bottom instead of being
-      // interleaved with active ones, since they're rarely what the admin is
-      // looking for. Products imported in one migration batch (createMany)
-      // can share the exact same createdAt timestamp down to the
-      // microsecond - id (a cuid, which starts with a timestamp component)
-      // as a final tie-breaker keeps the order deterministic and still
-      // "most recent first" even among same-timestamp rows.
-      orderBy: [{ active: "desc" }, { createdAt: "desc" }, { id: "desc" }],
-      skip,
-      take: PAGE_SIZE,
-    }),
-    db.product.count({ where }),
-  ]);
+  // Active products first (hidden ones sink to the bottom instead of being
+  // interleaved with active ones), then sorted by SKU number descending -
+  // biggest/newest SKU on top - same rule whether or not a category filter
+  // is applied. SKU is stored as text (a few legacy fallback rows aren't
+  // even numeric, e.g. "PS-123"), so Prisma's `orderBy` can't sort it
+  // numerically on its own - that needs a real numeric comparison, not a
+  // text one (text order would put "1999" above "20000"). Cheapest way to
+  // get that without raw SQL: pull just id/sku/active for everything
+  // matching the filters, sort in JS, slice the page we need, then fetch the
+  // full rows for just those ids and put them back in that same order.
+  const allMatching = await db.product.findMany({ where, select: { id: true, sku: true, active: true } });
+  function skuNumber(sku: string): number {
+    return /^\d+$/.test(sku) ? parseInt(sku, 10) : -1; // non-numeric SKUs sort last
+  }
+  allMatching.sort((a, b) => {
+    if (a.active !== b.active) return a.active ? -1 : 1;
+    return skuNumber(b.sku) - skuNumber(a.sku);
+  });
+  const total = allMatching.length;
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  const pageIds = allMatching.slice(skip, skip + PAGE_SIZE).map((p) => p.id);
+
+  const unorderedProducts = await db.product.findMany({
+    where: { id: { in: pageIds } },
+    include: { images: true, variants: true, category: true },
+  });
+  const orderIndex = new Map(pageIds.map((id, i) => [id, i]));
+  const products = unorderedProducts.sort((a, b) => orderIndex.get(a.id)! - orderIndex.get(b.id)!);
 
   return (
     <>

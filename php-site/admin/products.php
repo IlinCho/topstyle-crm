@@ -43,15 +43,15 @@ $__where = $__whereParts ? ('WHERE ' . implode(' AND ', $__whereParts)) : '';
 $__total = (int)(db_one("SELECT COUNT(*) AS c FROM product p $__where", $__params)['c'] ?? 0);
 $__totalPages = max(1, (int)ceil($__total / PAGE_SIZE));
 
-// Active products first, newest-added first within that - same rule whether
-// or not a category filter is applied (the WHERE clause narrows the set,
-// this ORDER BY controls the order within it either way). Hidden/inactive
-// products sink to the bottom instead of being interleaved with active ones.
-// Products imported in one migration batch can share the exact same
-// created_at timestamp - id as a final tie-breaker keeps the order
-// deterministic among same-timestamp rows.
+// Active products first (hidden ones sink to the bottom instead of being
+// interleaved with active ones), then sorted by SKU number descending -
+// biggest/newest SKU on top - same rule whether or not a category filter is
+// applied. CAST(sku AS UNSIGNED) sorts numerically instead of as text (text
+// order would wrongly put "1999" above "20000"); the handful of legacy
+// fallback SKUs that aren't purely numeric (e.g. "PS-123") cast to 0 and
+// naturally sink to the bottom of their active/inactive group.
 $__products = db_all(
-    "SELECT p.*, c.name AS category_name FROM product p LEFT JOIN category c ON c.id = p.category_id $__where ORDER BY p.active DESC, p.created_at DESC, p.id DESC LIMIT " . PAGE_SIZE . " OFFSET $__skip",
+    "SELECT p.*, c.name AS category_name FROM product p LEFT JOIN category c ON c.id = p.category_id $__where ORDER BY p.active DESC, CAST(p.sku AS UNSIGNED) DESC LIMIT " . PAGE_SIZE . " OFFSET $__skip",
     $__params
 );
 ?>
