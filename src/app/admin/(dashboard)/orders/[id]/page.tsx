@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
-import { formatEur } from "@/lib/format";
+import { formatEur, formatDateTime } from "@/lib/format";
 import { updateOrderStatusAction } from "../../../actions";
 import { STATUS_LABELS, statusLabel, statusPillClass, isQuickOrder } from "@/lib/order-status";
 import { buildRepeatIndex, isRepeatInIndex } from "@/lib/repeat-customer";
@@ -47,6 +47,7 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
             <span className="pill pill--info" style={{ marginLeft: 4 }}>🔁 Повторен клиент</span>
           )}
         </h1>
+        <p className="muted" style={{ marginTop: 4 }}>Направена на {formatDateTime(order.createdAt)}</p>
       </div>
 
       <div className="card-box">

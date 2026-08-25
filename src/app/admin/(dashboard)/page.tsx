@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
-import { formatEur } from "@/lib/format";
+import { formatEur, formatDateTime } from "@/lib/format";
 import { statusLabel, statusPillClass, isQuickOrder } from "@/lib/order-status";
 import { buildRepeatIndex, isRepeatInIndex } from "@/lib/repeat-customer";
 import { getCustomerStatus, customerStatusLabel, customerStatusIcon, customerStatusPillClass } from "@/lib/customer-status";
@@ -55,7 +55,7 @@ export default async function AdminDashboard() {
         <table className="admin-table">
           <thead>
             <tr>
-              <th>№</th><th>Клиент</th><th>Статус клиент</th><th>Тип</th><th>Артикули</th><th>Сума</th><th>Статус</th>
+              <th>№</th><th>Дата</th><th>Клиент</th><th>Статус клиент</th><th>Тип</th><th>Артикули</th><th>Сума</th><th>Статус</th>
             </tr>
           </thead>
           <tbody>
@@ -68,6 +68,7 @@ export default async function AdminDashboard() {
               return (
               <tr key={o.id}>
                 <td><Link href={`/admin/orders/${o.id}`}>{o.orderNumber}</Link></td>
+                <td className="muted">{formatDateTime(o.createdAt)}</td>
                 <td>{o.guestName}</td>
                 <td>
                   <span className={customerStatusPillClass(custStatus)}>
@@ -88,7 +89,7 @@ export default async function AdminDashboard() {
               );
             })}
             {recentOrders.length === 0 && (
-              <tr><td colSpan={7} className="muted">Все още няма поръчки.</td></tr>
+              <tr><td colSpan={8} className="muted">Все още няма поръчки.</td></tr>
             )}
           </tbody>
         </table>

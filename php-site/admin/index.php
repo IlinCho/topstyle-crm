@@ -51,7 +51,7 @@ $__repeatIndex = build_repeat_index();
             <td><span class="<?= e($__custStatus['pillClass']) ?>"><?= $__custStatus['icon'] . e($__custStatus['label']) ?></span></td>
             <td><span class="pill pill--ok"><?= e($__o['status']) ?></span></td>
             <td><?= format_eur($__o['total_eur']) ?></td>
-            <td><?= e(date('d.m.Y', strtotime($__o['created_at']))) ?></td>
+            <td><?= e(date('d.m.Y, H:i', strtotime($__o['created_at']))) ?></td>
           </tr>
         <?php endforeach; ?>
       </tbody>

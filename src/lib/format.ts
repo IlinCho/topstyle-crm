@@ -10,6 +10,16 @@ export function formatPrice(priceEur: number, priceBgn: number) {
   return `${formatEur(priceEur)} / ${formatBgn(priceBgn)}`;
 }
 
+// Date + time for admin order listings - "24.08.2026, 14:32" style, so it's
+// clear at a glance not just which day but roughly when an order came in
+// (useful for spotting quick/urgent orders placed late at night, etc.).
+export function formatDateTime(date: Date | string) {
+  const d = typeof date === "string" ? new Date(date) : date;
+  const datePart = d.toLocaleDateString("bg-BG");
+  const timePart = d.toLocaleTimeString("bg-BG", { hour: "2-digit", minute: "2-digit" });
+  return `${datePart}, ${timePart}`;
+}
+
 // Bulgarian Cyrillic -> Latin transliteration, so slugs are always plain
 // ASCII (same convention as the original scraped catalog's slugs, e.g.
 // "mazhka-teniska-..."). The previous version of this function kept Cyrillic
