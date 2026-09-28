@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 
-// Simple GDPR-style cookie notice - the site currently only uses cookies for
-// things that are strictly necessary to work at all (cart contents, login
-// sessions), no analytics/tracking cookies yet, so a single "Приемам" is
-// enough rather than a granular category picker. Choice is remembered in
-// localStorage so returning visitors don't see it again; if it's ever missing
-// (private browsing, cleared storage) it just shows once more, which is fine.
+// GDPR-style cookie notice - a single "Приемам" covers both the cookies
+// strictly necessary to work (cart, login) and the marketing/analytics
+// scripts in Analytics.tsx, which only start loading once this is accepted
+// (never before - see the custom event dispatched below). Choice is
+// remembered in localStorage so returning visitors don't see it again; if
+// it's ever missing (private browsing, cleared storage) it just shows once
+// more, which is fine.
 const STORAGE_KEY = "ts_cookie_consent";
 
 export default function CookieConsent() {
@@ -31,6 +32,7 @@ export default function CookieConsent() {
       // ignore - worst case the banner reappears next visit
     }
     setVisible(false);
+    window.dispatchEvent(new Event("ts:cookie-consent-accepted"));
   }
 
   if (!visible) return null;

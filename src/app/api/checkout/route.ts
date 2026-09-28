@@ -2,6 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { getCustomerSession } from "@/lib/customer-auth";
 import { checkIsLegacy } from "@/lib/legacy-customers";
+import { sendOrderConfirmationEmail, sendAdminOrderNotificationEmail } from "@/lib/email";
+
+const DELIVERY_LABELS: Record<string, string> = {
+  econt_office: "Еконт — до офис",
+  speedy_address: "Спиди — до адрес",
+  quick_order: "Бърза поръчка — липсва адрес, обади се на клиента",
+};
 
 export async function POST(req: NextRequest) {
   try {
@@ -109,6 +116,20 @@ export async function POST(req: NextRequest) {
     // should never block a successful order from returning).
     if (clientKey) {
       await db.abandonedCheckout.deleteMany({ where: { clientKey } }).catch(() => {});
+    }
+
+    // Awaited (not fire-and-forget) since Vercel can freeze/kill a serverless
+    // function's background work the instant the response is sent - but
+    // wrapped so an email failure never turns into a failed order response.
+    try {
+      const deliveryText = delivery.method === "econt_office"
+        ? `Еконт — офис ${delivery.officeName || ""}`
+        : `${DELIVERY_LABELS[delivery.method] || delivery.method}${customer.address ? " — " + customer.address + ", " + customer.city : ""}`;
+      const emailItems = lines.map((l) => ({ productName: l.name, size: l.size, qty: l.qty, priceEur: l.priceEur }));
+      await sendOrderConfirmationEmail(customer.email || "", orderNumber, customer.name, emailItems, totalEur, totalBgn, deliveryText);
+      await sendAdminOrderNotificationEmail(orderNumber, customer.name, emailItems, totalEur, totalBgn, deliveryText);
+    } catch {
+      // ignore - the order itself already saved successfully
     }
 
     return NextResponse.json({ orderNumber: order.orderNumber });

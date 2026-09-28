@@ -4,6 +4,7 @@ require_once __DIR__ . '/includes/helpers.php';
 require_once __DIR__ . '/includes/cart.php';
 require_once __DIR__ . '/includes/customer_auth.php';
 require_once __DIR__ . '/includes/scarcity.php';
+require_once __DIR__ . '/includes/mailer.php';
 
 cart_start();
 
@@ -127,6 +128,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['form_action'])) {
             }
 
             delete_abandoned_checkout_snapshot();
+
+            // Fire-and-forget - a broken mail server must never block the
+            // order confirmation the customer is about to see.
+            $__deliveryText = $delivery['method'] === 'office'
+                ? 'Офис на куриер — ' . $delivery['office']
+                : 'Адрес — ' . $delivery['address'] . ', ' . $delivery['city'];
+            $__emailItems = array_map(fn($l) => [
+                'product_name' => $l['product']['name'],
+                'size' => $l['size'],
+                'qty' => $l['qty'],
+                'price_eur' => $l['product']['price_eur'],
+            ], $__lines);
+            send_order_confirmation_email($personal['email'], $orderNumber, $personal['name'], $__emailItems, $totals['eur'], $totals['bgn'], $__deliveryText);
+            send_admin_order_notification_email($orderNumber, $personal['name'], $__emailItems, $totals['eur'], $totals['bgn'], $__deliveryText);
+
             cart_clear();
             unset($_SESSION['checkout']);
             redirect_to('/order-confirmation.php?order=' . urlencode($orderNumber));

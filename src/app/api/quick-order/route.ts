@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { checkIsLegacy } from "@/lib/legacy-customers";
+import { sendAdminOrderNotificationEmail } from "@/lib/email";
 
 // "Бърза поръчка" - a one-tap order straight from the product page: just
 // name + phone, no address/checkout wizard. The store calls the customer
@@ -92,6 +93,24 @@ export async function POST(req: NextRequest) {
       where: { id: variant.id },
       data: { stock: Math.max(0, variant.stock - safeQty) },
     });
+
+    // Quick orders only ever collect a phone (no email field), so there's no
+    // address to send a customer confirmation to - just alert the admin.
+    // Awaited (not fire-and-forget) since Vercel can freeze/kill a serverless
+    // function's background work the instant the response is sent - but
+    // wrapped so an email failure never turns into a failed order response.
+    try {
+      await sendAdminOrderNotificationEmail(
+        orderNumber,
+        cleanName,
+        [{ productName: productName || product.name, size, qty: safeQty, priceEur: product.priceEur }],
+        totalEur,
+        totalBgn,
+        "Бърза поръчка — обади се на клиента за адрес"
+      );
+    } catch {
+      // ignore - the order itself already saved successfully
+    }
 
     return NextResponse.json({ orderNumber: order.orderNumber });
   } catch (err) {

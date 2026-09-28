@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/helpers.php';
+require_once __DIR__ . '/includes/mailer.php';
 
 // "Бърза поръчка" - a one-tap order straight from the product page: just
 // name + phone, no address/checkout wizard. The store calls the customer
@@ -59,6 +60,17 @@ db_query(
 );
 
 db_query('UPDATE product_variant SET stock = GREATEST(stock - 1, 0) WHERE id = ?', [$variant['id']]);
+
+// Quick orders only collect a phone (no email field on that form), so there's
+// no address to send a customer confirmation to - just alert the admin.
+send_admin_order_notification_email(
+    $orderNumber,
+    $name,
+    [['product_name' => $product['name'], 'size' => $size, 'qty' => 1, 'price_eur' => $product['price_eur']]],
+    $totalEur,
+    $totalBgn,
+    'Бърза поръчка — обади се на клиента за адрес'
+);
 
 redirect_to('/product.php?slug=' . urlencode($product['slug'])
     . '&quick_ok=1&quick_order_number=' . urlencode($orderNumber) . '&quick_phone=' . urlencode($phone));

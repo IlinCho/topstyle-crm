@@ -58,3 +58,7 @@ php-site/config.php
 *.tsbuildinfo
 next-env.d.ts
 .env*
+# ...except the tracked template (placeholders only, safe to commit) -
+# without this negation, the blanket ".env*" above would also hide
+# .env.example from git, even though README.md tells people to copy it.
+!.env.example

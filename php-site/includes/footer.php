@@ -55,11 +55,12 @@
     </div>
   </footer>
 
-  <!-- Simple GDPR-style cookie notice - the site currently only uses cookies
-       for things strictly necessary to work (cart contents, login sessions),
-       no analytics/tracking yet, so a single "Приемам" is enough. Choice is
-       remembered in localStorage (mirrors CookieConsent.tsx on the Next.js
-       side) so returning visitors don't see it again. -->
+  <!-- GDPR-style cookie notice - a single "Приемам" covers both the cookies
+       strictly necessary to work (cart, login) and the marketing/analytics
+       scripts below (tsLoadTrackers), which only start loading once this is
+       accepted - never before. Choice is remembered in localStorage (mirrors
+       CookieConsent.tsx on the Next.js side) so returning visitors don't see
+       it again. -->
   <div class="cookie-consent" id="ts-cookie-consent" style="display:none;">
     <div class="container cookie-consent__inner">
       <p>
@@ -74,12 +75,67 @@
     try {
       if (!localStorage.getItem('ts_cookie_consent')) {
         document.getElementById('ts-cookie-consent').style.display = 'block';
+      } else {
+        tsLoadTrackers();
       }
     } catch (e) { /* localStorage unavailable - just skip the banner */ }
   })();
   function tsAcceptCookies() {
     try { localStorage.setItem('ts_cookie_consent', '1'); } catch (e) {}
     document.getElementById('ts-cookie-consent').style.display = 'none';
+    tsLoadTrackers();
+  }
+
+  // Marketing/analytics scripts - only loaded once the visitor has accepted
+  // the cookie notice above (never before), and only for whichever IDs are
+  // actually configured in config.php (empty = that tracker is skipped
+  // entirely). Set up the real accounts, then fill in the constants there -
+  // no code changes needed after that.
+  var tsTrackersLoaded = false;
+  function tsLoadTrackers() {
+    if (tsTrackersLoaded) return;
+    tsTrackersLoaded = true;
+
+    <?php if (defined('GA_MEASUREMENT_ID') && GA_MEASUREMENT_ID !== ''): ?>
+    (function () {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=<?= e(GA_MEASUREMENT_ID) ?>';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', '<?= e(GA_MEASUREMENT_ID) ?>');
+    })();
+    <?php endif; ?>
+
+    <?php if (defined('FACEBOOK_PIXEL_ID') && FACEBOOK_PIXEL_ID !== ''): ?>
+    (function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
+      t = b.createElement(e); t.async = !0; t.src = v;
+      s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+    })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '<?= e(FACEBOOK_PIXEL_ID) ?>');
+    fbq('track', 'PageView');
+    <?php endif; ?>
+
+    <?php if (defined('GTM_CONTAINER_ID') && GTM_CONTAINER_ID !== ''): ?>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+      var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', '<?= e(GTM_CONTAINER_ID) ?>');
+    <?php endif; ?>
+
+    <?php if (defined('CLARITY_PROJECT_ID') && CLARITY_PROJECT_ID !== ''): ?>
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, 'clarity', 'script', '<?= e(CLARITY_PROJECT_ID) ?>');
+    <?php endif; ?>
   }
   </script>
 </body>
