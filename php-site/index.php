@@ -47,11 +47,6 @@ $__products = array_slice(filter_in_stock($__newestCandidates), 0, 8);
       <h1>Мъжка мода с характер</h1>
       <p>Нова колекция тениски, ризи и аксесоари за всеки повод.</p>
       <p class="hero__authority"><?= e(CUSTOMERS_SERVED_TEXT) ?></p>
-      <ul class="hero__value-row">
-        <li>🚚 Доставка до 24 часа</li>
-        <li>🔄 Лесна замяна</li>
-        <li>✔ Преглед и тест при получаване</li>
-      </ul>
       <div class="hero__cta">
         <a href="/category.php" class="btn">Пазарувай сега</a>
       </div>

@@ -58,11 +58,6 @@ export default async function HomePage() {
             <h1>Усети тръпката да бъдеш модерен</h1>
             <p>Твоят стил, твоите дрехи</p>
             {authorityLine && <p className="hero__authority">{authorityLine}</p>}
-            <ul className="hero__value-row">
-              <li>✓ Плащане при доставка</li>
-              <li>✓ Лесна замяна</li>
-              <li>✓ Връщане до {TRUST_CONFIG.returnWindowDays} дни</li>
-            </ul>
             <div className="hero__cta">
               <Link href="#продукти" className="btn">Пазарувай сега</Link>
             </div>
