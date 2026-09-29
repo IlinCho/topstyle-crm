@@ -41,7 +41,7 @@ $__pageTitle = isset($pageTitle) && $pageTitle !== '' ? $pageTitle . ' — ' . S
       </button>
     </div>
     <a href="/index.php" class="logo">
-      <img src="/assets/logo.svg" alt="<?= e(STORE_NAME) ?>" class="logo__img">
+      <img src="/assets/logo.png" alt="<?= e(STORE_NAME) ?>" class="logo__img">
     </a>
     <div class="header-actions">
       <?php if ($__customer): ?>

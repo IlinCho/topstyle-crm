@@ -65,19 +65,61 @@ $__natural = db_all(
 );
 $__allProducts = apply_category_rank_pins(filter_in_stock($__natural));
 
+// Sizes are free text (not a fixed enum) - a product can use letter sizes
+// (S/M/L/...) or numeric ones (42/44/...). Puts the known letter sizes in
+// their natural order, numeric sizes after them in ascending order, and
+// anything unrecognized last (alphabetically among itself). Mirrors
+// sizeSortKey()/sortSizes() in the Next.js category page.
+function ts_size_sort_key($s) {
+    $letterOrder = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '2XL', '3XL', '4XL'];
+    $idx = array_search(strtoupper($s), $letterOrder, true);
+    if ($idx !== false) return $idx;
+    if (is_numeric($s)) return 100 + (float)$s;
+    return 10000;
+}
+function ts_sort_sizes($sizes) {
+    usort($sizes, function ($a, $b) {
+        $ka = ts_size_sort_key($a);
+        $kb = ts_size_sort_key($b);
+        if ($ka !== $kb) return $ka <=> $kb;
+        return strcmp($a, $b);
+    });
+    return $sizes;
+}
+
 // Filter option lists come from the category's full (unfiltered) product
 // set, so picking one filter never makes the others' checkboxes disappear.
+$__productIdsForVariants = array_column($__allProducts, 'id');
+$__allVariants = $__productIdsForVariants
+    ? db_all('SELECT * FROM product_variant WHERE product_id IN (' . implode(',', array_fill(0, count($__productIdsForVariants), '?')) . ')', $__productIdsForVariants)
+    : [];
+$__sizes = ts_sort_sizes(array_values(array_unique(array_filter(array_map(fn($v) => $v['size'], $__allVariants)))));
 $__materials = array_values(array_unique(array_filter(array_map(fn($p) => $p['material'], $__allProducts))));
 sort($__materials);
 $__colors = array_values(array_unique(array_filter(array_map(fn($p) => $p['color'], $__allProducts))));
 sort($__colors);
 
+$__selSizes = isset($_GET['size']) ? (array)$_GET['size'] : [];
 $__selMaterials = isset($_GET['material']) ? (array)$_GET['material'] : [];
 $__selColors = isset($_GET['color']) ? (array)$_GET['color'] : [];
 $__priceMin = (isset($_GET['price_min']) && $_GET['price_min'] !== '') ? (float)$_GET['price_min'] : null;
 $__priceMax = (isset($_GET['price_max']) && $_GET['price_max'] !== '') ? (float)$_GET['price_max'] : null;
 
-$__products = array_values(array_filter($__allProducts, function ($p) use ($__selMaterials, $__selColors, $__priceMin, $__priceMax) {
+// Group already-fetched variants by product id so the size filter below
+// doesn't need a query per product.
+$__variantsByProduct = [];
+foreach ($__allVariants as $__v) {
+    $__variantsByProduct[$__v['product_id']][] = $__v;
+}
+
+$__products = array_values(array_filter($__allProducts, function ($p) use ($__selSizes, $__selMaterials, $__selColors, $__priceMin, $__priceMax, $__variantsByProduct) {
+    if ($__selSizes) {
+        $__hasSize = false;
+        foreach ($__variantsByProduct[$p['id']] ?? [] as $__v) {
+            if (in_array($__v['size'], $__selSizes, true) && (int)$__v['stock'] > 0) { $__hasSize = true; break; }
+        }
+        if (!$__hasSize) return false;
+    }
     if ($__selMaterials && !in_array($p['material'], $__selMaterials, true)) return false;
     if ($__selColors && !in_array($p['color'], $__selColors, true)) return false;
     if ($__priceMin !== null && (float)$p['price_eur'] < $__priceMin) return false;
@@ -85,7 +127,7 @@ $__products = array_values(array_filter($__allProducts, function ($p) use ($__se
     return true;
 }));
 
-$__activeFilterCount = count($__selMaterials) + count($__selColors) + ($__priceMin !== null ? 1 : 0) + ($__priceMax !== null ? 1 : 0);
+$__activeFilterCount = count($__selSizes) + count($__selMaterials) + count($__selColors) + ($__priceMin !== null ? 1 : 0) + ($__priceMax !== null ? 1 : 0);
 
 // Preserve the current category/subcategory (slug + sub) when the filter
 // form submits, since the panel is a plain GET form on this same page.
@@ -106,7 +148,7 @@ $__filterActionQs = 'slug=' . urlencode($__category['slug']) . ($__activeChild ?
     </div>
   <?php endif; ?>
 
-  <?php if ($__materials || $__colors): ?>
+  <?php if ($__sizes || $__materials || $__colors): ?>
     <details class="filter-panel"<?= $__activeFilterCount > 0 ? ' open' : '' ?>>
       <summary>
         Филтри
@@ -115,6 +157,18 @@ $__filterActionQs = 'slug=' . urlencode($__category['slug']) . ($__activeChild ?
       <form class="filter-panel__body" method="get" action="/category.php">
         <input type="hidden" name="slug" value="<?= e($__category['slug']) ?>">
         <?php if ($__activeChild): ?><input type="hidden" name="sub" value="<?= e($__activeChild['slug']) ?>"><?php endif; ?>
+
+        <?php if ($__sizes): ?>
+          <div>
+            <p class="filter-section__title">Размер</p>
+            <?php foreach ($__sizes as $__sz): ?>
+              <label class="filter-checkbox-row">
+                <input type="checkbox" name="size[]" value="<?= e($__sz) ?>" <?= in_array($__sz, $__selSizes, true) ? 'checked' : '' ?>>
+                <?= e($__sz) ?>
+              </label>
+            <?php endforeach; ?>
+          </div>
+        <?php endif; ?>
 
         <?php if ($__materials): ?>
           <div>

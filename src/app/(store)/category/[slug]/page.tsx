@@ -9,6 +9,7 @@ import { isInStock } from "@/lib/scarcity";
 export const dynamic = "force-dynamic";
 
 type SearchParams = {
+  size?: string | string[];
   material?: string | string[];
   color?: string | string[];
   priceMin?: string;
@@ -18,6 +19,22 @@ type SearchParams = {
 function toArray(v?: string | string[]): string[] {
   if (!v) return [];
   return Array.isArray(v) ? v : [v];
+}
+
+// Sizes are free text (not a fixed enum) - a product can use letter sizes
+// (S/M/L/...) or numeric ones (42/44/...). Puts the known letter sizes in
+// their natural order, numeric sizes after them in ascending order, and
+// anything unrecognized last (alphabetically among itself).
+const LETTER_SIZE_ORDER = ["XS", "S", "M", "L", "XL", "XXL", "2XL", "3XL", "4XL"];
+function sizeSortKey(s: string): number {
+  const idx = LETTER_SIZE_ORDER.indexOf(s.toUpperCase());
+  if (idx !== -1) return idx;
+  const num = Number(s);
+  if (!Number.isNaN(num)) return 100 + num;
+  return 10000;
+}
+function sortSizes(sizes: string[]): string[] {
+  return [...sizes].sort((a, b) => sizeSortKey(a) - sizeSortKey(b) || a.localeCompare(b));
 }
 
 export default async function CategoryPage({
@@ -54,15 +71,18 @@ export default async function CategoryPage({
 
   // Filter option lists come from the category's full (unfiltered) product
   // set, so picking one filter never makes the others' checkboxes disappear.
+  const sizes = sortSizes([...new Set(allProducts.flatMap((p) => p.variants.map((v) => v.size)).filter((v) => v))]);
   const materials = [...new Set(allProducts.map((p) => p.material).filter((v) => v))].sort();
   const colors = [...new Set(allProducts.map((p) => p.color).filter((v) => v))].sort();
 
+  const selectedSizes = toArray(searchParams.size);
   const selectedMaterials = toArray(searchParams.material);
   const selectedColors = toArray(searchParams.color);
   const priceMin = searchParams.priceMin ? Number(searchParams.priceMin) : null;
   const priceMax = searchParams.priceMax ? Number(searchParams.priceMax) : null;
 
   const products = allProducts.filter((p) => {
+    if (selectedSizes.length > 0 && !p.variants.some((v) => selectedSizes.includes(v.size) && v.stock > 0)) return false;
     if (selectedMaterials.length > 0 && !selectedMaterials.includes(p.material)) return false;
     if (selectedColors.length > 0 && !selectedColors.includes(p.color)) return false;
     if (priceMin !== null && !Number.isNaN(priceMin) && p.priceEur < priceMin) return false;
@@ -71,6 +91,7 @@ export default async function CategoryPage({
   });
 
   const activeFilterCount =
+    selectedSizes.length +
     selectedMaterials.length +
     selectedColors.length +
     (priceMin !== null && !Number.isNaN(priceMin) ? 1 : 0) +
@@ -112,13 +133,25 @@ export default async function CategoryPage({
         </div>
       )}
 
-      {(materials.length > 0 || colors.length > 0) && (
+      {(sizes.length > 0 || materials.length > 0 || colors.length > 0) && (
         <details className="filter-panel" open={activeFilterCount > 0}>
           <summary>
             Филтри
             {activeFilterCount > 0 && <span className="filter-panel__badge">{activeFilterCount}</span>}
           </summary>
           <form className="filter-panel__body" method="get">
+            {sizes.length > 0 && (
+              <div>
+                <p className="filter-section__title">Размер</p>
+                {sizes.map((s) => (
+                  <label key={s} className="filter-checkbox-row">
+                    <input type="checkbox" name="size" value={s} defaultChecked={selectedSizes.includes(s)} />
+                    {s}
+                  </label>
+                ))}
+              </div>
+            )}
+
             {materials.length > 0 && (
               <div>
                 <p className="filter-section__title">Материя</p>
