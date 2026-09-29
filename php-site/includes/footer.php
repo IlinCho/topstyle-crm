@@ -9,49 +9,67 @@
       </ul>
 
       <?php
-        // header.php (included above on every page) already built
-        // $__categoryTree - reuse it here instead of re-querying.
-        $__footerCats = array_slice($__categoryTree ?? [], 0, 6);
+        $__fbUrl = (defined('FACEBOOK_URL') && FACEBOOK_URL !== '') ? FACEBOOK_URL : 'https://www.facebook.com/topstyle.bg';
+        $__igUrl = (defined('INSTAGRAM_URL') && INSTAGRAM_URL !== '') ? INSTAGRAM_URL : 'https://www.instagram.com/topstyle.bg';
+        $__contactEmail = (defined('STORE_EMAIL') && STORE_EMAIL !== '') ? STORE_EMAIL : 'office@topstyle.bg';
       ?>
-      <div class="footer__cols" style="margin-top:28px;">
+      <div class="footer__cols footer__cols--4" style="margin-top:28px;">
         <div>
-          <p class="footer__col-title"><?= e(STORE_NAME) ?></p>
-          <ul class="footer__links">
-            <li>Мъжка мода с характер</li>
-            <li>Тел: <?= e(STORE_PHONE) ?></li>
+          <p class="footer__col-title footer__col-title--divider">Полезни връзки</p>
+          <ul class="footer__bullet-links">
+            <li><a href="/account/profile.php">Моят профил</a></li>
+            <li><a href="/delivery-payment.php">Доставка и плащане</a></li>
+            <li><a href="/returns.php">Връщане и замяна</a></li>
+            <li><a href="/sitemap.php">Карта на сайта</a></li>
           </ul>
         </div>
 
         <div>
-          <p class="footer__col-title">Категории</p>
-          <ul class="footer__links">
-            <?php foreach ($__footerCats as $__fc): ?>
-              <li><a href="/category.php?slug=<?= urlencode($__fc['slug']) ?>"><?= e($__fc['name']) ?></a></li>
-            <?php endforeach; ?>
-          </ul>
+          <p class="footer__col-title footer__col-title--divider">Свържете се с нас</p>
+          <div class="footer__contact-rows">
+            <p class="footer__contact-name">topstyle.bg</p>
+            <div class="footer__contact-row"><?= ts_icon_phone() ?> <?= e(STORE_PHONE) ?></div>
+            <div class="footer__contact-row"><?= ts_icon_envelope() ?> <?= e($__contactEmail) ?></div>
+            <div class="footer__contact-row"><?= ts_icon_phone() ?> Вайбър - <?= e(STORE_PHONE) ?></div>
+          </div>
         </div>
 
         <div>
-          <p class="footer__col-title">Информация</p>
-          <ul class="footer__links">
-            <li><a href="/account/login.php">Вход / Регистрация</a></li>
-            <li><a href="/cart.php">Количка</a></li>
-            <li><a href="/admin/login.php" class="footer__admin-link">Админ</a></li>
-          </ul>
-          <?php if (FACEBOOK_URL || INSTAGRAM_URL): ?>
-            <div class="footer__social" style="margin-top:12px;">
-              <?php if (FACEBOOK_URL): ?>
-                <a href="<?= e(FACEBOOK_URL) ?>" target="_blank" rel="noopener noreferrer" class="footer__social-link">Facebook</a>
-              <?php endif; ?>
-              <?php if (INSTAGRAM_URL): ?>
-                <a href="<?= e(INSTAGRAM_URL) ?>" target="_blank" rel="noopener noreferrer" class="footer__social-link">Instagram</a>
-              <?php endif; ?>
+          <p class="footer__col-title footer__col-title--divider">Последвайте ни</p>
+          <div class="footer__social-icons">
+            <a href="<?= e($__fbUrl) ?>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><?= ts_icon_facebook() ?></a>
+            <a href="<?= e($__igUrl) ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><?= ts_icon_instagram() ?></a>
+          </div>
+          <div id="ts-fb-embed" data-page-url="<?= e($__fbUrl) ?>">
+            <a href="<?= e($__fbUrl) ?>" target="_blank" rel="noopener noreferrer" class="footer__fb-fallback">Разгледай ни във Facebook &rarr;</a>
+          </div>
+        </div>
+
+        <div>
+          <p class="footer__col-title footer__col-title--divider">Бюлетин</p>
+          <form class="newsletter-form-wrap" method="POST" action="/newsletter-subscribe.php">
+            <div class="newsletter-form">
+              <input type="email" name="email" placeholder="Вашият имейл" required>
+              <button type="submit" class="btn" aria-label="Абонирай се">&#9993;</button>
             </div>
-          <?php endif; ?>
+            <p class="newsletter-note">
+              Можете да се отпишете във всеки момент. За целта моля намерете информацията за контакт с
+              нас в правните условия.
+            </p>
+            <label class="newsletter-consent">
+              <input type="checkbox" name="agree" required>
+              Съгласен съм с условията и политиката за поверителност
+            </label>
+            <?php if (isset($_GET['newsletter_ok'])): ?>
+              <p class="newsletter-msg newsletter-msg--ok">&#10003; Благодарим, записахме те!</p>
+            <?php elseif (isset($_GET['newsletter_error'])): ?>
+              <p class="newsletter-msg newsletter-msg--error">Моля, въведи валиден имейл и потвърди съгласието си.</p>
+            <?php endif; ?>
+          </form>
         </div>
       </div>
 
-      <p class="muted mt-24">&copy; <?= date('Y') ?> <?= e(STORE_NAME) ?>. Всички права запазени.</p>
+      <p class="muted mt-24">&copy; <?= date('Y') ?> <?= e(STORE_NAME) ?>. Всички права запазени. <a href="/admin/login.php" class="footer__admin-link">Админ</a></p>
     </div>
   </footer>
 
@@ -77,6 +95,7 @@
         document.getElementById('ts-cookie-consent').style.display = 'block';
       } else {
         tsLoadTrackers();
+        tsShowFbEmbed();
       }
     } catch (e) { /* localStorage unavailable - just skip the banner */ }
   })();
@@ -84,6 +103,31 @@
     try { localStorage.setItem('ts_cookie_consent', '1'); } catch (e) {}
     document.getElementById('ts-cookie-consent').style.display = 'none';
     tsLoadTrackers();
+    tsShowFbEmbed();
+  }
+
+  // The Facebook Page plugin (footer "Последвайте ни" column) is itself a
+  // third-party embed that sets FB cookies once loaded - swapped in only
+  // after consent, same as the pixel/GA/GTM scripts below, instead of the
+  // fallback link that's rendered by default. Mirrors FacebookPageEmbed.tsx.
+  function tsShowFbEmbed() {
+    var el = document.getElementById('ts-fb-embed');
+    if (!el || el.dataset.loaded) return;
+    el.dataset.loaded = '1';
+    var pageUrl = el.dataset.pageUrl;
+    var src = 'https://www.facebook.com/plugins/page.php?href=' + encodeURIComponent(pageUrl) +
+      '&tabs=timeline&width=280&height=130&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false';
+    var iframe = document.createElement('iframe');
+    iframe.src = src;
+    iframe.width = '280';
+    iframe.height = '130';
+    iframe.style.border = 'none';
+    iframe.style.overflow = 'hidden';
+    iframe.scrolling = 'no';
+    iframe.loading = 'lazy';
+    iframe.allow = 'encrypted-media';
+    el.innerHTML = '';
+    el.appendChild(iframe);
   }
 
   // Fires a standard Meta Pixel e-commerce event from any page (product.php,

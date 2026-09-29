@@ -142,6 +142,16 @@ model ProductVariant {
   @@unique([productId, size, color])
 }
 
+// Footer "Бюлетин" email capture. Deliberately minimal (no confirmation
+// flow/unsubscribe token yet) - just records interest so the admin has a
+// real list to import into a mailing tool later, instead of the signup form
+// being a fake/non-functional decoration.
+model NewsletterSubscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
 model AdminUser {
   id           String   @id @default(cuid())
   email        String   @unique

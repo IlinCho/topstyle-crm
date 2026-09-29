@@ -91,6 +91,16 @@ CREATE TABLE IF NOT EXISTS review (
   FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Footer "Бюлетин" email capture. Deliberately minimal (no confirmation
+-- flow/unsubscribe token yet) - just records interest so the admin has a
+-- real list to import into a mailing tool later, instead of the signup form
+-- being a fake/non-functional decoration.
+CREATE TABLE IF NOT EXISTS newsletter_subscriber (
+  id VARCHAR(32) PRIMARY KEY,
+  email VARCHAR(191) NOT NULL UNIQUE,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE IF NOT EXISTS admin_user (
   id VARCHAR(32) PRIMARY KEY,
   email VARCHAR(191) NOT NULL UNIQUE,
