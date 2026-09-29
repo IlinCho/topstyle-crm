@@ -86,6 +86,14 @@
     tsLoadTrackers();
   }
 
+  // Fires a standard Meta Pixel e-commerce event from any page (product.php,
+  // cart.php, checkout.php, order-confirmation.php, ...) - a no-op until the
+  // visitor has accepted cookies and tsLoadTrackers() has actually created
+  // window.fbq, mirroring fbqTrack() in Analytics.tsx on the Next.js side.
+  function tsFbqTrack(event, params) {
+    if (typeof fbq === 'function') { fbq('track', event, params); }
+  }
+
   // Marketing/analytics scripts - only loaded once the visitor has accepted
   // the cookie notice above (never before), and only for whichever IDs are
   // actually configured in config.php (empty = that tracker is skipped

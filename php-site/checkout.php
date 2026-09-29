@@ -339,4 +339,16 @@ function tsPickPayment(radio) {
 }
 </script>
 
+<?php if ($__step === 1 && !empty($__lines)): ?>
+<script>
+tsFbqTrack('InitiateCheckout', {
+  content_ids: <?= json_encode(array_map(fn($l) => $l['product']['id'], $__lines)) ?>,
+  contents: <?= json_encode(array_map(fn($l) => ['id' => $l['product']['id'], 'quantity' => (int)$l['qty']], $__lines)) ?>,
+  value: <?= (float)$__totals['eur'] ?>,
+  currency: 'EUR',
+  num_items: <?= (int)array_sum(array_column($__lines, 'qty')) ?>
+});
+</script>
+<?php endif; ?>
+
 <?php require __DIR__ . '/includes/footer.php'; ?>

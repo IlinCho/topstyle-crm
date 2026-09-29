@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "./CartProvider";
 import TrustStrip from "./TrustStrip";
@@ -8,6 +8,7 @@ import ScarcityBadge from "./ScarcityBadge";
 import { TRUST_CONFIG } from "@/lib/trust-config";
 import { getCompactStockHint } from "@/lib/scarcity";
 import { formatEur } from "@/lib/format";
+import { fbqTrack } from "./Analytics";
 
 type Variant = { size: string; color: string; stock: number };
 
@@ -74,6 +75,20 @@ export default function AddToCart({
   const hasChartTable = sizeChartRows.length > 0;
   const hasChartImage = !!sizeChartUrl;
 
+  // Meta Pixel ViewContent - fired once per product page view (this
+  // component is mounted once per product detail page, so an empty-deps
+  // effect is the right "on view" hook here).
+  useEffect(() => {
+    fbqTrack("ViewContent", {
+      content_ids: [productId],
+      content_type: "product",
+      content_name: name,
+      value: priceEur,
+      currency: "EUR",
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   function selectSize(s: string) {
     // Sold-out sizes stay selectable on purpose - a customer who picks their
     // real size should see its actual status (and the notify-me option)
@@ -101,6 +116,13 @@ export default function AddToCart({
       priceBgn,
       priceEur,
       qty: 1,
+    });
+    fbqTrack("AddToCart", {
+      content_ids: [productId],
+      content_type: "product",
+      content_name: name,
+      value: priceEur,
+      currency: "EUR",
     });
     setAdded(true);
     setTimeout(() => setAdded(false), 1800);
@@ -152,6 +174,13 @@ export default function AddToCart({
         setQuickState("error");
         return;
       }
+      fbqTrack("Purchase", {
+        content_ids: [productId],
+        contents: [{ id: productId, quantity: 1 }],
+        value: priceEur,
+        currency: "EUR",
+        num_items: 1,
+      });
       setQuickOrderNumber(data.orderNumber);
       setQuickState("sent");
     } catch {

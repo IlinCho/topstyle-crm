@@ -84,4 +84,17 @@ foreach ($__lines as $__l) {
     <?php endif; ?>
   <?php endif; ?>
 </div>
+
+<?php if (isset($_GET['added'], $_GET['pid'])): ?>
+<script>
+tsFbqTrack('AddToCart', {
+  content_ids: ['<?= e($_GET['pid']) ?>'],
+  content_type: 'product',
+  content_name: '<?= e($_GET['pname'] ?? '') ?>',
+  value: <?= (float)($_GET['pval'] ?? 0) ?>,
+  currency: 'EUR'
+});
+</script>
+<?php endif; ?>
+
 <?php require __DIR__ . '/includes/footer.php'; ?>

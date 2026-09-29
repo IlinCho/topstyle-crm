@@ -1,9 +1,20 @@
 <?php
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/helpers.php';
+require_once __DIR__ . '/includes/customer_auth.php';
+
+start_customer_session();
 
 $__orderNumber = isset($_GET['order']) ? trim($_GET['order']) : '';
 $__order = $__orderNumber !== '' ? db_one('SELECT * FROM `order` WHERE order_number = ?', [$__orderNumber]) : null;
+
+// Reloading/revisiting this URL must never double-count the sale in Meta
+// Pixel - track per-order in the session (same session cart/checkout use)
+// and only fire the Purchase event the first time this order is shown.
+$__firePurchase = $__order && empty($_SESSION['ts_purchase_fired'][$__order['order_number']]);
+if ($__firePurchase) {
+    $_SESSION['ts_purchase_fired'][$__order['order_number']] = true;
+}
 
 $pageTitle = 'Поръчката е приета';
 require __DIR__ . '/includes/header.php';
@@ -47,4 +58,17 @@ $__items = db_all('SELECT * FROM order_item WHERE order_id = ?', [$__order['id']
     <a href="/index.php" class="btn mt-24">Обратно към пазаруването</a>
   </div>
 </div>
+
+<?php if ($__firePurchase): ?>
+<script>
+tsFbqTrack('Purchase', {
+  content_ids: <?= json_encode(array_map(fn($it) => $it['product_id'], $__items)) ?>,
+  contents: <?= json_encode(array_map(fn($it) => ['id' => $it['product_id'], 'quantity' => (int)$it['qty']], $__items)) ?>,
+  value: <?= (float)$__order['total_eur'] ?>,
+  currency: 'EUR',
+  num_items: <?= (int)array_sum(array_column($__items, 'qty')) ?>
+});
+</script>
+<?php endif; ?>
+
 <?php require __DIR__ . '/includes/footer.php'; ?>

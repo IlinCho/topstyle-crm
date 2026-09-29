@@ -29,4 +29,11 @@ if (!$variant || (int)$variant['stock'] <= 0) {
 }
 
 cart_add($productId, $size, $variant['color'], $qty);
-redirect_to('/cart.php?added=1');
+
+// Pass along just enough for cart.php to fire the Meta Pixel AddToCart event
+// (see includes/footer.php's tsFbqTrack) - this is a redirect-based flow, not
+// AJAX, so there's no JSON response to hook the event off of instead.
+redirect_to('/cart.php?added=1'
+    . '&pid=' . urlencode($productId)
+    . '&pname=' . urlencode($product['name'])
+    . '&pval=' . urlencode((string)($product['price_eur'] * $qty)));

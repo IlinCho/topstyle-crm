@@ -88,6 +88,16 @@ function loadTrackers() {
   }
 }
 
+// Fires a standard Meta Pixel e-commerce event from any client component
+// (ViewContent, AddToCart, InitiateCheckout, Purchase, etc.) - a no-op until
+// the visitor has accepted cookies and loadTrackers() has actually created
+// window.fbq, exactly like the PHP-side tsFbqTrack() helper in footer.php.
+export function fbqTrack(event: string, params?: Record<string, unknown>) {
+  if (typeof window !== "undefined" && typeof window.fbq === "function") {
+    window.fbq("track", event, params);
+  }
+}
+
 export default function Analytics() {
   useEffect(() => {
     try {

@@ -3,6 +3,18 @@ require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/helpers.php';
 require_once __DIR__ . '/includes/scarcity.php';
 require_once __DIR__ . '/includes/ratings.php';
+require_once __DIR__ . '/includes/customer_auth.php';
+
+start_customer_session();
+
+// A quick-order redirect lands back on this same URL - guard against firing
+// Purchase twice if the visitor refreshes the confirmation state.
+$__quickOrderNumber = $_GET['quick_order_number'] ?? '';
+$__fireQuickPurchase = isset($_GET['quick_ok']) && $__quickOrderNumber !== ''
+    && empty($_SESSION['ts_purchase_fired'][$__quickOrderNumber]);
+if ($__fireQuickPurchase) {
+    $_SESSION['ts_purchase_fired'][$__quickOrderNumber] = true;
+}
 
 $__slug = isset($_GET['slug']) ? trim($_GET['slug']) : '';
 $__product = $__slug !== '' ? db_one('SELECT * FROM product WHERE slug = ? AND active = 1', [$__slug]) : null;
@@ -357,6 +369,24 @@ document.getElementById('add-to-cart-form').addEventListener('submit', function 
     err.scrollIntoView({behavior: 'smooth', block: 'center'});
   }
 });
+
+tsFbqTrack('ViewContent', {
+  content_ids: ['<?= e($__product['id']) ?>'],
+  content_type: 'product',
+  content_name: '<?= e($__product['name']) ?>',
+  value: <?= (float)$__product['price_eur'] ?>,
+  currency: 'EUR'
+});
+
+<?php if ($__fireQuickPurchase): ?>
+tsFbqTrack('Purchase', {
+  content_ids: ['<?= e($__product['id']) ?>'],
+  contents: [{id: '<?= e($__product['id']) ?>', quantity: 1}],
+  value: <?= (float)$__product['price_eur'] ?>,
+  currency: 'EUR',
+  num_items: 1
+});
+<?php endif; ?>
 </script>
 
 <?php require __DIR__ . '/includes/footer.php'; ?>

@@ -7,6 +7,7 @@ import { formatEur } from "@/lib/format";
 import TrustStrip from "@/components/TrustStrip";
 import { useLiveStock } from "@/lib/useLiveStock";
 import { isCriticalStock } from "@/lib/scarcity";
+import { fbqTrack } from "@/components/Analytics";
 
 const STEPS = ["Лични данни", "Доставка", "Плащане", "Потвърждение"] as const;
 
@@ -81,6 +82,23 @@ export default function CheckoutForm({ initialCustomer }: { initialCustomer: Ini
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.name, form.email, form.phone, form.city, step]);
+
+  // Meta Pixel InitiateCheckout - fired once, the first time this form
+  // mounts with a non-empty cart (i.e. when the customer actually reaches
+  // checkout), not again on every step change.
+  const initiateCheckoutFiredRef = useRef(false);
+  useEffect(() => {
+    if (initiateCheckoutFiredRef.current || lines.length === 0) return;
+    initiateCheckoutFiredRef.current = true;
+    fbqTrack("InitiateCheckout", {
+      content_ids: lines.map((l) => l.productId),
+      contents: lines.map((l) => ({ id: l.productId, quantity: l.qty })),
+      value: totalEur,
+      currency: "EUR",
+      num_items: lines.reduce((s, l) => s + l.qty, 0),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const activeIndex = placed ? 3 : step - 1; // 0-based index into STEPS for the progress bar
 
@@ -161,6 +179,13 @@ export default function CheckoutForm({ initialCustomer }: { initialCustomer: Ini
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Грешка при поръчката");
+      fbqTrack("Purchase", {
+        content_ids: lines.map((l) => l.productId),
+        contents: lines.map((l) => ({ id: l.productId, quantity: l.qty })),
+        value: totalEur,
+        currency: "EUR",
+        num_items: lines.reduce((s, l) => s + l.qty, 0),
+      });
       setPlaced(data.orderNumber);
       clear();
       try {
