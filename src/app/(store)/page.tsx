@@ -48,6 +48,14 @@ export default async function HomePage() {
     .filter(Boolean)
     .join(" · ");
 
+  // "Пазарувай сега" on the hero jumps straight to the first top category's
+  // product row on this same page (Мъжки тениски, by category position) -
+  // falls back to the general "Нови продукти" row if that category has no
+  // in-stock products to show.
+  const heroCtaHref = topCategorySections.find((s) => s.products.length > 0)
+    ? `#cat-${topCategorySections.find((s) => s.products.length > 0)!.category.slug}`
+    : "#продукти";
+
   return (
     <>
       <div className="hero">
@@ -59,7 +67,7 @@ export default async function HomePage() {
             <p>Твоят стил, твоите дрехи</p>
             {authorityLine && <p className="hero__authority">{authorityLine}</p>}
             <div className="hero__cta">
-              <Link href="#продукти" className="btn">Пазарувай сега</Link>
+              <Link href={heroCtaHref} className="btn">Пазарувай сега</Link>
             </div>
           </div>
         </div>
@@ -91,7 +99,7 @@ export default async function HomePage() {
 
         {topCategorySections.map(({ category: c, products }) =>
           products.length > 0 ? (
-            <div className="top-products-section" key={c.id}>
+            <div className="top-products-section" id={`cat-${c.slug}`} key={c.id}>
               <div className="flex-between">
                 <h2 className="section-title">{c.name}</h2>
                 <Link href={`/category/${c.slug}`} className="muted" style={{ fontSize: 13 }}>

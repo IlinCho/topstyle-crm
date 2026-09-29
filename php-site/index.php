@@ -39,6 +39,18 @@ $__newestCandidates = db_all(
     'SELECT * FROM product WHERE active = 1 ORDER BY created_at DESC LIMIT 40'
 );
 $__products = array_slice(filter_in_stock($__newestCandidates), 0, 8);
+
+// "Пазарувай сега" on the hero jumps straight to the first top category's
+// product row on this same page (Мъжки тениски, by category position) -
+// falls back to the general category directory if that category has no
+// in-stock products to show. Mirrors heroCtaHref in the Next.js homepage.
+$__heroCtaHref = '/category.php';
+foreach ($__topCategorySections as $__sec) {
+    if ($__sec['products']) {
+        $__heroCtaHref = '#cat-' . $__sec['category']['slug'];
+        break;
+    }
+}
 ?>
 <section class="hero">
   <div class="hero__split">
@@ -48,7 +60,7 @@ $__products = array_slice(filter_in_stock($__newestCandidates), 0, 8);
       <p>Нова колекция тениски, ризи и аксесоари за всеки повод.</p>
       <p class="hero__authority"><?= e(CUSTOMERS_SERVED_TEXT) ?></p>
       <div class="hero__cta">
-        <a href="/category.php" class="btn">Пазарувай сега</a>
+        <a href="<?= e($__heroCtaHref) ?>" class="btn">Пазарувай сега</a>
       </div>
     </div>
   </div>
@@ -72,7 +84,7 @@ $__products = array_slice(filter_in_stock($__newestCandidates), 0, 8);
 
   <?php foreach ($__topCategorySections as $__sec): $__c = $__sec['category']; ?>
     <?php if ($__sec['products']): ?>
-      <div class="top-products-section">
+      <div class="top-products-section" id="cat-<?= e($__c['slug']) ?>">
         <div class="flex-between">
           <h2 class="section-title"><?= e($__c['name']) ?></h2>
           <a href="/category.php?slug=<?= urlencode($__c['slug']) ?>" class="muted" style="font-size:13px;">Виж всички →</a>

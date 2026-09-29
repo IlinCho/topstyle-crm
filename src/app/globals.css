@@ -832,7 +832,7 @@ main:not(.admin-main) .btn--danger { background: var(--danger); border-color: va
   .category-tile__cta { font-size: 10.5px; margin-top: 3px; }
 }
 
-.top-products-section { margin-top: 44px; }
+.top-products-section { margin-top: 44px; scroll-margin-top: 90px; }
 .top-products-section .section-title { margin-bottom: 16px; }
 
 /* ---------- Footer ---------- */
